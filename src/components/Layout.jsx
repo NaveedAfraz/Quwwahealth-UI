@@ -5,13 +5,15 @@ import Footer from './Footer'
 import Chatbot from './Chatbot'
 
 const Layout = () => {
+  const login = true
   return (
+
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
         <Outlet />
       </main>
-      <Footer />
+     {!login && <Footer />}
       <Chatbot />
     </div>
   )
