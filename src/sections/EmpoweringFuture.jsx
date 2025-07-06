@@ -6,7 +6,7 @@ const EmpoweringFuture = () => {
     <section className="py-10 sm:py-14 md:py-20 lg:py-28 bg-gradient-to-b from-yellow-50 via-yellow-50 to-white px-3 sm:px-6 md:px-10 lg:px-16">
       <div className="container mx-auto">
         <div className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24">
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15] leading-tight">
+          <p className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#191A15] leading-tight">
           Empowering School's future:<br />
           the Quwwa Health advantage
           </p>

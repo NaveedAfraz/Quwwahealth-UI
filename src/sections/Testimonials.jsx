@@ -82,7 +82,7 @@ const Testimonials = () => {
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-gray-50">
       <div className="container mx-auto text-center px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">Testimonials</h2>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Testimonials</h2>
         <div className="flex justify-center mb-12 md:mb-16 lg:mb-20">
           <svg width="284" height="40" viewBox="0 0 284 40" fill="none" xmlns="http://www.w3.org/2000/svg"
             className="w-48 sm:w-64 md:w-72 lg:w-96 h-auto">

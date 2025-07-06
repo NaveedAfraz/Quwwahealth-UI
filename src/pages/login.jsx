@@ -219,7 +219,7 @@ function Login() {
                             <Typography sx={{ color: '#4B5563', mt: 4, textAlign: 'center' }}>
                                 Don't have an account?{' '}
                                 <Link
-                                    to="/register"
+                                    to="/auth/register"
                                     style={{
                                         fontWeight: 'bold',
                                         color: '#00A99D',

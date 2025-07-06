@@ -46,12 +46,12 @@ const SvgBackground = () => (
 
 const Hero = () => {
   return (
-    <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-r from-white to-green-50 px-6">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-r from-white to-green-50 px-1">
+      <div className="container mx-auto px-2 sm:px-2 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text Content */}
-          <div className="text-center md:text-left p-6 sm:p-8 lg:p-10">
-            <p className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[75px] leading-tight sm:leading-tight md:leading-[76px] tracking-[0%] text-[ text-[#191A15]] mb-4">
+          <div className="text-center md:text-left p-4 sm:p-2 lg:p-2">
+            <p className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[55px] leading-tight sm:leading-tight md:leading-[76px] tracking-[0%] text-[#191A15] mb-4">
               Building <br className="hidden sm:block" /> Healthier
               
               Futures <br className="hidden sm:block" /> Together!
@@ -90,7 +90,7 @@ const Hero = () => {
                       <img
                         src={image}
                         alt={`Slide ${index + 1}`}
-                        className="w-full h-auto max-h-[80vh] object-contain rounded-b-2xl"
+                        className="w-full h-auto max-h-[100vh] object-contain rounded-b-2xl"
                         loading="lazy"
                       />
                     </SwiperSlide>

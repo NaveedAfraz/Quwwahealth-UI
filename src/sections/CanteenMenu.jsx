@@ -8,7 +8,7 @@ const CanteenMenu = () => {
     <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 bg-gradient-to-b from-yellow-50 via-yellow-50 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24">
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15] leading-tight">
+          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#191A15] leading-tight">
           Canteen Menus That Promote Healthy Choices 
           </p>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">
@@ -30,10 +30,10 @@ const CanteenMenu = () => {
           {/* Left Column */}
              <div className="md:w-1/2 text-left">
             <div className="border-t-4 border-[#F3F25B] w-1/2 mb-4 md:mb-6"/>
-                <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-2xl font-medium mb-4 sm:mb-6 md:mb-8">
+                <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-xl font-medium mb-4 sm:mb-6 md:mb-8">
                 Quwwa Healthy Canteens create canteen menus that offer a huge variety of fresh healthy foods. 
                 </p>
-                <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-2xl font-medium mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+                <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-xl font-medium mb-6 sm:mb-8 md:mb-10 lg:mb-12">
                 We understand that it is both ours and the schools responsibility to help students gain an understanding of how what they choose to eat each day impacts their mental and physical well being. 
                 </p>
       

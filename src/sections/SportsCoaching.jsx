@@ -8,7 +8,7 @@ const SportsCoaching = () => {
           
           <div className="flex flex-col items-start text-left">
             <div className="flex-grow">
-              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h3 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
               Sports Coaching
               </h3>
               <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-10 leading-relaxed">
@@ -30,7 +30,7 @@ const SportsCoaching = () => {
 
           <div className="flex flex-col items-start text-left">
             <div className="flex-grow">
-              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h3 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
               Sports Day and Events
               </h3>
               <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-10 leading-relaxed">

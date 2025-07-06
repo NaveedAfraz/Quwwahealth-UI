@@ -1,11 +1,12 @@
 import React from 'react';
 import { TextField, Button, Box, Typography, Link, Checkbox, FormControlLabel, IconButton } from '@mui/material';
 import quwwaLogo from '../assets/images/header.png';
+import { useNavigate } from 'react-router';
 // Google G icon SVG
 const GoogleIcon = () => (
     <svg className="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill="#FFC107" d="M43.611 20.083H42V20H24V28H35.303C33.674 32.69 29.223 36 24 36C17.373 36 12 30.627 12 24C12 17.373 17.373 12 24 12C27.059 12 29.842 13.154 31.961 15.039L37.618 9.382C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24C4 35.045 12.955 44 24 44C35.045 44 44 35.045 44 24C44 22.659 43.862 21.35 43.611 20.083Z" />
-        <path fill="#FF3D00" d="M6.306 14.691L12.062 19.238C13.674 14.593 18.334 11 24 11C27.059 11 29.842 12.154 31.961 14.039L37.618 8.382C34.046 5.053 29.268 3 24 3C16.218 3 9.475 8.088 6.306 14.691Z" />
+        <path fill="#FF3D00" d="M6.306 14.691L12.062 19.238C13.674 14.593 18.334 11 24 11C27.059 11 29.842 12.154 31.961 14.039L37.618 8.382C34.046 5.053 29.268 4 24 4C12.955 4 4 12.955 4 24C4 35.045 12.955 44 24 44C35.045 44 44 35.045 44 24C44 22.659 43.862 21.35 43.611 20.083Z" />
         <path fill="#4CAF50" d="M24 45C35.045 45 44 36.045 44 25C44 23.659 43.862 22.35 43.611 21.083H24V29H35.303C33.674 33.69 29.223 37 24 37C18.334 37 13.674 33.407 12.062 28.762L6.306 33.309C9.475 39.912 16.218 45 24 45Z" />
         <path fill="#1976D2" d="M43.611 20.083H42V20H24V28H35.303C34.51 30.244 33.021 32.078 31.06 33.309L36.717 38.966C41.139 35.151 44 29.827 44 24C44 22.659 43.862 21.35 43.611 20.083Z" />
     </svg>
@@ -25,23 +26,25 @@ const QuwwaLogo = () => (
 );
 
 function Register() {
+    const [checked, setChecked] = React.useState(true);
+    const navigate = useNavigate();
     return (
         <div className="bg-white font-sans">
             {/* <div className='md:block sm:hidden xs:hidden'>
                 <nav className="w-full flex justify-center py-3">
                     <QuwwaLogo />
-                </nav>
+                </nav>  
             </div> */}
-            <main className="min-h-[calc(100vh-80px)] md:flex md:justify-center sm:flex sm:justify-start">
+            <main className="min-h-[calc(100vh-80px)]   md:flex md:justify-center sm:flex sm:justify-start">
                 {/* Left Side: Branding Panel */}
-                <div className="w-full hidden md:block sm:block md:w-1/2 sm:w-1/2 bg-[#FDE68A] flex flex-col  md:items-start text-center md:text-left">
-                    <Box className="w-full">
-                        <Box sx={{ display: 'flex', flexDirection: 'column',mb: 4 ,width: '100%', pl: '10%', marginTop: '10%' }}>
-                            <div className="flex items-center  mb-6">
+                <div className="w-full hidden md:block sm:block md:w-1/2 sm:w-1/2 bg-[#F2D184]  flex-col  md:items-start text-center md:text-left">
+                    <Box className="w-full  bg-[#F2D184]">
+                        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', mb: 1, width: '100%', pl: '0%', marginTop: '10%' }}>
+                            <div className="flex items-center  mb-6 ml-10">
                                 <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-10 sm:h-12 md:h-16 lg:h-15 xl:h-20" />
                             </div>
 
-                            <Typography component="h1" sx={{ fontSize: '2rem', fontWeight: 'bold', color: '#866118', mb: 4 }}>
+                            <Typography component="h1" sx={{ ml: 5, fontSize: '2rem', fontWeight: 'bold', color: '#866118', mb: 4 }}>
                                 Building healthier futures together!
                             </Typography>
                         </Box>
@@ -59,6 +62,9 @@ function Register() {
                 {/* Right Side: Sign-up Form Panel */}
                 <div className="w-full md:w-2/3 sm:w-1/2 flex items-center justify-center p-6 md:p-12">
                     <div className="w-full max-w-md">
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'end', flexDirection: 'column', mb: 4, width: '100%', pl: '10%', marginTop: '10%' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}><span>Already a member? </span> <span onClick={() => navigate("/auth/login")} className="text-blue-600 cursor-pointer">Sign in</span></Box>
+                        </Box>
                         <Typography component="h2" sx={{ fontSize: '2rem', fontWeight: 'bold', color: '#1F2937', mb: 3 }}>
                             Sign up
                         </Typography>

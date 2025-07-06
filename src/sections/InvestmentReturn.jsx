@@ -34,7 +34,7 @@ const InvestmentReturn = () => {
     <section className="py-16 sm:py-20 md:py-24 lg:py-32 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-yellow-50 via-yellow-50 to-white">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15] leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl font-bold text-[#191A15] leading-tight">
             What is the biggest return <br /> on investment for Quwwa Health?
           </h2>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">
@@ -60,8 +60,8 @@ const InvestmentReturn = () => {
                 alt={feature.title}
                 className="h-20 sm:h-24 md:h-28 lg:h-32 mb-4 sm:mb-6 md:mb-8 transition-transform duration-300 group-hover:scale-110"
               />
-              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#191A15] mb-3 sm:mb-4 md:mb-6">{feature.title}</h3>
-              <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-2xl max-w-sm md:max-w-md lg:max-w-lg">{feature.description}</p>
+              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#191A15] mb-3 sm:mb-4 md:mb-6">{feature.title}</h3>
+              <p className="text-[#848383] text-sm sm:text-base md:text-lg lg:text-xl max-w-sm md:max-w-md lg:max-w-lg">{feature.description}</p>
             </div>
           ))}
         </div>

@@ -88,7 +88,7 @@ const Team = () => {
         
         {/* Founder Section */}
         <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
             Meet Our Founder
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
@@ -101,7 +101,7 @@ const Team = () => {
 
         {/* Advisory Board Section */}
         <div className="text-center">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
             Our Advisory Board
           </h2>
            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">

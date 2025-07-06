@@ -24,7 +24,8 @@ import AdminBlogs from './pages/Admin/AdminBlogs'
 import AdminContacts from './pages/Admin/AdminContacts'
 import HolidayCamp from './pages/HolidayCamp'
 import Branding from './pages/Branding'
-
+import Login from './pages/login'
+import Register from './pages/register'
 function App() {
   const dispatch = useDispatch()
   const { initialLoad } = useSelector((state) => state.auth)
@@ -38,13 +39,13 @@ function App() {
     }
   }, [dispatch])
 
-  if (initialLoad) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#54BD95]"></div>
-      </div>
-    )
-  }
+  // if (initialLoad) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center bg-white">
+  //       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#54BD95]"></div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <Router>
@@ -58,7 +59,10 @@ function App() {
           <Route path="blog/:id" element={<BlogPost />} />
           <Route path="/holiday-camp" element={<HolidayCamp />} />
           <Route path="/branding" element={<Branding />} />
-          <Route path="auth" element={<Auth />} />
+          <Route path="auth" element={<Auth />}>
+          <Route index path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          </Route>
           <Route
             path="profile"
             element={
@@ -83,11 +87,11 @@ function App() {
           <Route path="blogs" element={<AdminBlogs />} />
           <Route path="contacts" element={<AdminContacts />} />
         </Route>
-        
+
         <Route path="/verify-email" element={<EmailVerification />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-       
+
       </Routes>
     </Router>
   )

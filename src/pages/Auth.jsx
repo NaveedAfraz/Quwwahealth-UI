@@ -4,9 +4,10 @@
 // import loginBg from '../assets/images/login.png'
 // import { useSearchParams } from 'react-router-dom'
 import { useNavigate } from 'react-router'
+import { Outlet } from 'react-router'
 import Login from "./login"
 import Register from "./register"
-
+ 
 // const Auth = () => {
 //   const [searchParams] = useSearchParams();
 //   const initialMode = searchParams.get('mode') === 'signup' ? false : true;
@@ -53,7 +54,7 @@ const Auth = () => {
 
   return (
     <>
-    {isLogin ? <Login navigate={navigate} onSwitchMode={switchMode} /> : <Register navigate={navigate} onSwitchMode={switchMode} />}
+       <Outlet />
     </>
   )
 }

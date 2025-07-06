@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaCog } from 'react-icons/fa';
 import { logout } from '../store/slices/authSlice'; // Assuming this is your slice
@@ -8,11 +8,11 @@ import Logo from '../assets/images/header.png'; // Assuming this is your logo pa
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-
+  const location = useLocation();
   // Function to handle navigation clicks in the mobile menu
   const handleMobileNavClick = () => {
     window.scrollTo(0, 0); // Scroll to the top of the page
@@ -28,7 +28,7 @@ const Header = () => {
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
-  
+
   // Close user menu when clicking outside
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -61,8 +61,8 @@ const Header = () => {
     setIsUserMenuOpen(false);
     handleMobileNavClick(); // Close mobile menu and scroll to top
   };
-  
-  // Navigation links array for cleaner mapping
+  const authPage = location.pathname === 'auth/login' || location.pathname === 'auth/register';
+  // Navigation links array for cleaner mapping 
   const navLinks = [
     { to: '/', text: 'Home' },
     { to: '/about', text: 'About Us' },
@@ -89,18 +89,21 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-white shadow-sm sticky top-0 z-30 px-3 sm:px-4 md:px-6 lg:px-8">
+      <header className="bg-gradient-to-r from-[#DFF2E0] to-[#F7F6ED]  sticky top-0 z-30 px-3 sm:px-4 md:px-6 lg:px-8">
+
         <div className="container mx-auto flex items-center justify-between p-3 sm:p-4 md:py-4">
           {/* Logo */}
-          <Link to="/" onClick={() => window.scrollTo(0,0)}>
-            <img src={Logo} alt="QuwwaHealth Logo" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto" onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/150x50?text=Logo'; }}/>
+          <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+            <img src={Logo} alt="QuwwaHealth Logo" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x50?text=Logo'; }} />
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navLinks.map(link => (
-              <NavLink key={link.to} to={link.to} className={navLinkClasses}>{link.text}</NavLink>
-            ))}
+            {!authPage ? null : (
+              navLinks.map(link => (
+                <NavLink key={link.to} to={link.to} className={navLinkClasses}>{link.text}</NavLink>
+              ))
+            )}
           </nav>
 
           {/* Desktop Action Buttons & User Menu */}
@@ -114,7 +117,7 @@ const Header = () => {
                 >
                   {renderUserAvatar()}
                 </button>
-                
+
                 {isUserMenuOpen && (
                   <div id="user-menu-dropdown" className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 border">
                     <div className="px-4 py-3 border-b">
@@ -137,14 +140,18 @@ const Header = () => {
               </div>
             ) : (
               <>
-                <Link to="/auth" className="text-base font-medium text-gray-600 hover:text-black">Login</Link>
-                <Link to="/auth?mode=signup" className="text-base font-medium bg-[#54BD95] text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity">
-                  Sign Up
-                </Link>
+                {!authPage && (
+                  <>
+                    <Link to="/auth" className="text-base font-medium text-gray-600 hover:text-black">Login</Link>
+                    <Link to="/auth?mode=signup" className="text-base font-medium bg-[#54BD95] text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity">
+                      Sign Up
+                    </Link>
+                  </>
+                )}
               </>
             )}
           </div>
-          
+
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
             <button onClick={toggleMenu} className="text-black focus:outline-none p-2">
@@ -158,19 +165,19 @@ const Header = () => {
       <div className={`lg:hidden fixed inset-0 z-50 flex justify-end ${isMenuOpen ? '' : 'pointer-events-none'}`}>
         {/* Overlay */}
         <div
-            className={`fixed inset-0 bg-black/60 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
-            onClick={toggleMenu}
+          className={`fixed inset-0 bg-black/60 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+          onClick={toggleMenu}
         ></div>
 
         {/* Panel */}
         <div
-            className={`relative w-full max-w-sm bg-white h-full shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          className={`relative w-full max-w-sm bg-white h-full shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         >
           {/* Panel Header */}
           <div className="flex items-center justify-between p-4 border-b">
             <h2 className="font-bold text-xl text-gray-800">Menu</h2>
             <button onClick={toggleMenu} className="p-2">
-                <FaTimes className="w-6 h-6 text-gray-600" />
+              <FaTimes className="w-6 h-6 text-gray-600" />
             </button>
           </div>
 
@@ -187,33 +194,37 @@ const Header = () => {
           <div className="p-4 border-t bg-gray-50">
             {isAuthenticated && user ? (
               <div className="space-y-3">
-                 <div className="flex items-center space-x-3 mb-4">
-                    {renderUserAvatar()}
-                    <div>
-                      <div className="font-bold text-gray-800 truncate">{user.name}</div>
-                      <div className="text-sm text-gray-500 truncate">{user.email}</div>
-                    </div>
-                 </div>
-                 {user.role === 'admin' && (
-                    <Link to="/admin/blogs" onClick={handleMobileNavClick} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
-                      <FaCog className="w-5 h-5" /> <span>Admin Panel</span>
-                    </Link>
-                 )}
-                 <Link to="/profile" onClick={handleMobileNavClick} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
-                    <FaUserCircle className="w-5 h-5" /> <span>Profile</span>
-                 </Link>
-                 <button onClick={handleLogout} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
-                    <FaSignOutAlt className="w-5 h-5" /> <span>Logout</span>
-                 </button>
+                <div className="flex items-center space-x-3 mb-4">
+                  {renderUserAvatar()}
+                  <div>
+                    <div className="font-bold text-gray-800 truncate">{user.name}</div>
+                    <div className="text-sm text-gray-500 truncate">{user.email}</div>
+                  </div>
+                </div>
+                {user.role === 'admin' && (
+                  <Link to="/admin/blogs" onClick={handleMobileNavClick} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
+                    <FaCog className="w-5 h-5" /> <span>Admin Panel</span>
+                  </Link>
+                )}
+                <Link to="/profile" onClick={handleMobileNavClick} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
+                  <FaUserCircle className="w-5 h-5" /> <span>Profile</span>
+                </Link>
+                <button onClick={handleLogout} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
+                  <FaSignOutAlt className="w-5 h-5" /> <span>Logout</span>
+                </button>
               </div>
             ) : (
               <div className="space-y-3">
-                <Link to="/auth?mode=signup" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-white bg-[#54BD95] px-4 py-3 rounded-lg hover:opacity-90 transition-opacity">
-                  Sign Up
-                </Link>
-                <Link to="/auth" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-gray-700 bg-gray-200 px-4 py-3 rounded-lg hover:bg-gray-300 transition-colors">
-                  Login
-                </Link>
+                {!authPage && (
+                  <>
+                    <Link to="/auth?mode=signup" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-white bg-[#54BD95] px-4 py-3 rounded-lg hover:opacity-90 transition-opacity">
+                      Sign Up
+                    </Link>
+                    <Link to="/auth" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-gray-700 bg-gray-200 px-4 py-3 rounded-lg hover:bg-gray-300 transition-colors">
+                      Login
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>

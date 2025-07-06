@@ -51,7 +51,7 @@ const HolidayCampHero = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Left Column: Text Content */}
             <div className="text-center md:text-left p-10">
-              <p className=" font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[75px] leading-tight md:leading-[76px] tracking-[0%] text-[#191A15] mb-4">
+              <p className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight md:leading-[1.2] tracking-[0%] text-[#191A15] mb-4">
                 Holiday Camps <br /> (Summer & Winter Breaks)
               </p>
               <div className="flex justify-center md:justify-start my-6">
@@ -130,7 +130,7 @@ const HolidayCampHero = () => {
           </div>
           {/* Text Content */}
           <div className="order-1 md:order-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ">Sports & Branded Events Organization</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Sports & Branded Events Organization</h2>
             <p className="text-gray-700 mb-4 text-sm sm:text-base md:text-lg lg:text-xl">Quwwa Health organizes high-energy sports days, fitness carnivals, inter-school tournaments, and branded wellness events to promote community engagement and a culture of health.</p>
             <div className="border-t-4 border-[#F3F25B] w-1/2 mb-2"/>
             <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-6 mb-2 ">What We Provide:</h3>

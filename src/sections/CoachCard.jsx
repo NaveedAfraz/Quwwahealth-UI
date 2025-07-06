@@ -10,7 +10,7 @@ const CoachCard = () => {
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
           <div className="w-full md:w-1/2 z-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <p className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
+            <p className="text-2xl xs:text-3xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
               Sports Coaching and Sports Events
             </p>
             <p className="text-[#848383] text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 leading-relaxed max-w-xl lg:max-w-2xl">

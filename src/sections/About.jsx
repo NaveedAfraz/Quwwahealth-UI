@@ -10,7 +10,7 @@ const About = () => {
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-10">
           {/* Left Column */}
           <div className="md:w-1/2">
-            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-bold leading-tight md:leading-[110%] lg:leading-[120%] tracking-[0%] text-[#191A15] mb-8 md:mb-12 lg:mb-14 w-full md:w-3/4">
+            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold leading-tight md:leading-[110%] lg:leading-[120%] tracking-[0%] text-[#191A15] mb-8 md:mb-12 lg:mb-14 w-full md:w-3/4">
               Health & Fitness Reporting System
             </p>
             <ul className="space-y-4 md:space-y-6">
