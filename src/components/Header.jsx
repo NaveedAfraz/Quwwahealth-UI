@@ -144,7 +144,7 @@ const Header = () => {
                   <div className="w-full max-w-xs text-center py-2 border border-gray-300 rounded-lg flex items-center justify-center space-x-3">
                     {renderUserAvatar()}
                     <div>
-                      <div className="font-medium text-gray-800 text-sm sm:text-base">{user?.name}</div>
+                      <div className="font-medium text-[#191A15] text-sm sm:text-base">{user?.name}</div>
                       <div className="text-xs sm:text-sm text-[#A6A6A6]">{user?.email}</div>
                     </div>
                   </div>

@@ -33,7 +33,7 @@ const KeyBenefits = () => {
     <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-yellow-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20 md:mb-24 lg:mb-28">
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800">Key Benefits</p>
+          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15]">Key Benefits</p>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">
             <svg width="284" height="40" viewBox="0 0 284 40" fill="none" xmlns="http://www.w3.org/2000/svg"
                  className="w-48 sm:w-64 md:w-72 lg:w-96 h-auto">
@@ -64,7 +64,7 @@ const KeyBenefits = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20 md:mt-24 lg:mt-28 text-center">
-        <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+        <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15] mb-8 sm:mb-10 md:mb-12 lg:mb-16">
           Our Program Offerings Include:
         </p>
         <ul className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-10 md:gap-x-12 lg:gap-x-16 gap-y-4 sm:gap-y-6 md:gap-y-8 text-[#A6A6A6] text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium">

@@ -11,11 +11,11 @@ const Branding = () => {
   return (
     <div className="branding">
       <BrandingHero />
-      <Highlights />
-      <CTA />
-      <Programs />
-      <About />
-      <Testimonials />
+      {/* <Highlights />
+      <CTA /> */}
+      {/* <Programs /> */}
+      {/* <About /> */}
+      {/* <Testimonials /> */}
     </div>
   )
 }

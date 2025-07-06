@@ -10,7 +10,7 @@ const About = () => {
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-10">
           {/* Left Column */}
           <div className="md:w-1/2">
-            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-bold leading-tight md:leading-[110%] lg:leading-[120%] tracking-[0%] text-gray-800 mb-8 md:mb-12 lg:mb-14 w-full md:w-3/4">
+            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-bold leading-tight md:leading-[110%] lg:leading-[120%] tracking-[0%] text-[#191A15] mb-8 md:mb-12 lg:mb-14 w-full md:w-3/4">
               Health & Fitness Reporting System
             </p>
             <ul className="space-y-4 md:space-y-6">
@@ -44,7 +44,7 @@ const About = () => {
                 className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full object-cover"
               />
               <div className="flex-grow">
-                <p className="font-bold text-gray-800 text-base md:text-lg lg:text-xl">Amanda Young</p>
+                <p className="font-bold text-[#191A15] text-base md:text-lg lg:text-xl">Amanda Young</p>
                 <p className="text-sm md:text-base lg:text-lg text-[#A6A6A6]">Expert</p>
               </div>
               <div className="bg-[#54BD95] p-2 md:p-3 rounded-full text-white ml-3">

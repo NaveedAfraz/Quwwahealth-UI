@@ -99,7 +99,7 @@ const ContactUs = () => {
           {success ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <FiCheckCircle className="h-16 w-16 text-green-500 mb-4" />
-              <h3 className="text-2xl font-bold text-gray-800">Message Sent!</h3>
+              <h3 className="text-2xl font-bold text-[#191A15]">Message Sent!</h3>
               <p className="mt-2 text-[#848383]">Thank you for contacting us. We will get back to you shortly.</p>
               <button 
                 onClick={handleResetForm}

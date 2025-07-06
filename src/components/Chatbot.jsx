@@ -177,7 +177,7 @@ User's question: ${question}`;
         {/* Messages */}
         <div ref={chatContainerRef} className="h-96 p-4 overflow-y-auto space-y-4">
           <div className="flex justify-start">
-            <div className="max-w-xs px-4 py-2 rounded-2xl bg-gray-100 text-gray-800 rounded-bl-none">
+            <div className="max-w-xs px-4 py-2 rounded-2xl bg-gray-100 text-[#191A15] rounded-bl-none">
                 Hello! I am the Quwwa Health assistant. How can I help you today?
             </div>
           </div>
@@ -203,7 +203,7 @@ User's question: ${question}`;
               <div
                 className={`max-w-xs px-4 py-2 rounded-2xl ${
                   msg.sender === 'bot'
-                    ? 'bg-gray-100 text-gray-800 rounded-bl-none'
+                    ? 'bg-gray-100 text-[#191A15] rounded-bl-none'
                     : 'bg-green-500 text-white rounded-br-none'
                 }`}
               >

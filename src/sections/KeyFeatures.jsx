@@ -22,7 +22,7 @@ const KeyFeatures = () => {
     <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-yellow-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20 md:mb-24">
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800">Key Features</p>
+          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15]">Key Features</p>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">
             <svg width="284" height="40" viewBox="0 0 284 40" fill="none" xmlns="http://www.w3.org/2000/svg"
                  className="w-48 sm:w-64 md:w-72 lg:w-80 h-auto">

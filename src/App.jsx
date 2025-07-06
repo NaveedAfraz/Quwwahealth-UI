@@ -83,7 +83,7 @@ function App() {
           <Route path="blogs" element={<AdminBlogs />} />
           <Route path="contacts" element={<AdminContacts />} />
         </Route>
-
+        
         <Route path="/verify-email" element={<EmailVerification />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />

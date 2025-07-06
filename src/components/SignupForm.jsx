@@ -117,7 +117,7 @@ const SignupForm = ({ onSwitchMode }) => {
             </button>
             <button
               onClick={onSwitchMode}
-              className="w-full bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl"
+              className="w-full bg-gray-200 text-[#191A15] font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl"
             >
               Back to Login
             </button>
@@ -174,7 +174,7 @@ const SignupForm = ({ onSwitchMode }) => {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 text-left mb-5">
           <div>
-            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="name">
+            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="name">
               Full Name
             </label>
             <input 
@@ -187,7 +187,7 @@ const SignupForm = ({ onSwitchMode }) => {
             />
           </div>
           <div>
-            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="email">
+            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="email">
               Email
             </label>
             <input 
@@ -203,7 +203,7 @@ const SignupForm = ({ onSwitchMode }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 text-left mb-5">
           <div>
-            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="schoolName">
+            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="schoolName">
               School Name
             </label>
             <input 
@@ -215,7 +215,7 @@ const SignupForm = ({ onSwitchMode }) => {
             />
           </div>
           <div>
-            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="userId">
+            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="userId">
               User ID
             </label>
             <input 
@@ -230,7 +230,7 @@ const SignupForm = ({ onSwitchMode }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-5 text-left mb-5">
           <div>
-            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="district">
+            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="district">
               District
             </label>
             <input 
@@ -242,7 +242,7 @@ const SignupForm = ({ onSwitchMode }) => {
             />
           </div>
           <div>
-            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="state">
+            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="state">
               State
             </label>
             <input 
@@ -254,7 +254,7 @@ const SignupForm = ({ onSwitchMode }) => {
             />
           </div>
           <div>
-            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="country">
+            <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="country">
               Country
             </label>
             <input 
@@ -268,7 +268,7 @@ const SignupForm = ({ onSwitchMode }) => {
         </div>
         
         <div className="text-left mb-5">
-          <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-800 mb-1" htmlFor="password">
+          <label className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-[#191A15] mb-1" htmlFor="password">
             Password
           </label>
           <input 

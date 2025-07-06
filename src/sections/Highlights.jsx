@@ -14,7 +14,7 @@ const Rating = ({ rating, source, totalStars = 5 }) => {
         {halfStar && <FaStarHalfAlt className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />}
         {[...Array(emptyStars)].map((_, i) => <FaRegStar key={`empty-${i}`} className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />)}
       </div>
-      <p className="font-semibold text-gray-800 text-lg md:text-xl lg:text-2xl">{rating} / {totalStars} rating</p>
+      <p className="font-semibold text-[#191A15] text-lg md:text-xl lg:text-2xl">{rating} / {totalStars} rating</p>
       <p className="text-sm md:text-base lg:text-lg font-bold text-[#A6A6A6]">{source}</p>
     </div>
   );
@@ -52,7 +52,7 @@ const Highlights = () => {
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
           {/* Left Column */}
           <div>
-            <p className="text-4xl md:text-5xl lg:text-[64px] font-semibold leading-tight md:leading-[100%] tracking-[0%] text-gray-800 mb-12 md:mb-16 lg:mb-24">
+            <p className="text-4xl md:text-5xl lg:text-[64px] text-center font-semibold leading-tight md:leading-[100%] tracking-[0%] text-[#191A15] mb-12 md:mb-16 lg:mb-24">
               Program
               <br />
               Highlights
@@ -62,7 +62,7 @@ const Highlights = () => {
               <Rating rating={4.8} source="healthplatform" />
             </div>
           </div>
-          
+
           {/* Right Column */}
           <div className="space-y-10 md:space-y-12 lg:space-y-16 pl-8">
             {features.map((feature, index) => (

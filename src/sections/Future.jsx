@@ -11,7 +11,7 @@ const Future = () => {
     <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-yellow-50">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24">
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800">
+          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15]">
             Why Quwwa Health for Schools?
           </p>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">

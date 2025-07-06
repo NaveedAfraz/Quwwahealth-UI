@@ -27,7 +27,7 @@ import img19 from '../assets/images/Holiday/WhatsApp Image 2025-06-23 at 16.49.5
 import img20 from '../assets/images/Holiday/WhatsApp Image 2025-06-23 at 16.50.00.jpeg';
 
 // Brand images
-import brand1 from '../assets/images/Brands/WhatsApp Image 2025-06-23 at 23.16.49.jpeg';
+import brand1 from '../assets/images/Hero/rahilsphoto.jpg';
 import brand2 from '../assets/images/Brands/WhatsApp Image 2025-06-23 at 23.16.50 (1).jpeg';
 import brand3 from '../assets/images/Brands/WhatsApp Image 2025-06-23 at 23.16.50 (2).jpeg';
 import brand4 from '../assets/images/Brands/WhatsApp Image 2025-06-23 at 23.16.50.jpeg';
@@ -77,7 +77,7 @@ const BrandingHero = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Left Column: Text Content */}
             <div className="text-center md:text-left p-10">
-              <p className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[75px] leading-tight md:leading-[76px] tracking-[0%] text-gray-800 mb-4">
+              <p className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[75px] leading-tight md:leading-[76px] tracking-[0%] text-[#191A15] mb-4">
                 Branding & <br /> Sponsorship
               </p>
               <div className="flex justify-center md:justify-start my-6">
@@ -163,7 +163,7 @@ const BrandingHero = () => {
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#191A15] mb-4">
               Brands that have benefitted from our partnership
             </h2>
             <div className="flex justify-center my-6">

@@ -6,7 +6,7 @@ const AdminLayout = () => {
     <div className="flex min-h-screen bg-gray-50">
       <aside className="w-64 bg-white shadow-lg">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-8">Admin Panel</h1>
+          <h1 className="text-2xl font-bold text-[#191A15] mb-8">Admin Panel</h1>
           <nav>
             <ul className="space-y-2">
               {/* <li>

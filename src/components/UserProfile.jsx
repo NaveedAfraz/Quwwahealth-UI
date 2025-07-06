@@ -55,7 +55,7 @@ const UserProfile = () => {
     <div className="max-w-2xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Profile</h2>
+          <h2 className="text-2xl font-bold text-[#191A15]">Profile</h2>
           {!isEditing && (
             <button
               onClick={() => setIsEditing(true)}
@@ -89,7 +89,7 @@ const UserProfile = () => {
                 )}
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">{user.name}</h3>
+                <h3 className="text-lg font-semibold text-[#191A15]">{user.name}</h3>
                 <p className="text-[#848383] flex items-center">
                   <FaEnvelope size={14} className="mr-2" />
                   {user.email}
@@ -112,7 +112,7 @@ const UserProfile = () => {
                   required
                 />
               ) : (
-                <p className="p-3 bg-gray-50 rounded-lg text-gray-800">{user.name}</p>
+                <p className="p-3 bg-gray-50 rounded-lg text-[#191A15]">{user.name}</p>
               )}
             </div>
 
@@ -121,7 +121,7 @@ const UserProfile = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email
               </label>
-              <p className="p-3 bg-gray-50 rounded-lg text-gray-800">{user.email}</p>
+              <p className="p-3 bg-gray-50 rounded-lg text-[#191A15]">{user.email}</p>
             </div>
 
             {/* Avatar URL Field */}
@@ -139,7 +139,7 @@ const UserProfile = () => {
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54BD95]"
                 />
               ) : (
-                <p className="p-3 bg-gray-50 rounded-lg text-gray-800">
+                <p className="p-3 bg-gray-50 rounded-lg text-[#191A15]">
                   {user.avatar || 'No avatar set'}
                 </p>
               )}
@@ -151,7 +151,7 @@ const UserProfile = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Account Type
                 </label>
-                <p className="p-3 bg-gray-50 rounded-lg text-gray-800">
+                <p className="p-3 bg-gray-50 rounded-lg text-[#191A15]">
                   {user.googleId ? 'Google Account' : 'Email Account'}
                 </p>
               </div>
@@ -159,7 +159,7 @@ const UserProfile = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email Verified
                 </label>
-                <p className="p-3 bg-gray-50 rounded-lg text-gray-800">
+                <p className="p-3 bg-gray-50 rounded-lg text-[#191A15]">
                   {user.isEmailVerified ? 'Yes' : 'No'}
                 </p>
               </div>

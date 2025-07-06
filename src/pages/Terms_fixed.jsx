@@ -5,7 +5,7 @@ const Terms = () => {
     <div className="bg-[#F9F7F4] py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#191A15]">
             Terms & Conditions
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-[#848383] mt-4">
@@ -231,7 +231,7 @@ const Terms = () => {
         </div>
 
         <div className="text-center my-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800">Privacy Policy</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#191A15]">Privacy Policy</h1>
         </div>
 
         <div className="space-y-6 text-gray-700">

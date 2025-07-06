@@ -35,7 +35,7 @@ const ProgramCard = ({ image, title, description }) => (
     <div className="bg-[#F9F9FF] rounded-2xl overflow-hidden mb-6 md:mb-8 aspect-video">
       <img src={image} alt={title} className="w-full h-full object-contain hover:scale-105 transition-transform duration-300" />
     </div>
-    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 md:mb-4">{title}</h3>
+    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#191A15] mb-3 md:mb-4">{title}</h3>
     <p className="text-[#A6A6A6] text-base md:text-lg lg:text-xl font-medium">{description}</p>
   </div>
 );
@@ -44,7 +44,7 @@ const Programs = () => {
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-white px-6 sm:px-8 lg:px-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-4xl md:text-5xl lg:text-[64px] font-semibold leading-tight md:leading-[100%] tracking-[0%] text-gray-800 text-center mb-12 md:mb-16 lg:mb-24">
+        <p className="text-4xl md:text-5xl lg:text-[64px] font-semibold leading-tight md:leading-[100%] tracking-[0%] text-[#191A15] text-center mb-12 md:mb-16 lg:mb-24">
           Our Programs
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-12 md:gap-y-16 lg:gap-y-20">

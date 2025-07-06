@@ -29,11 +29,11 @@ const BlogEditor = ({ formData, onFormChange, onSave, onCancel, categories = [] 
         <form onSubmit={handleSubmit} className="bg-gray-50 rounded-lg shadow-xl">
           
           <div className="flex justify-between items-center p-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-800">
+            <h2 className="text-2xl font-bold text-[#191A15]">
               {formData._id ? 'Edit Blog Post' : 'Create New Blog Post'}
             </h2>
             <div className="space-x-4">
-               <button type="button" onClick={onCancel} className="px-6 py-2 border border-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-300">
+               <button type="button" onClick={onCancel} className="px-6 py-2 border border-gray-300 text-[#191A15] font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-300">
                 Cancel
               </button>
               <button type="submit" className="px-6 py-2 bg-[#54BD95] text-white font-semibold rounded-lg hover:bg-[#4a9f7f] transition-colors duration-300 shadow-md">

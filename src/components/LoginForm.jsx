@@ -86,7 +86,7 @@ const LoginForm = ({ onSwitchMode }) => {
         <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-10 sm:h-12 md:h-16 lg:h-20 xl:h-24" />
       </div>
 
-      <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-800 mb-6 text-center">Nice to see you again</p>
+      <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#191A15] mb-6 text-center">Nice to see you again</p>
 
       {error && (
         <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">

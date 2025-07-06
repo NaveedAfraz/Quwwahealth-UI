@@ -12,112 +12,108 @@ import team3 from '../assets/images/AboutUs/team3.jpeg';
 import team4 from '../assets/images/AboutUs/team4.jpeg';
 import team5 from '../assets/images/AboutUs/team5.jpeg';
 
+const CEO = [
+  {
+    name: 'Rahil Khan',
+    image: team1,
+    roles: ['CEO'],
+  },
+]
+
 const teamMembers = [
   {
     name: 'Rahil Khan',
     roles: ['Founder and CEO'],
     image: team1,
+    description: "Our Story: From One Coach’s Vision to a Nationwide Movement\n\nQuwwa Health began with a simple belief: every child deserves the opportunity to grow up healthy, active, and confident. That vision stems from the journey of our founder, Rahil Khan — a national-level athlete, gymnast, and certified physical educator from the Sports Authority of India with a deep-rooted passion for preventive health and child development. Having worked across schools and health institutions, Rahil witnessed first-hand the gap in structured wellness programs for students—especially those that combined fitness, mental well-being, and nutrition in a school environment. Driven by this need, Rahil launched Quwwa Health, with a mission to transform the way schools approach health. What started as individual sessions in physical education quickly evolved into a full-fledged wellness platform. Today, Quwwa Health provides structured PE programs, fitness assessments, and healthy canteen initiatives that align with global standards. Under Rahil’s leadership, Quwwa Health is not just promoting fitness—it’s building a sustainable culture of health, resilience, and lifelong wellness among students, educators, and communities."
   },
   {
     name: 'Zeeshan Khan',
-    roles: ['Environmentalist & Sustainability Strategist- Dubai','Advisory Board member'],
+    roles: ['Environmentalist & Sustainability Strategist- Dubai', 'Advisory Board Member – Quwwa Health'],
     image: team5,
+    description: 'Zeeshan Khan is a pioneering environmentalist and socio-entrepreneur. He brings a unique perspective to building scalable, eco-conscious systems in health and education. His guidance helps shape environmentally responsible strategies within Quwwa Health’s school wellness programs and sustainable initiatives.'
   },
   {
     name: 'Dr. Zeeshan Ahmad',
-    roles: ['Advisor – Sports Injury Prevention','& Physical Performance','MPT (Sports), Certified Strength & Conditioning Coach (Australia)','Advisory Board Member – Quwwa Health'],
+    roles: ['Advisor – Sports Injury Prevention & Physical Performance', 'MPT (Sports), Certified Strength & Conditioning Coach (Australia)', 'Advisory Board Member – Quwwa Health'],
     image: team4,
+    description: 'Bringing global expertise in athletic conditioning and sports physiotherapy, Dr. Zeeshan Ahmad guides the development of injury-prevention protocols and performance-based fitness programming within school environments.'
   },
   {
     name: 'Dr. Prashant',
-    roles: ['Advisor – Pediatric Sports Rehabilitation ','& Functional Health','MPT (Sports Physiotherapy), India','Advisory Board Member – Quwwa Health'],
+    roles: ['Advisor – Pediatric Sports Rehabilitation & Functional Health', 'MPT (Sports Physiotherapy), India', 'Advisory Board Member – Quwwa Health'],
     image: team2,
+    description: 'Dr. Prashant offers specialized knowledge in pediatric physiotherapy and functional movement assessments, helping shape Quwwa Health’s student fitness screening and recovery frameworks.'
   },
   {
     name: 'Dr. Shahana Pathan',
-    roles: ['Advisor – Mental Wellness, Life Skills','& Inclusive Education','Ph.D. in Counseling Psychology | Certified Special Educator | Life Skill Trainer – Riyadh','Advisory Board Member – Quwwa Health'],
+    roles: ['Advisor – Mental Wellness, Life Skills & Inclusive Education', 'Ph.D. in Counseling Psychology | Certified Special Educator | Life Skill Trainer – Riyadh', 'Advisory Board Member – Quwwa Health'],
     image: team3,
+    description: 'Dr. Shahana supports the integration of emotional intelligence, resilience training, and inclusive education practices into Quwwa Health’s wellness programs, ensuring a holistic, student-centered approach.'
   },
 ];
 
+const TeamCard = ({ member, isFounder = false }) => (
+  <div className={`bg-white rounded-3xl shadow-lg p-6 md:p-8 flex flex-col items-center h-full transform hover:scale-105 transition-transform duration-300 ${isFounder ? 'lg:flex-row lg:items-start lg:text-left' : ''}`}>
+    <img
+      src={member.image}
+      alt={`Portrait of ${member.name}`}
+      className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mb-6 ring-4 ring-yellow-200 ring-offset-4 flex-shrink-0"
+      onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/200x200/CCCCCC/FFFFFF?text=Image+Not+Found'; }}
+    />
+    <div className={`w-full ${isFounder ? 'lg:ml-8' : 'text-center'}`}>
+        <h3 className="text-2xl font-bold text-[#191A15] mb-2">{member.name}</h3>
+        <div className={`text-gray-600 w-full mt-4 space-y-2 border-b border-gray-200 pb-4 mb-4 ${isFounder ? '' : 'text-left'}`}>
+          {member.roles.map((role, i) => (
+            <p key={i} className={`flex text-sm ${isFounder ? 'items-start' : 'items-start'}`}>
+              <span className="mr-2 mt-1 text-yellow-400 flex-shrink-0">&#8226;</span>
+              <span>{role}</span>
+            </p>
+          ))}
+        </div>
+        <p className={`text-gray-700 text-sm whitespace-pre-line ${isFounder ? '' : 'text-left'}`}>
+          {member.description}
+        </p>
+    </div>
+  </div>
+);
+
 const Team = () => {
+  const founder = teamMembers.find(member => member.name === 'Rahil Khan');
+  const advisoryBoard = teamMembers.filter(member => member.name !== 'Rahil Khan');
+
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white">
-      <div className="container mx-auto text-center px-4 sm:px-6 lg:px-8">
-        <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 lg:mb-8">Meet the Team</p>
-        <div className="flex justify-center mb-12 sm:mb-16 md:mb-20 lg:mb-24">
-          <svg width="284" height="40" viewBox="0 0 284 40" fill="none" xmlns="http://www.w3.org/2000/svg"
-               className="w-48 sm:w-64 md:w-72 lg:w-96 h-auto">
-            <g clipPath="url(#clip0_1_13202)">
-            <path d="M180.851 0.697709C160.655 1.32266 140.471 2.37085 120.321 3.84229C102.035 4.16634 83.7464 4.49039 65.4609 4.81443C45.3964 5.17155 25.3319 5.52535 5.27073 5.88247C3.32975 5.91553 0.324047 7.34068 0.0264527 9.49328C-0.300901 11.8674 2.63536 12.2642 4.28867 12.2378C17.3266 12.0063 30.3646 11.7748 43.4025 11.5434C37.9764 12.2345 32.5568 12.952 27.1373 13.7026C25.2592 13.9638 22.637 14.8434 22.0385 16.8968C21.5029 18.7286 23.176 20.0281 24.9516 20.0612C55.0616 20.577 85.1748 21.0962 115.285 21.612C121.693 21.7211 128.101 21.8335 134.509 21.9426C125.291 22.9512 116.085 24.1118 106.906 25.4245C92.5122 27.4878 78.1781 29.9347 63.9068 32.7222C62.3659 33.0231 60.1802 34.3722 59.9454 36.1015C59.7173 37.7548 61.5392 38.8361 63.0007 38.8493C97.2439 39.1469 131.487 39.4478 165.73 39.7454C175.386 39.8281 185.038 39.914 194.693 39.9967C196.905 40.0165 199.742 39.385 200.856 37.2126C201.852 35.2683 199.987 33.6513 198.085 33.6348C165.122 33.3471 132.158 33.0595 99.1948 32.7718C100.114 32.6329 101.03 32.4907 101.949 32.3551C114.405 30.5101 126.904 28.946 139.43 27.6664C164.494 25.1071 189.67 23.6819 214.863 23.4009C215.978 23.3876 217.105 23.381 218.229 23.3744C230.999 23.5926 243.766 23.8142 256.536 24.0324C258.745 24.0688 261.592 23.4075 262.7 21.2483C263.718 19.2643 261.814 17.7466 259.929 17.6705C246.898 17.1481 233.853 16.9232 220.812 16.9993C203.74 16.705 186.668 16.414 169.596 16.1197C139.486 15.6039 109.373 15.0847 79.2626 14.5689C76.8356 14.5259 74.4052 14.4863 71.9782 14.4433C87.7441 12.7668 103.536 11.3483 119.349 10.1943C152.312 9.60901 185.279 9.02705 218.243 8.44178C238.307 8.08467 258.372 7.73086 278.433 7.37374C280.274 7.34068 282.979 6.07756 283.531 4.17956C284.074 2.32456 282.387 1.08127 280.618 1.01514C247.377 -0.221528 214.096 -0.330646 180.851 0.697709Z" fill="#F3F25B"/>
-            </g>
-            <defs>
-            <clipPath id="clip0_1_13202">
-            <rect width="283.634" height="40" fill="white"/>
-            </clipPath>
-            </defs>
-          </svg>
+    <section className="py-16 sm:py-20 md:py-24 bg-gray-50 font-sans">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Founder Section */}
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+            Meet Our Founder
+          </h2>
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            The vision behind our movement to build a healthier generation.
+          </p>
+          <div className="mt-12 max-w-4xl mx-auto">
+            {founder && <TeamCard member={founder} isFounder={true} />}
+          </div>
         </div>
 
-        <div className="relative px-4 sm:px-6 md:px-8 lg:px-12">
-          <Swiper
-            modules={[Navigation, A11y, Autoplay]}
-            spaceBetween={30}
-            slidesPerView={1}
-            loop={true}
-           
-            navigation={{
-              nextEl: '.swiper-button-next-team',
-              prevEl: '.swiper-button-prev-team',
-            }}
-            breakpoints={{
-              640: { 
-                slidesPerView: 2,
-                spaceBetween: 40
-              },
-              768: { 
-                slidesPerView: 3,
-                spaceBetween: 50
-              },
-              1024: { 
-                slidesPerView: 4,
-                spaceBetween: 60
-              },
-              1280: {
-                slidesPerView: 4,
-                spaceBetween: 70
-              }
-            }}
-            className="!overflow-visible"
-          >
-            {teamMembers.map((member, index) => (
-              <SwiperSlide key={index}>
-                <div className="flex flex-col items-center group">
-                  <div className="relative p-1 sm:p-2 md:p-3 rounded-full border-2 sm:border-3 md:border-4 border-[#F3F25B] transition-transform duration-300 group-hover:scale-105">
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
-                      className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 sm:mt-6 md:mt-8 mb-2 sm:mb-3 md:mb-4">{member.name}</h3>
-                  <div className="text-sm sm:text-base md:text-lg lg:text-xl text-[#848383] space-y-1">
-                    {member.roles.map((role, i) => (
-                      <p key={i} className="leading-tight">{role}</p>
-                    ))}
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          
-          <button className="swiper-button-prev-team absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 md:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors">
-            <ChevronLeftIcon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#848383]" />
-          </button>
-          <button className="swiper-button-next-team absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 md:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors">
-            <ChevronRightIcon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#848383]" />
-          </button>
+        {/* Advisory Board Section */}
+        <div className="text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+            Our Advisory Board
+          </h2>
+           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            Our team members are not just leaders in their fields – they are advocates for a healthier, more educated generation.
+          </p>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 items-start mt-12">
+          {advisoryBoard.map((member, index) => (
+            <TeamCard key={index} member={member} />
+          ))}
+        </div>
+
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ const Success = () => {
     <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-b from-yellow-50 via-yellow-50 to-white px-6 sm:px-8 lg:px-12">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15]">
             Preparing Students to Achieve Success
           </h2>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">
@@ -26,7 +26,7 @@ const Success = () => {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-16">
           {/* Left Column */}
           <div className="md:w-1/2 text-left">
-            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4 md:mb-6">
+            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#191A15] leading-tight mb-4 md:mb-6">
               Addressing public health concerns: What data can Quwwa Health show?
             </p>
             <div className="border-t-4 border-[#F3F25B] w-1/2 mb-4">

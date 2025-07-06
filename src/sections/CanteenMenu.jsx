@@ -8,7 +8,7 @@ const CanteenMenu = () => {
     <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 bg-gradient-to-b from-yellow-50 via-yellow-50 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24">
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 leading-tight">
+          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15] leading-tight">
           Canteen Menus That Promote Healthy Choices 
           </p>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">

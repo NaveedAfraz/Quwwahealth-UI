@@ -51,7 +51,7 @@ const HolidayCampHero = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Left Column: Text Content */}
             <div className="text-center md:text-left p-10">
-              <p className=" font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[75px] leading-tight md:leading-[76px] tracking-[0%] text-gray-800 mb-4">
+              <p className=" font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[75px] leading-tight md:leading-[76px] tracking-[0%] text-[#191A15] mb-4">
                 Holiday Camps <br /> (Summer & Winter Breaks)
               </p>
               <div className="flex justify-center md:justify-start my-6">

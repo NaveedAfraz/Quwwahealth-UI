@@ -55,7 +55,7 @@ const AdminContacts = () => {
     const statusConfig = {
       new: { color: 'bg-blue-100 text-blue-800', icon: '🆕' },
       replied: { color: 'bg-green-100 text-green-800', icon: '✅' },
-      archived: { color: 'bg-gray-100 text-gray-800', icon: '📁' }
+      archived: { color: 'bg-gray-100 text-[#191A15]', icon: '📁' }
     };
     const config = statusConfig[status] || statusConfig.new;
     return (
