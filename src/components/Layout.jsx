@@ -13,7 +13,7 @@ const Layout = () => {
       <main className="flex-grow">
         <Outlet />
       </main>
-     {!login && <Footer />}
+     {login && <Footer />}
       <Chatbot />
     </div>
   )
