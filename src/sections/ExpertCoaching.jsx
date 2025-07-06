@@ -8,7 +8,7 @@ const ExpertCoaching = () => {
           
           <div className="flex flex-col items-start text-left">
             <div className="flex-grow">
-              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h3 className="text-3xl text-center sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Expert Coaching & Aligned Curriculum
               </h3>
               <div className="w-32 sm:w-40 md:w-48 lg:w-56 h-1 bg-[#F3F25B] my-4 sm:my-6 md:my-8"></div>
@@ -23,7 +23,7 @@ const ExpertCoaching = () => {
 
           <div className="flex flex-col items-start text-left">
             <div className="flex-grow">
-              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h3 className="text-3xl text-center sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Flexible Options: Regular or <br/> One-Off Programs
               </h3>
               <div className="w-32 sm:w-40 md:w-48 lg:w-56 h-1 bg-[#F3F25B] my-4 sm:my-6 md:my-8"></div>

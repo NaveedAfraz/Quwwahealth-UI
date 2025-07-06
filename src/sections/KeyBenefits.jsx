@@ -64,10 +64,10 @@ const KeyBenefits = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20 md:mt-24 lg:mt-28 text-center">
-        <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#191A15] mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+        <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#191A15] mb-8 sm:mb-10 md:mb-12 lg:mb-16">
           Our Program Offerings Include:
         </p>
-        <ul className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-10 md:gap-x-12 lg:gap-x-16 gap-y-4 sm:gap-y-6 md:gap-y-8 text-[#A6A6A6] text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium">
+        <ul className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-10 md:gap-x-12 lg:gap-x-16 gap-y-4 sm:gap-y-6 md:gap-y-8 text-[#A6A6A6] text-base sm:text-lg md:text-xl lg:text-xl font-medium">
           {offerings.map((offering) => (
             <li key={offering} className="flex items-center">
               <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 lg:h-4 lg:w-4 bg-gray-400 rounded-full mr-2 sm:mr-3 md:mr-4"></span>

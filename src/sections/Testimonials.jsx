@@ -1,32 +1,86 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, A11y } from 'swiper/modules';
+import { Navigation, A11y, Autoplay } from 'swiper/modules';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { FaQuoteLeft } from 'react-icons/fa';
+
 
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
 
-import imageEllen from '../assets/images/Testimonials/image.png';
-import imageJohn from '../assets/images/Testimonials/image1.png';
-
+// Updated testimonials data with quotes, names, and titles
 const testimonials = [
   {
-    name: 'John Carvan',
-    image: imageJohn,
+    quote: "Quwwa Health Summer Camp was the best part of my holidays! I learned swimming, did fun educational activities, and enjoyed team games. Every day was exciting, and I became more active and confident.",
+    name: 'Aarav Singh',
+    title: 'Age: 12, Grade 6',
   },
   {
-    name: 'Miss Smith Ellen',
-    image: imageEllen,
+    quote: "I loved the art and craft sessions and the learning games. The camp made learning so much fun! I even made new friends and started enjoying physical activities.",
+    name: 'Siya Joshi',
+    title: 'Age: 10, Grade 5',
   },
   {
-    name: 'John Carvan',
-    image: imageJohn,
+    quote: "This camp was a perfect mix of learning and fun. The structured drills helped me stay focused, and swimming gave me a lot of confidence. I wish the camp was longer!",
+    name: 'Zain Khan',
+    title: 'Age: 13, Grade 7',
+  },
+  {
+    quote: "Before the camp, I used to feel tired easily. But after joining Quwwa Health Summer Camp, I feel stronger and more energetic. I loved the games and daily activities!",
+    name: 'Manya Rathore',
+    title: 'Age: 9, Grade 4',
+  },
+  {
+    quote: "Every day at Quwwa Health Camp was different! Swimming, creative crafts, and games kept us all excited. I even started waking up early just to not miss the camp!",
+    name: 'Aditya Verma',
+    title: 'Age: 11, Grade 6',
+  },
+  {
+    quote: "Quwwa Health Summer Camp brought so much joy and growth to Dhruv. He learned to swim, got creative with art & craft, and returned home each day with new things to share. The camp is truly well-balanced and inspiring.",
+    name: 'Mrs. Kavita Mehra',
+    title: 'Mother of Dhruv, Grade 5',
+  },
+  {
+    quote: "Ayaan enjoyed every minute of the camp. The structured drills and physical games helped him become more disciplined and confident. I'm thankful to the Quwwa team for such a meaningful program.",
+    name: 'Mr. Tariq Ansari',
+    title: 'Father of Ayaan, Grade 6',
+  },
+  {
+    quote: "Meher was always excited to attend the camp! She loved the educational activities and started showing more interest in fitness too. The way the program combines fun and learning is just amazing.",
+    name: 'Mrs. Ritu Sharma',
+    title: 'Mother of Meher, Grade 4',
+  },
+  {
+    quote: "Quwwa’s summer camp helped Arnav step out of screen time and into real action. He picked up new skills, made friends, and most importantly, enjoyed learning. A great initiative for young minds!",
+    name: 'Mr. Sanjay Kulkarni',
+    title: 'Father of Arnav, Grade 7',
+  },
+  {
+    quote: "We had no idea our daughter’s posture was affecting her confidence. The health report helped us consult a physio on time. Thank you, school and Alpro team!",
+    name: 'Mrs. Verma',
+    title: 'Parent of Grade 5 Student',
+  },
+  {
+    quote: "I was amazed to see a complete health and fitness card – like a medical report but child-friendly. It’s wonderful to see my son improving each term.",
+    name: 'Mr. Rizwan',
+    title: 'Parent of Grade 3',
+  },
+  {
+    quote: "This report showed us patterns we never noticed—like his sleep deficit and water intake. Now we’ve fixed a routine. Small changes, big results!",
+    name: 'Mrs. Fatima',
+    title: 'Parent of Grade 7',
+  },
+  {
+    quote: "As a working parent, this report saved me hours of clinic visits. Everything I need to know about my child's health is in one place.",
+    name: 'Mr. Thomas',
+    title: 'IT Professional',
   }
 ];
 
 const Testimonials = () => {
   return (
-    <section className="py-16 md:py-24 lg:py-32  bg-white border-t-4 border-t-green-50">
+    <section className="py-16 md:py-24 lg:py-32 bg-gray-50">
       <div className="container mx-auto text-center px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">Testimonials</h2>
         <div className="flex justify-center mb-12 md:mb-16 lg:mb-20">
@@ -45,10 +99,12 @@ const Testimonials = () => {
 
         <div className="relative px-6 md:px-10 lg:px-16">
           <Swiper
-            modules={[Navigation, A11y]}
-            spaceBetween={0}
-            slidesPerView={3}
-            initialSlide={1}
+            modules={[Navigation, A11y, Autoplay]}
+            loop={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
             centeredSlides={true}
             navigation={{
               nextEl: '.swiper-button-next-custom',
@@ -60,44 +116,41 @@ const Testimonials = () => {
                 spaceBetween: 20,
               },
               768: {
-                slidesPerView: 3,
-                spaceBetween: 0,
+                slidesPerView: 2,
+                spaceBetween: 30,
               },
               1024: {
                 slidesPerView: 3,
-                spaceBetween: 0,
+                spaceBetween: 40,
               }
             }}
-            className="!overflow-visible"
+            className="!pb-16"
           >
-            {/* {testimonials.map((testimonial, index) => (
-              <SwiperSlide key={index}>
+            {testimonials.map((testimonial, index) => (
+              <SwiperSlide key={index} className="h-full">
                 {({ isActive }) => (
-                  <div className={`transition-all duration-500 ease-in-out flex flex-col items-center relative
-                          ${isActive ? 'scale-125 translate-y-10 z-20' : 'scale-75 -translate-y-6 opacity-100 z-10'}`}>
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className={`max-w-[280px] md:max-w-[320px] lg:max-w-[380px] h-auto object-contain
-                                ${isActive ? 'translate-z-12' : ''}`}
-                    />
-                    <div className={`absolute -bottom-8 md:-bottom-10 lg:-bottom-12 w-56 md:w-64 lg:w-72 h-16 md:h-20 lg:h-24 
-                                      bg-[#F3F25B] flex items-center justify-center transition-all duration-500
-                                      ${isActive ? 'scale-100' : 'scale-90'}`}
-                      style={{ clipPath: 'polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%)' }}>
-                      <p className="font-bold text-lg md:text-xl lg:text-2xl text-black">{testimonial.name}</p>
+                  <div className={`h-full p-1 transition-all duration-500 ${isActive ? 'opacity-100 scale-100' : 'opacity-60 scale-90'}`}>
+                    <div className="bg-white rounded-2xl shadow-lg h-full flex flex-col p-6 md:p-8">
+                      <FaQuoteLeft className="text-3xl text-green-400 mb-4" />
+                      <p className="text-gray-600 italic text-left flex-grow">
+                        {testimonial.quote}
+                      </p>
+                      <div className="mt-6 pt-4 border-t border-gray-200 text-left">
+                        <p className="font-bold text-lg text-gray-900">{testimonial.name}</p>
+                        <p className="text-sm text-gray-500">{testimonial.title}</p>
+                      </div>
                     </div>
                   </div>
-                )}  
+                )}
               </SwiperSlide>
-            ))} */}
+            ))}
           </Swiper>
 
-          <button className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 lg:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors">
-            <ChevronLeftIcon className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-[#848383]" />
+          <button className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-white/80 shadow-md hover:bg-gray-100 transition-colors">
+            <ChevronLeftIcon className="w-6 h-6 md:w-8 md:h-8 text-gray-700" />
           </button>
-          <button className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 lg:p-4 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors">
-            <ChevronRightIcon className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-[#848383]" />
+          <button className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-white/80 shadow-md hover:bg-gray-100 transition-colors">
+            <ChevronRightIcon className="w-6 h-6 md:w-8 md:h-8 text-gray-700" />
           </button>
         </div>
       </div>
