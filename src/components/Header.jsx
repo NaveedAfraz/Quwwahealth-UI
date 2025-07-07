@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useNavigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaCog } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaCog, FaSearch } from 'react-icons/fa';
 import { logout } from '../store/slices/authSlice'; // Assuming this is your slice
 import Logo from '../assets/images/header.png'; // Assuming this is your logo path
+import { Button } from '@mui/material';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,7 +62,7 @@ const Header = () => {
     setIsUserMenuOpen(false);
     handleMobileNavClick(); // Close mobile menu and scroll to top
   };
-  const authPage = location.pathname === 'auth/login' || location.pathname === 'auth/register';
+  const authPage = location.pathname === '/auth/login' || location.pathname === '/auth/register';
   const homePage = location.pathname === '/';
   // Navigation links array for cleaner mapping 
   const navLinks = [
@@ -98,13 +99,13 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {!authPage ? null : (
+          <div className="hidden lg:flex float-right space-x-8">
+            {authPage ? null : (
               navLinks.map(link => (
                 <NavLink key={link.to} to={link.to} className={navLinkClasses}>{link.text}</NavLink>
               ))
             )}
-          </nav>
+          </div>
 
           {/* Desktop Action Buttons & User Menu */}
           <div className="hidden lg:flex items-center space-x-6">
@@ -140,14 +141,11 @@ const Header = () => {
               </div>
             ) : (
               <>
-                {!authPage  && (
-                  <>
-                    <Link to="/auth/login" className="text-base font-medium text-gray-600 hover:text-black">Login</Link>
-                    <Link to="/auth/register" className="text-base font-medium bg-[#54BD95] text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity">
-                      Sign Up
-                    </Link>
-                  </>
-                )}
+                {authPage ? null : <Button variant="contained" sx={{ p: 1.7, mx: 1, background: '#54BD95', color: 'white' }}> <FaSearch /></Button>}
+                <Link to="/auth/login" className="text-base font-medium pl-3  text-gray-600 hover:text-black">Login</Link>
+                <Link to="/auth/register" className="text-base font-medium bg-[#54BD95] text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity">
+                  Sign Up
+                </Link>
               </>
             )}
           </div>
@@ -215,16 +213,16 @@ const Header = () => {
               </div>
             ) : (
               <div className="space-y-3">
-                {!authPage && (
-                  <>
-                    <Link to="/auth?mode=signup" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-white bg-[#54BD95] px-4 py-3 rounded-lg hover:opacity-90 transition-opacity">
-                      Sign Up
-                    </Link>
-                    <Link to="/auth" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-gray-700 bg-gray-200 px-4 py-3 rounded-lg hover:bg-gray-300 transition-colors">
-                      Login
-                    </Link>
-                  </>
-                )}
+
+                <>
+                  <Link to="/auth/register" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-white bg-[#54BD95] px-5 py-3 rounded-lg hover:opacity-90 transition-opacity">
+                    Sign Up
+                  </Link>
+                  <Link to="/auth/login" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-gray-700 bg-gray-200 px-5 py-3 rounded-lg hover:bg-gray-300 transition-colors">
+                    Login
+                  </Link>
+                </>
+
               </div>
             )}
           </div>

@@ -9,11 +9,11 @@ import blogImage4 from '../assets/images/Blogs/blog4.png';
 export const allBlogPosts = [
   {
     id: 1,
-    title: 'Health Benefits in Kids in India',
+    title: 'Why School-Based Fitness Builds Lifelong Health',
     image: blogImage1,
-    readTime: '4 Min',
-    date: 'August 19, 2022',
-    excerpt: 'An in-depth look at the positive impact of physical activity on children\'s health across India, focusing on holistic development.'
+    readTime: '5 Min',
+    date: 'July 7, 2025',
+    excerpt: 'Discover how structured school fitness programs improve children’s physical, mental, and academic development — and why early movement matters for lifelong wellness.'
   },
   {
     id: 2,

@@ -24,7 +24,7 @@ const BlogPost = () => {
   // Enhanced mock data for this specific view
   const detailedPost = {
     ...post,
-    category: 'Artificial Intelligence',
+    category: 'Health & Wellness',
     author: {
       name: 'Tamás Hám-Szabó',
       title: 'Founder of SAAS First - the Best AI and Data-Driven Customer Engagement Tool.',
@@ -32,24 +32,67 @@ const BlogPost = () => {
       image: authorImage,
       linkedin: '#',
     },
+    meta: {
+      title: 'School-Based Fitness Programs | Building Lifelong Health in Students',
+      description: `Discover how school-based fitness programs improve children's physical health, mental well-being, and long-term habits. Learn why early physical education matters.`,
+    },
     headings: [
-      { id: 'exploring-generative-ai', title: 'Exploring Generative AI in Content Creation' },
-      { id: 'steering-clear-of-pitfalls', title: 'Steering Clear of Common AI Writing Pitfalls' },
-      { id: 'understanding-capabilities', title: 'Understanding ChatGPT Capabilities - Define Your Style' },
+      { id: 'physical-health-starts-early', title: 'Physical Health Starts Early' },
+      { id: 'mental-health-benefits', title: 'Mental Health Benefits' },
+      { id: 'academic-improvement', title: 'Academic Improvement' },
+      { id: 'habit-formation', title: 'Habit Formation That Lasts' },
+      { id: 'equal-access', title: 'Equal Access to Health' },
     ],
     content: `
-      <h2 id="exploring-generative-ai" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Exploring Generative AI in Content Creation</h2>
-      <p class="text-lg text-gray-700 leading-relaxed mb-6">Hello there! As a marketing manager in the SaaS industry, you might be looking for innovative ways to engage your audience. I bet generative AI has crossed your mind as an option for creating content. Well, let me share from my firsthand experience.</p>
-      <p class="text-lg text-gray-700 leading-relaxed mb-6">Google encourages high-quality blogs regardless of whether they're <a href="#" class="text-blue-600 underline">written by humans or created using artificial intelligence</a> like ChatGPT. Here's what matters: producing original material with expertise and trustworthiness based on Google E-E-A-T principles.</p>
-      
-      <h2 id="steering-clear-of-pitfalls" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Steering Clear of Common AI Writing Pitfalls</h2>
-      <p class="text-lg text-gray-700 leading-relaxed mb-6">This means focusing more on people-first writing rather than primarily employing AI tools to manipulate search rankings. There comes a time when many experienced professionals want to communicate their insights but get stuck due to limited writing skills – that's where <strong>Generative AI</strong> can step in.</p>
-      
-      <h2 id="understanding-capabilities" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Understanding ChatGPT Capabilities - Define Your Style</h2>
-      <p class="text-lg text-gray-700 leading-relaxed mb-6">So, together, we're going to explore how this technology could help us deliver valuable content without sounding robotic or defaulting into mere regurgitations of existing materials (spoiler alert – common pitfalls!). Hang tight - it'll be a fun learning journey!</p>
+      <h1 class="text-4xl font-bold mt-8 mb-4">Why School-Based Fitness Programs Are Key to Lifelong Health</h1>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        In today’s screen-heavy, sedentary lifestyle, schools hold the power to influence the future of public health.
+        School-based fitness programs serve as a vital foundation for lifelong health by fostering physical, emotional, and cognitive development in students from an early age.
+      </p>
+  
+      <h2 id="physical-health-starts-early" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Physical Health Starts Early</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        Childhood is a critical period for developing strength, endurance, coordination, and flexibility. Structured physical education in schools ensures consistent exposure to these activities. 
+        Programs like Alpro Health & Fitness incorporate age-appropriate aerobic exercises, strength training routines, balance challenges, and stretching techniques that promote muscular and skeletal development.
+        Regular participation not only enhances daily energy levels but also reduces the risk of childhood obesity, diabetes, and cardiovascular issues.
+      </p>
+  
+      <h2 id="mental-health-benefits" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Mental Health Benefits</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        Physical activity stimulates the release of endorphins and reduces cortisol levels, helping children manage stress and anxiety. 
+        Incorporating student wellness programs that include movement, mindfulness, and group activities can improve mood, boost self-esteem, and support emotional regulation.
+        In inclusive and supportive fitness environments, students feel safer, more connected, and more motivated to participate in school life.
+      </p>
+  
+      <h2 id="academic-improvement" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Academic Improvement</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        Research consistently shows that physically active students perform better academically. 
+        Movement increases blood flow to the brain, enhancing focus, memory retention, and problem-solving abilities. 
+        By embedding PE and fitness assessments into the curriculum, schools create a feedback loop that supports both cognitive and physical progress.
+        Even short bouts of activity, like classroom fitness breaks or morning exercises, can significantly improve attention spans and learning outcomes.
+      </p>
+  
+      <h2 id="habit-formation" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Habit Formation That Lasts</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        Children who engage in daily movement are more likely to carry those habits into adulthood. 
+        Consistent participation in school fitness programs fosters routine, discipline, and an understanding of long-term health maintenance. 
+        Programs that emphasize enjoyment, personal goal setting, and self-monitoring help build intrinsic motivation for lifelong physical activity.
+      </p>
+  
+      <h2 id="equal-access" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Equal Access to Health</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        Not every family has access to extracurricular fitness programs, safe play areas, or sports facilities. 
+        School-based programs level the playing field by providing equitable access to structured physical activity. 
+        Every child, regardless of background, benefits from a consistent and supportive physical education environment.
+      </p>
+  
+      <p class="text-lg text-gray-700 leading-relaxed mt-8">
+        <strong>Conclusion:</strong> Quwwa Health delivers structured, inclusive fitness programs and comprehensive health assessments that empower schools to nurture healthy, active, and engaged students. 
+        We believe investing in school fitness is investing in a healthier future.
+      </p>
     `,
   };
-
+  
   const handleLinkClick = (e, targetId) => {
     e.preventDefault();
     const targetElement = document.getElementById(targetId);
@@ -98,9 +141,9 @@ const BlogPost = () => {
             <div className="bg-blue-800 text-white p-6 rounded-2xl shadow-lg">
                 <h3 className="font-bold text-lg">Share with your community!</h3>
                 <div className="flex space-x-3 mt-4">
-                    <a href="#" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaFacebookF /></a>
-                    <a href="#" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaTwitter /></a>
-                    <a href="#" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaLinkedinIn /></a>
+                    <a href="https://www.facebook.com/" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaFacebookF /></a>
+                    <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaTwitter /></a>
+                    <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw==" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaLinkedinIn /></a>
                 </div>
             </div>
 
