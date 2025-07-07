@@ -9,14 +9,12 @@ import image1 from '../assets/images/Hero/image.png';
 import image2 from '../assets/images/Hero/image1.png';
 import image3 from '../assets/images/Hero/image2.png';
 import image4 from '../assets/images/Hero/image4.png';
-import image5 from '../assets/images/Hero/image5.png';
-import image6 from '../assets/images/Hero/hero1.jpg';
-import image7 from '../assets/images/Hero/hero2.jpg';
+
 const images = [image1, image2, image3, image4];
 
 const DecorativeIcons = () => (
   <>
-    <div className="absolute top-6 right-0  -mr-5 z-20">
+    <div className="absolute top-6 right-0  mr-0 md:-mr-5 z-20">
       <div className="w-12 h-12 bg-[#FBC75E] rounded-lg flex items-center justify-center shadow-lg transform rotate-20">
         <FiDatabase className="text-white text-2xl" />
       </div>
@@ -72,7 +70,7 @@ const Hero = () => {
             <div className="relative aspect-[636/526]">
               <SvgBackground />
               <DecorativeIcons />
-              <div className="absolute inset-0 pt-[15%] sm:pt-[20%] md:pt-[110px] pr-[2%] z-10">
+              <div className="absolute inset-0 pt-[15%] sm:pt-[20%] md:pt-[110px] pr-[0%] z-10">
                 <Swiper
                   modules={[Navigation, Autoplay]}
                   navigation={{

@@ -2,8 +2,8 @@ import React from 'react';
 import CheckIcon from '../components/CheckIcon';
 import aboutImage from '../assets/images/About/image.png';
 import amandaImage from '../assets/images/About/image1.png'; // Placeholder for Amanda
-
-const About = () => {
+ 
+const About = ({ isChatOpen, setIsChatOpen }) => {
   return (
     <section className="py-16 md:py-20 lg:py-28  bg-gradient-to-r from-white to-green-50 px-6 sm:px-8 lg:px-14">
       <div className="container mx-auto">
@@ -39,15 +39,15 @@ const About = () => {
             {/* Amanda Young Card */}
             <div className="hidden md:flex absolute top-8 -left-12 bg-white p-4 md:p-5 rounded-2xl shadow-xl items-center gap-3 w-auto z-10">
               <img
-                src={amandaImage}
+               src="/chatbotImage.jpg"
                 alt="Amanda Young"
                 className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full object-cover"
               />
               <div className="flex-grow">
-                <p className="font-bold text-[#191A15] text-base md:text-lg lg:text-xl">Amanda Young</p>
-                <p className="text-sm md:text-base lg:text-lg text-[#A6A6A6]">Expert</p>
+                <p className="font-bold text-[#191A15] text-base md:text-lg lg:text-xl">Chat with Us</p>
+                <p className="text-sm md:text-base lg:text-lg text-[#A6A6A6]">Amanda Young</p>
               </div>
-              <div className="bg-[#54BD95] p-2 md:p-3 rounded-full text-white ml-3">
+              <div onClick={() => { setIsChatOpen(true) }} className="bg-[#54BD95] p-2 md:p-3 rounded-full text-white ml-3">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.745A9.953 9.953 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>

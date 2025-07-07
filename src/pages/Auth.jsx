@@ -14,11 +14,11 @@ import { Box } from '@mui/material'
 const Auth = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
-  
+
   const switchMode = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin)
   }
- 
+
   return (
     <Box sx={{ height: "90vh" }}>
       <Outlet />

@@ -70,7 +70,7 @@ const QuwwaLogo = () => (
 
 function Login() {
     return (
-        <Box component="main" sx={{ fontFamily: 'sans-serif', bgcolor: '#F2D184', height: '100%' }}>
+        <Box component="main" sx={{ fontFamily: 'sans-serif', bgcolor: '#F2D184', height: '100%' , overflow: 'hidden'}}>
             <Box sx={{
                 minHeight: { xs: 'calc(100vh - 4rem)', md: 'calc(100vh - 5rem)' },
                 display: 'flex',

@@ -26,6 +26,7 @@ import HolidayCamp from './pages/HolidayCamp'
 import Branding from './pages/Branding'
 import Login from './pages/login'
 import Register from './pages/register'
+import { useState } from 'react'
 function App() {
   const dispatch = useDispatch()
   const { initialLoad } = useSelector((state) => state.auth)
@@ -46,12 +47,12 @@ function App() {
   //     </div>
   //   )
   // }
-
+  const [isChatOpen, setIsChatOpen] = useState(false);
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+        <Route path="/" element={<Layout isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />}>
+          <Route index element={<Home isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />} />
           <Route path="about" element={<AboutUs />} />
           <Route path="programs" element={<Programs />} />
           <Route path="contact" element={<ContactUs />} />

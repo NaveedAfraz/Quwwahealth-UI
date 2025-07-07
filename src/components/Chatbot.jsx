@@ -3,8 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { FiMessageSquare, FiSend, FiX } from 'react-icons/fi';
 import quwwaLogo from '../assets/images/header.png';
 
-const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Chatbot = ({ isOpen, setIsOpen }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +60,7 @@ const Chatbot = () => {
   useEffect(() => {
     // Scroll to the bottom whenever messages change
     if (chatContainerRef.current) {
-        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -77,7 +76,7 @@ const Chatbot = () => {
 
     try {
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-      
+
       // Create the system prompt with FAQ data
       const systemPrompt = `You are the Quwwa Health Assistant, a helpful AI assistant for Quwwa Health - a wellness company that helps schools promote student health through PE, fitness assessments, nutrition, and wellness programs.
 
@@ -97,7 +96,7 @@ User's question: ${input}`;
       const result = await model.generateContent(systemPrompt);
       const response = await result.response;
       const text = response.text();
-      
+
       setMessages((prev) => [...prev, { sender: 'bot', text }]);
     } catch (error) {
       console.error('Gemini API error:', error);
@@ -118,7 +117,7 @@ User's question: ${input}`;
 
     // Use the same LLM approach for suggested questions
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    
+
     const systemPrompt = `You are the Quwwa Health Assistant, a helpful AI assistant for Quwwa Health - a wellness company that helps schools promote student health through PE, fitness assessments, nutrition, and wellness programs.
 
 Here is our FAQ database with questions and answers:
@@ -161,27 +160,26 @@ User's question: ${question}`;
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-28 right-8 z-50 w-96 bg-white rounded-2xl shadow-xl transition-all duration-300 ease-in-out ${
-          isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-        }`}
+        className={`fixed bottom-28 right-8 z-50 w-96 bg-white rounded-2xl shadow-xl transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+          }`}
       >
         {/* Header */}
         <div className="bg-[#54BD95] p-4 rounded-t-2xl flex items-center gap-4">
-            <img src={quwwaLogo} alt="Quwwa Health" className="h-8 bg-white p-1 rounded-md" />
-            <div>
-                <h3 className="font-bold text-white text-lg">Quwwa Health Assistant</h3>
-                <p className="text-xs text-green-100">Powered by Gemini</p>
-            </div>
+          <img src={quwwaLogo} alt="Quwwa Health" className="h-8 bg-white p-1 rounded-md" />
+          <div>
+            <h3 className="font-bold text-white text-lg">Quwwa Health Assistant</h3>
+            <p className="text-xs text-green-100">Powered by Gemini</p>
+          </div>
         </div>
 
         {/* Messages */}
         <div ref={chatContainerRef} className="h-96 p-4 overflow-y-auto space-y-4">
           <div className="flex justify-start">
             <div className="max-w-xs px-4 py-2 rounded-2xl bg-gray-100 text-[#191A15] rounded-bl-none">
-                Hello! I am the Quwwa Health assistant. How can I help you today?
+              Hello! I am the Quwwa Health assistant. How can I help you today?
             </div>
           </div>
-          
+
           {/* Suggested Questions */}
           {showSuggestions && messages.length === 0 && (
             <div className="space-y-2">
@@ -197,15 +195,14 @@ User's question: ${question}`;
               ))}
             </div>
           )}
-          
+
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.sender === 'bot' ? 'justify-start' : 'justify-end'}`}>
               <div
-                className={`max-w-xs px-4 py-2 rounded-2xl ${
-                  msg.sender === 'bot'
+                className={`max-w-xs px-4 py-2 rounded-2xl ${msg.sender === 'bot'
                     ? 'bg-gray-100 text-[#191A15] rounded-bl-none'
                     : 'bg-green-500 text-white rounded-br-none'
-                }`}
+                  }`}
               >
                 {msg.text}
               </div>
@@ -213,9 +210,9 @@ User's question: ${question}`;
           ))}
           {isLoading && (
             <div className="flex justify-start">
-                 <div className="bg-gray-100 text-[#A6A6A6] px-4 py-2 rounded-2xl rounded-bl-none">
-                    Typing...
-                 </div>
+              <div className="bg-gray-100 text-[#A6A6A6] px-4 py-2 rounded-2xl rounded-bl-none">
+                Typing...
+              </div>
             </div>
           )}
         </div>

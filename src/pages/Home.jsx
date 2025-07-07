@@ -6,14 +6,14 @@ import CTA from '../sections/CTA'
 import Programs from '../sections/Programs'
 import Testimonials from '../sections/Testimonials'
 
-const Home = () => {
+const Home = ({ isChatOpen, setIsChatOpen }) => {
   return (
     <div className="home ">
       <Hero />
       <Highlights />
       <CTA />
       <Programs />
-      <About />
+      <About isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />
       <Testimonials />
     </div>
   )
