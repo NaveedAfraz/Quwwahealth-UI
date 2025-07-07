@@ -62,6 +62,7 @@ const Header = () => {
     handleMobileNavClick(); // Close mobile menu and scroll to top
   };
   const authPage = location.pathname === 'auth/login' || location.pathname === 'auth/register';
+  const homePage = location.pathname === '/';
   // Navigation links array for cleaner mapping 
   const navLinks = [
     { to: '/', text: 'Home' },
@@ -89,9 +90,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-[#DFF2E0] to-[#F7F6ED]  sticky top-0 z-30 px-3 sm:px-4 md:px-6 lg:px-8">
-
-        <div className="container mx-auto flex items-center justify-between p-3 sm:p-4 md:py-4">
+      <header className={`${!homePage || !authPage ? 'bg-white' : 'bg-gradient-to-r from-[#DFF2E0] to-[#F7F6ED]'} sticky top-0 z-30 px-3 sm:px-4 md:px-6 lg:px-8`}>
+        <div className="container mx-auto flex items-center justify-between p-2 sm:p-4 md:py-4">
           {/* Logo */}
           <Link to="/" onClick={() => window.scrollTo(0, 0)}>
             <img src={Logo} alt="QuwwaHealth Logo" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x50?text=Logo'; }} />
@@ -140,10 +140,10 @@ const Header = () => {
               </div>
             ) : (
               <>
-                {!authPage && (
+                {!authPage  && (
                   <>
-                    <Link to="/auth" className="text-base font-medium text-gray-600 hover:text-black">Login</Link>
-                    <Link to="/auth?mode=signup" className="text-base font-medium bg-[#54BD95] text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity">
+                    <Link to="/auth/login" className="text-base font-medium text-gray-600 hover:text-black">Login</Link>
+                    <Link to="/auth/register" className="text-base font-medium bg-[#54BD95] text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity">
                       Sign Up
                     </Link>
                   </>
@@ -154,9 +154,9 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
-            <button onClick={toggleMenu} className="text-black focus:outline-none p-2">
+            {!authPage && <button onClick={toggleMenu} className="text-black focus:outline-none p-2">
               <FaBars className="w-7 h-7" />
-            </button>
+            </button>}
           </div>
         </div>
       </header>

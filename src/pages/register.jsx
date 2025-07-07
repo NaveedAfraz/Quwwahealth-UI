@@ -29,17 +29,17 @@ function Register() {
     const [checked, setChecked] = React.useState(true);
     const navigate = useNavigate();
     return (
-        <div className="bg-white font-sans">
+        <div className="bg-white font-sans h-[100%]  ">
             {/* <div className='md:block sm:hidden xs:hidden'>
                 <nav className="w-full flex justify-center py-3">
                     <QuwwaLogo />
                 </nav>  
             </div> */}
-            <main className="min-h-[calc(100vh-80px)]   md:flex md:justify-center sm:flex sm:justify-start">
+            <main className="min-h-[calc(100vh-100px)] md:flex md:justify-center sm:flex sm:justify-start overflow-hidden">
                 {/* Left Side: Branding Panel */}
-                <div className="w-full hidden md:block sm:block md:w-1/2 sm:w-1/2 bg-[#F2D184]  flex-col  md:items-start text-center md:text-left">
-                    <Box className="w-full  bg-[#F2D184]">
-                        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', mb: 1, width: '100%', pl: '0%', marginTop: '10%' }}>
+                <div className="w-full hidden h-[100vh] md:block sm:block md:w-1/2 sm:w-1/2 bg-[#F2D184] flex-col md:items-start text-center md:text-left  ">
+                    <div className="w-full bg-[#F2D184]">
+                        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', mb: 1, width: '100%', pl: '0%', marginTop: '5%' }}>
                             <div className="flex items-center  mb-6 ml-10">
                                 <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-10 sm:h-12 md:h-16 lg:h-15 xl:h-20" />
                             </div>
@@ -56,13 +56,13 @@ function Register() {
                         <Typography sx={{ color: '#6B7281', fontSize: '0.875rem', mt: 'auto', pt: 4, textAlign: 'center' }}>
                             © Alpro 2025
                         </Typography>
-                    </Box>
+                    </div>
                 </div>
 
                 {/* Right Side: Sign-up Form Panel */}
-                <div className="w-full md:w-2/3 sm:w-1/2 flex items-center justify-center p-6 md:p-12">
+                <div className="w-full md:w-2/3 sm:w-1/2 h-[100%] flex justify-center p-6 bg-white md:p-2">
                     <div className="w-full max-w-md">
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'end', flexDirection: 'column', mb: 4, width: '100%', pl: '10%', marginTop: '10%' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'end', flexDirection: 'column', mb: 1, width: '100%', pl: '10%', marginTop: '0%' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}><span>Already a member? </span> <span onClick={() => navigate("/auth/login")} className="text-blue-600 cursor-pointer">Sign in</span></Box>
                         </Box>
                         <Typography component="h2" sx={{ fontSize: '2rem', fontWeight: 'bold', color: '#1F2937', mb: 3 }}>
@@ -259,7 +259,7 @@ function Register() {
                     </div>
                 </div>
             </main >
-        </div >
+        </div>
     );
 }
 

@@ -60,8 +60,8 @@ function App() {
           <Route path="/holiday-camp" element={<HolidayCamp />} />
           <Route path="/branding" element={<Branding />} />
           <Route path="auth" element={<Auth />}>
-          <Route index path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
+            <Route index path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
           </Route>
           <Route
             path="profile"
