@@ -2,7 +2,7 @@ import React from 'react';
 
 const SportsCoaching = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-[#F7FBEF]">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-[#F7FBEF] bg-gradient-to-r from-white to-green-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-x-16 lg:gap-x-24 xl:gap-x-32 gap-y-12 md:gap-y-16 lg:gap-y-20">
           

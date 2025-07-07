@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { allBlogPosts } from './Blogs'; // Assuming you export this from Blogs.jsx
 import { FaLinkedinIn, FaFacebookF, FaTwitter } from 'react-icons/fa';
@@ -92,24 +92,44 @@ const BlogPost = () => {
       </p>
     `,
   };
-  
-  const handleLinkClick = (e, targetId) => {
+  const [activeId, setActiveId] = useState(null);
+  const handleLinkClick = (e, id) => {
     e.preventDefault();
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const target = document.getElementById(id);
+    if (target) {
+      const yOffset = -100; // Adjust based on navbar height
+      const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      setActiveId(id); // Highlight the link on click
     }
   };
+  useEffect(() => {
+    const handleScroll = () => {
+      for (const heading of detailedPost.headings) {
+        const el = document.getElementById(heading.id);
+        if (el) {
+          const top = el.getBoundingClientRect().top;
+          if (top >= 0 && top <= 150) {
+            setActiveId(heading.id);
+            break;
+          }
+        }
+      }
+    };
 
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [detailedPost.headings]);
   return (
-    <div className="bg-[#F3F6F1] py-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#F3F6F1] py-16 px-4 sm:px-6 lg:px-8  bg-gradient-to-r from-white to-green-100">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
-        
+
         {/* Main Content */}
         <main className="lg:col-span-2">
           {/* Featured Image and Title */}
           <div className="relative rounded-2xl overflow-hidden mb-12">
-            <img src={detailedPost.image} alt={detailedPost.title} className="w-full h-auto md:h-[450px] object-cover"/>
+            <img src={detailedPost.image} alt={detailedPost.title} className="w-full h-auto md:h-[450px] object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
             <div className="absolute bottom-0 left-0 p-8 text-white">
               <span className="bg-purple-200 text-purple-800 text-sm font-semibold px-3 py-1 rounded-full">{detailedPost.category}</span>
@@ -117,53 +137,58 @@ const BlogPost = () => {
               <p className="mt-3 text-gray-300">{detailedPost.date} • {detailedPost.readTime}</p>
             </div>
           </div>
-          
+
           {/* Article Content */}
           <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: detailedPost.content }} />
         </main>
 
         {/* Sidebar */}
         <aside className="space-y-8 sticky top-24 h-screen">
-            {/* Author Card */}
-            <div className="bg-blue-600 text-white p-6 rounded-2xl shadow-lg">
-                <div className="flex items-center space-x-4">
-                    <img src={detailedPost.author.image} alt={detailedPost.author.name} className="w-20 h-20 rounded-full border-2 border-white"/>
-                    <div>
-                        <h3 className="font-bold text-xl">{detailedPost.author.name}</h3>
-                        <a href={detailedPost.author.linkedin} className="text-blue-300 hover:text-white transition-colors"><FaLinkedinIn className="inline"/> Connect</a>
-                    </div>
-                </div>
-                <p className="mt-4 text-blue-100 text-sm">{detailedPost.author.title}</p>
-                <p className="mt-4 text-blue-100 text-sm">{detailedPost.author.bio}</p>
+          {/* Author Card */}
+          <div className="bg-[#3D22CF] text-white p-6 rounded-2xl shadow-lg">
+            <div className="flex items-center space-x-4">
+              <img src={detailedPost.author.image} alt={detailedPost.author.name} className="w-20 h-20 rounded-lg  border-2 border-white" />
+              <div>
+                <h3 className="font-bold text-xl">{detailedPost.author.name}</h3>
+                <a href={detailedPost.author.linkedin} className="text-blue-300 hover:text-white transition-colors"><FaLinkedinIn className="inline" /></a>
+              </div>
             </div>
+            <p className="mt-4 text-blue-100 text-sm">{detailedPost.author.title}</p>
+            <p className="mt-4 text-blue-100 text-sm">{detailedPost.author.bio}</p>
+          </div>
 
-            {/* Share Card */}
-            <div className="bg-blue-800 text-white p-6 rounded-2xl shadow-lg">
-                <h3 className="font-bold text-lg">Share with your community!</h3>
-                <div className="flex space-x-3 mt-4">
-                    <a href="https://www.facebook.com/" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaFacebookF /></a>
-                    <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaTwitter /></a>
-                    <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw==" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaLinkedinIn /></a>
-                </div>
+          {/* Share Card */}
+          <div className="bg-[#0A1C8F] text-white p-6 rounded-2xl shadow-lg">
+            <h3 className="font-bold text-lg">Share with your community!</h3>
+            <div className="flex space-x-3 mt-4">
+              <a href="https://www.facebook.com/" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaFacebookF /></a>
+              <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaTwitter /></a>
+              <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw==" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaLinkedinIn /></a>
             </div>
+          </div>
 
-            {/* In this article */}
-            <div className="p-6 rounded-2xl bg-white shadow-lg">
-                <h3 className="font-bold text-lg mb-4">In this article</h3>
-                <ul className="space-y-3">
-                    {detailedPost.headings.map(heading => (
-                        <li key={heading.id}>
-                            <a 
-                                href={`#${heading.id}`}
-                                onClick={(e) => handleLinkClick(e, heading.id)}
-                                className="text-[#848383] hover:text-blue-600 transition-colors font-medium border-l-2 border-transparent hover:border-blue-600 pl-3 block"
-                            >
-                                {heading.title}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+          {/* In this article */}
+          <div className="p-6 rounded-2xl bg-white shadow-lg">
+            <h3 className="font-bold text-lg mb-4">In this article</h3>
+            <ul className="space-y-3">
+              {detailedPost.headings.map((heading) => (
+                <li key={heading.id}>
+                  <a
+                    href={`#${heading.id}`}
+                    onClick={(e) => handleLinkClick(e, heading.id)}
+                    className={`block pl-3 border-l-2 font-medium transition-colors
+            ${activeId === heading.id
+                        ? 'text-[#5D3EFF] border-[#5D3EFF]'
+                        : 'text-gray-700 border-transparent hover:text-blue-600 hover:border-blue-600'
+                      }`}
+                  >
+                    {heading.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </aside>
 
       </div>

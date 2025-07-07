@@ -54,7 +54,7 @@ const teamMembers = [
 ];
 
 const TeamCard = ({ member, isFounder = false }) => (
-  <div className={`bg-white rounded-3xl shadow-lg p-6 md:p-8 flex flex-col items-center h-full transform hover:scale-105 transition-transform duration-300 ${isFounder ? 'lg:flex-row lg:items-start lg:text-left' : ''}`}>
+  <div className={`bg rounded-3xl shadow-lg p-2 md:p-4 flex flex-col items-center h-full transform hover:scale-105 transition-transform duration-300 ${isFounder ? 'lg:flex-row lg:items-start lg:text-left' : ''}`}>
     <img
       src={member.image}
       alt={`Portrait of ${member.name}`}

@@ -5,7 +5,7 @@ import footerLogo from '../assets/images/footer.png'
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1E2A3A] text-white">
+    <footer className="bg-[#161C28] text-white">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Newsletter */}

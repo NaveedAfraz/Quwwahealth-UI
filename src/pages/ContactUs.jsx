@@ -51,9 +51,9 @@ const ContactUs = () => {
   }
 
   return (
-    <div className="bg-[#F7FBEF] py-24 px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#F7FBEF] py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-white to-green-100">
       {/* Header */}
-      <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="text-center max-w-2xl mx-auto mb-16 ">
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900">Contact Us</h1>
         <p className="mt-4 text-lg text-[#848383]">
           Any question or remarks? Just write us a message!
@@ -67,17 +67,34 @@ const ContactUs = () => {
         <div className="w-full md:w-1/3 bg-[#54BD95] text-white p-8 sm:p-12 flex flex-col justify-between relative overflow-hidden">
           <div>
             <h2 className="text-3xl font-bold mb-2">Contact Information</h2>
-            <p className="text-green-100">For inquiries or to join our movement towards healthier schools, reach out at:  Headquarter office 9/2 Immamigate agrasen choraha <br /> Syed complex Bhopal
 
-              Regional office Gwalior district old Shivpuri alpro physio clinic<br /> Madhya Pradesh pin 47355</p>
-            <div className="mt-12 space-y-6">
+            <p className="text-green-100">
+              For inquiries or to join our movement towards healthier schools, reach out at:
+              <br />
+              <span className="mt-2 inline-block">
+                <strong>Headquarter Office:</strong> 9/2 Immamigate, Agrasen Choraha, Syed Complex, Bhopal
+              </span>
+              <br />
+              <span className="mt-2 inline-block">
+                <strong>Regional Office:</strong> Gwalior District, Old Shivpuri, Alpro Physio Clinic,
+              </span>
+              <br />
+              <span className="inline-block">
+                Madhya Pradesh, PIN 47355
+              </span>
+            </p>
+
+            <div className="mt-6 space-y-6">
               <div className="flex items-center space-x-4">
                 <FiMail className="h-6 w-6" />
                 <span>info@quwwahealth.com</span>
               </div>
+
               <div className="flex items-start space-x-4">
                 <FiMapPin className="h-6 w-6 mt-1" />
-                <span>9/2 Immamigate agrasen choraha Syed complex Bhopal</span>
+                <span>
+                  9/2 Immamigate, Agrasen Choraha, Syed Complex, Bhopal
+                </span>
               </div>
             </div>
           </div>

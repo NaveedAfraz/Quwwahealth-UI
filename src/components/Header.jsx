@@ -91,11 +91,11 @@ const Header = () => {
 
   return (
     <>
-      <header className={`${!homePage || !authPage ? 'bg-white' : 'bg-gradient-to-r from-[#DFF2E0] to-[#F7F6ED]'} sticky top-0 z-30 px-3 sm:px-4 md:px-6 lg:px-8`}>
-        <div className="container mx-auto flex items-center justify-between p-2 sm:p-4 md:py-4">
+      <header className={`${(!homePage && !authPage) || !homePage ? 'bg-gradient-to-r from-[#DFF2E0] to-[#F7F6ED]' : 'bg-white'} sticky top-0 z-30 px-0 sm:px-0 md:px-0 lg:px-0`}>
+        <div className="mx-auto flex items-center justify-between p-2 sm:p-4 md:py-4">
           {/* Logo */}
           <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-            <img src={Logo} alt="QuwwaHealth Logo" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x50?text=Logo'; }} />
+            <img src={Logo} alt="QuwwaHealth Logo" className="h-10 ml-2 md:ml-24 sm:h-12 md:h-14 lg:h-16 w-auto" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x50?text=Logo'; }} />
           </Link>
 
           {/* Desktop Navigation */}

@@ -9,16 +9,12 @@ body {
   width: 12px;
   background: #fff;
 }
-::-webkit-scrollbar-thumb {
-  background: #52BD94;
-  border-radius: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #fff;
+ 
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
-/* For Firefox */
-html {
-  scrollbar-color: #52BD94 #fff;
-  scrollbar-width: thin;
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
 }

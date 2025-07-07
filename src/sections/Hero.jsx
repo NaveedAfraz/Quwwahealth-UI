@@ -12,7 +12,7 @@ import image4 from '../assets/images/Hero/image4.png';
 import image5 from '../assets/images/Hero/image5.png';
 import image6 from '../assets/images/Hero/hero1.jpg';
 import image7 from '../assets/images/Hero/hero2.jpg';
-const images = [image1, image2, image3, image4, image5, image6, image7];
+const images = [image1, image2, image3, image4];
 
 const DecorativeIcons = () => (
   <>
@@ -46,14 +46,15 @@ const SvgBackground = () => (
 
 const Hero = () => {
   return (
-    <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-r from-white to-green-50 px-1">
+    <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-r from-white to-green-100 px-1">
       <div className="container mx-auto px-2 sm:px-2 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text Content */}
           <div className="text-center md:text-left p-4 sm:p-2 lg:p-2">
+
             <p className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[55px] leading-tight sm:leading-tight md:leading-[76px] tracking-[0%] text-[#191A15] mb-4">
               Building <br className="hidden sm:block" /> Healthier
-              
+              <br />
               Futures <br className="hidden sm:block" /> Together!
             </p>
             <div className="flex justify-center md:justify-start my-4 sm:my-6">

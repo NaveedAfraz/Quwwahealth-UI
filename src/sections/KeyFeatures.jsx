@@ -44,7 +44,7 @@ const KeyFeatures = () => {
               <div className="flex-shrink-0 bg-white p-4 sm:p-5 md:p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300">
                 {feature.icon}
               </div>
-              <p className="text-black text-base sm:text-lg md:text-xl lg:text-2xl font-medium leading-relaxed">{feature.text}</p>
+              <p className="text-black text-base sm:text-sm md:text-md lg:text-lg font-medium leading-relaxed">{feature.text}</p>
             </div>
           ))}
         </div>
