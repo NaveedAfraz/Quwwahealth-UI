@@ -17,7 +17,7 @@ const Layout = ({ isChatOpen, setIsChatOpen }) => {
         <Outlet setIsChatOpen={setIsChatOpen} isChatOpen={isChatOpen} />
       </main>
       {!isAuthPage && login && <Footer />}
-      <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+      {!isAuthPage && <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />}
     </div>
   )
 }
