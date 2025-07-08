@@ -20,7 +20,7 @@ const Auth = () => {
   }
 
   return (
-    <Box sx={{ height: "90vh" }}>
+    <Box sx={{ height: "100vh" }}>
       <Outlet />
     </Box>
   )
