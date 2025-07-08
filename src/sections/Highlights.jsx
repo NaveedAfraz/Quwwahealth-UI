@@ -47,7 +47,7 @@ const Highlights = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 lg:py-32 bg-[#F9F8FE] px-6 sm:px-8 lg:px-12">
+    <section className="py-30 md:py-28 lg:py-32 px-6 sm:px-8 lg:px-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
           {/* Left Column */}
@@ -60,11 +60,11 @@ const Highlights = () => {
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 lg:gap-16">
               <Rating rating={4.9} source="google.com" />
               <Rating rating={4.8} source="healthplatform" />
-            </div>
+            </div>  
           </div>
 
           {/* Right Column */}
-          <div className="space-y-10 md:space-y-12 lg:space-y-16 pl-8">
+          <div className="space-y-10 md:space-y-12 flex flex-col justify-center  lg:space-y-16 pl-8">
             {features.map((feature, index) => (
               <Feature key={index} icon={feature.icon} text={feature.text} />
             ))}

@@ -14,7 +14,7 @@ const images = [image1, image2, image3, image4];
 
 const DecorativeIcons = () => (
   <>
-    <div className="absolute top-6 right-0  mr-0 md:-mr-5 z-20">
+    <div className="absolute top-6 right-0  mr-0 md:-mr-5 z-20">
       <div className="w-12 h-12 bg-[#FBC75E] rounded-lg flex items-center justify-center shadow-lg transform rotate-20">
         <FiDatabase className="text-white text-2xl" />
       </div>
@@ -48,10 +48,10 @@ const Hero = () => {
       <div className="container mx-auto px-2 sm:px-2 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text Content */}
-          <div className="text-center md:text-left p-4 sm:p-2 lg:p-2">
+          <div className="text-center md:text-left p-2 sm:p-2 lg:p-2">
 
-            <p className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[55px] leading-tight sm:leading-tight md:leading-[76px] tracking-[0%] text-[#191A15] mb-4">
-              Building <br className="hidden sm:block" /> Healthier
+            <p className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[75px] leading-[1] sm:leading-[1] md:leading-[1] tracking-[0%] text-[#191A15] mb-4">
+              Building <br className="hidden sm:block bg-amber-400" /> Healthier
               <br />
               Futures <br className="hidden sm:block" /> Together!
             </p>
@@ -67,10 +67,10 @@ const Hero = () => {
 
           {/* Right Column: Image Slider */}
           <div className="relative mt-6 sm:mt-5 md:mt-0 w-full">
-            <div className="relative aspect-[636/526]">
+            <div className="relative aspect-[636/526] w-[100%]">
               <SvgBackground />
               <DecorativeIcons />
-              <div className="absolute inset-0 pt-[15%] sm:pt-[20%] md:pt-[110px] pr-[0%] z-10">
+              <div className="absolute inset-0 pt-[15%] sm:pt-[20%] md:pt-[110px] pr-[2%] z-10">
                 <Swiper
                   modules={[Navigation, Autoplay]}
                   navigation={{
@@ -110,6 +110,5 @@ const Hero = () => {
       </div>
     </section>
   );
-};
-
+}
 export default Hero;
