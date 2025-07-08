@@ -18,23 +18,41 @@ app.use(express.json());
 // API endpoint to send email
 app.post('/api/send-email', async (req, res) => {
     try {
-        // Get the visitor's email and message from the form submission
-        const { visitorEmail, subject, text } = req.body;
+        // Destructure all fields from the React form's formData
+        const { firstName, lastName, email, phone, subject, message } = req.body;
 
-        if (!visitorEmail || !subject || !text) {
-            return res.status(400).json({ success: false, message: 'Visitor email, subject, and text are required.' });
+        // Validation to ensure required fields are present
+        if (!firstName || !email || !subject || !message) {
+            return res.status(400).json({ success: false, message: 'First name, email, subject, and message are required.' });
         }
+
+        // Create a more detailed and formatted HTML body for the email
+        const emailHtml = `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+                <h2 style="color: #333;">New Contact Form Submission</h2>
+                <p>You have received a new message from your website's contact form.</p>
+                <hr>
+                <h3 style="color: #555;">Sender's Details:</h3>
+                <ul>
+                    <li><strong>Name:</strong> ${firstName} ${lastName || ''}</li>
+                    <li><strong>Email:</strong> ${email}</li>
+                    ${phone ? `<li><strong>Phone:</strong> ${phone}</li>` : ''}
+                </ul>
+                <h3 style="color: #555;">Message Details:</h3>
+                <p><strong>Subject:</strong> ${subject}</p>
+                <div style="background-color: #f4f4f4; padding: 15px; border-radius: 5px;">
+                    <p>${message}</p>
+                </div>
+            </div>
+        `;
 
         // Send the email using Resend
         const { data, error } = await resend.emails.send({
-            from: 'Quwwahealth Contact <onboarding@resend.dev>', // This can be any email from your verified domain
+            from: 'Quwwahealth Contact Form <onboarding@resend.dev>', // For testing. Replace with your verified domain email in production.
             to: [process.env.OWNER_EMAIL], // Your personal email to receive the message
-            subject: subject,
-            html: `
-                <h3>New message from ${visitorEmail}</h3>
-                <p>${text}</p>
-            `,
-            reply_to: visitorEmail, // Set the reply-to to the visitor's email
+            subject: `New Contact Form Submission: ${subject}`, // More descriptive subject
+            html: emailHtml, // Use the new formatted HTML
+            reply_to: email, // Set the reply-to to the visitor's email
         });
 
         if (error) {
