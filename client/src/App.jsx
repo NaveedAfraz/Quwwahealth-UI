@@ -17,6 +17,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import { getProfile, finishInitialLoad } from './store/slices/authSlice'
 import './App.css'
+import { Analytics } from "@vercel/analytics/react"
 import AdminRoute from './components/AdminRoute'
 import AdminLayout from './components/AdminLayout'
 import AdminDashboard from './pages/Admin/AdminDashboard'

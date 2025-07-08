@@ -8,12 +8,13 @@ import config from './config/config.js'
 import setupAxiosInterceptors from './utils/setupAxiosInterceptors.js'
 import './index.css'
 import App from './App.jsx'
-
+import { Analytics } from "@vercel/analytics/react"
 // Initialize axios interceptors
 setupAxiosInterceptors(store)
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Analytics />
     <Provider store={store}>
       <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}>
         <App />
