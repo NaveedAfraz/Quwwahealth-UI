@@ -149,12 +149,12 @@ const BlogPost = () => {
             <div className="flex items-center space-x-4">
               <img src={detailedPost.author.image} alt={detailedPost.author.name} className="w-20 h-20 rounded-lg  border-2 border-white" />
               <div>
-                <h3 className="font-bold text-xl">{detailedPost.author.name}</h3>
+                <h3 className="font-bold text-xl">Rahil Khan</h3>
                 <a href={detailedPost.author.linkedin} className="text-blue-300 hover:text-white transition-colors"><FaLinkedinIn className="inline" /></a>
               </div>
             </div>
-            <p className="mt-4 text-blue-100 text-sm">{detailedPost.author.title}</p>
-            <p className="mt-4 text-blue-100 text-sm">{detailedPost.author.bio}</p>
+            <p className="mt-4 text-blue-100 text-sm">Founder of Quwwa Health</p>
+            <p className="mt-4 text-blue-100 text-sm"><p>
           </div>
 
           {/* Share Card */}
