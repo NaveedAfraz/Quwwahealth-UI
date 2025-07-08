@@ -154,7 +154,7 @@ const BlogPost = () => {
               </div>
             </div>
             <p className="mt-4 text-blue-100 text-sm">Founder of Quwwa Health</p>
-            <p className="mt-4 text-blue-100 text-sm"><p>
+            <p className="mt-4 text-blue-100 text-sm"></p>
           </div>
 
           {/* Share Card */}
