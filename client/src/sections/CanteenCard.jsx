@@ -10,7 +10,7 @@ const CanteenCard = () => {
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
           <div className="w-full z-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <p className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-2 md:mb-4 leading-tight">
+            <p className="text-2xl xs:text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-2 md:mb-4 leading-tight">
               Healthy Canteen
             </p>
             <p className="text-[#0F172A] text-sm xs:text-base sm:text-sm md:text-md lg:text-lg font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 leading-relaxed max-w-xl lg:max-w-2xl">
@@ -44,7 +44,7 @@ const CanteenCard = () => {
               </div>
 
               {/* Card Image */}
-              <div className="relative z-10 w-[70vw] max-w-[240px] sm:max-w-[320px] md:max-w-[400px] lg:max-w-[500px] rounded-2xl overflow-hidden mt-6 sm:mt-8 transition-transform duration-300 hover:scale-105">
+              <div className="relative z-10 w-[70vw] max-w-[380px] sm:max-w-[450px] md:max-w-[400px] lg:max-w-[500px] rounded-2xl overflow-hidden mt-6 sm:mt-8 transition-transform duration-300 hover:scale-105">
                 <img
                   src={cardImage}
                   alt="Healthy Canteen"

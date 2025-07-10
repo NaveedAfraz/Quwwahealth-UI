@@ -2,7 +2,7 @@ import React from 'react';
 import CheckIcon from '../components/CheckIcon';
 import aboutImage from '../assets/images/About/image.png';
 import amandaImage from '../assets/images/About/image1.png'; // Placeholder for Amanda
- 
+
 const About = ({ isChatOpen, setIsChatOpen }) => {
   return (
     <section className="py-16 md:py-20 lg:py-28  bg-gradient-to-r from-white to-green-50 px-0 md:px-12 lg:px-22 xl:px-25">
@@ -10,7 +10,7 @@ const About = ({ isChatOpen, setIsChatOpen }) => {
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-10">
           {/* Left Column */}
           <div className="md:w-1/2">
-            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold leading-tight md:leading-[110%] lg:leading-[120%] tracking-[0%] text-[#191A15] mb-8 md:mb-12 lg:mb-14 w-full md:w-3/4">
+            <p className="text-3xl sm:text-4xl text-center md:text-start md:text-5xl lg:text-5xl font-bold leading-tight md:leading-[110%] lg:leading-[120%] tracking-[0%] text-[#191A15] mb-8 md:mb-12 lg:mb-14 w-full md:w-3/4">
               Health & Fitness Reporting System
             </p>
             <ul className="space-y-4 md:space-y-6">
@@ -37,24 +37,44 @@ const About = ({ isChatOpen, setIsChatOpen }) => {
               className="rounded-2xl shadow-2xl w-full max-w-md md:max-w-lg lg:max-w-xl md:h-[500px] lg:h-[600px] object-cover hover:scale-105 transition-transform duration-300"
             />
             {/* Amanda Young Card */}
-            <div className="hidden md:flex absolute top-8 -left-12 bg-white p-4 md:p-5 rounded-2xl shadow-xl items-center gap-3 w-auto z-10">
+            <div className="absolute top-8 left-[-0px] md:left-[-82px] bg-white p-4 md:p-5 rounded-2xl shadow-xl flex flex-row items-center gap-3 w-[90%] sm:w-[80%] md:w-[80%] lg:w-[70%] xl:w-[70%] z-10">
+              {/* Profile Image */}
               <img
-               src="/chatbotImage.jpg"
+                src="/chatbotImage.jpg"
                 alt="Amanda Young"
-                className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full object-cover"
+                className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover"
               />
-              <div className="flex-grow">
-                <p className="font-bold text-[#191A15] text-base md:text-lg lg:text-xl">Chat with Us</p>
-                <p className="text-sm md:text-base lg:text-lg text-[#A6A6A6]">Amanda Young</p>
+
+              {/* Text Section */}
+              <div className="flex flex-col">
+                <p className="font-semibold text-[#191A15] text-sm md:text-base lg:text-lg">Chat with Us</p>
+                <p className="text-xs md:text-sm text-[#A6A6A6]">Amanda Young</p>
               </div>
-              <div onClick={() => { setIsChatOpen(true) }} className="bg-[#54BD95] p-2 md:p-3 rounded-full text-white ml-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.745A9.953 9.953 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+
+              {/* Chat Icon Button */}
+              <div
+                onClick={() => setIsChatOpen(true)}
+                className="ml-auto bg-[#54BD95] p-2 md:p-3 rounded-full text-white cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 md:h-6 md:w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.745A9.953 9.953 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  />
                 </svg>
               </div>
             </div>
+
             {/* Image Icon Card */}
-            <div className="hidden md:block absolute bottom-18 -left-2 bg-[#54BD95] p-3 md:p-4 lg:p-5 rounded-xl text-white shadow-lg z-10 transform -rotate-20">
+            <div className="absolute bottom-18 -left-2 bg-[#54BD95] p-3 md:p-4 lg:p-5 rounded-xl text-white shadow-lg z-10 transform -rotate-20">
               <svg width="25" height="25" className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_1_9845)">
                   <path d="M16.1876 3.74049L4.91847 6.76004C4.02936 6.99828 3.50172 7.91217 3.73996 8.80128L6.75951 20.0704C6.99775 20.9595 7.91165 21.4872 8.80076 21.2489L20.0699 18.2294C20.959 17.9911 21.4866 17.0772 21.2484 16.1881L18.2288 4.919C17.9906 4.02989 17.0767 3.50225 16.1876 3.74049Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
@@ -67,12 +87,11 @@ const About = ({ isChatOpen, setIsChatOpen }) => {
                   </clipPath>
                 </defs>
               </svg>
-
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 
