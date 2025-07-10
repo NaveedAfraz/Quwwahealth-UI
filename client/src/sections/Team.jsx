@@ -35,19 +35,19 @@ const teamMembers = [
   },
   {
     name: 'Dr. Zeeshan Ahmad',
-    roles: ['Advisor – Sports Injury Prevention & Physical Performance', 'MPT (Sports), Certified Strength & Conditioning Coach (Australia)'],
+    roles: ['MPT (Sports), Certified Strength & Conditioning Coach (Australia)'],
     image: team4,
     description: 'Bringing global expertise in athletic conditioning and sports physiotherapy, Dr. Zeeshan Ahmad guides the development of injury-prevention protocols and performance-based fitness programming within school environments.'
   },
   {
     name: 'Dr. Prashant',
-    roles: ['Advisor – Pediatric Sports Rehabilitation & Functional Health', 'MPT (Sports Physiotherapy), India'],
+    roles: [  'MPT (Sports Physiotherapy), India'],
     image: team2,
     description: 'Dr. Prashant offers specialized knowledge in pediatric physiotherapy and functional movement assessments, helping shape Quwwa Health’s student fitness screening and recovery frameworks.'
   },
   {
     name: 'Dr. Shahana Pathan',
-    roles: ['Advisor – Mental Wellness, Life Skills & Inclusive Education', 'Ph.D. in Counseling Psychology | Certified Special Educator | Life Skill Trainer – Riyadh'],
+    roles: ['Ph.D. in Counseling Psychology | Certified Special Educator | Life Skill Trainer – Riyadh'],
     image: team3,
     description: 'Dr. Shahana supports the integration of emotional intelligence, resilience training, and inclusive education practices into Quwwa Health’s wellness programs, ensuring a holistic, student-centered approach.'
   },
@@ -65,7 +65,7 @@ const TeamCard = ({ member, isFounder = false }) => (
       <h3 className="text-2xl font-bold text-[#191A15] mb-2">{member.name}</h3>
       <div className={`text-gray-600 w-full mt-4 space-y-2 border-b border-gray-200 pb-4 mb-4 ${isFounder ? '' : 'text-left'}`}>
         {member.roles.map((role, i) => (
-          <p key={i} className={`flex text-sm ${isFounder ? 'items-start' : 'items-start'}`}>
+          <p key={i} className={`flex text-sm ${isFounder ? ' md:flex md:justify-start justify-center md:items-center' : 'items-start'}`}>
             <span className="mr-2 mt-1 text-yellow-400 flex-shrink-0">&#8226;</span>
             <span>{role}</span>
           </p>

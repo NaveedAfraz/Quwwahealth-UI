@@ -9,8 +9,11 @@ import image1 from '../assets/images/Hero/image.png';
 import image2 from '../assets/images/Hero/image1.png';
 import image3 from '../assets/images/Hero/image2.png';
 import image4 from '../assets/images/Hero/image4.png';
+// import image5 from '../assets/images/Hero/image5.png';
+import image6 from '../assets/images/Hero/hero2.jpg';
+import image7 from '../assets/images/Hero/hero1.jpg';
 
-const images = [image1, image2, image3, image4];
+const images = [image1, image2, image3, image4, image6, image7];
 
 const DecorativeIcons = () => (
   <>
@@ -49,7 +52,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text Content */}
           <div className="text-center md:text-left p-2 sm:p-2 lg:p-2">
-            <p className="font-bold text-3xl sm:text-7xl md:text-6xl lg:text-[75px] xl:text-[75px] leading-[1] sm:leading-[1] md:leading-[1] tracking-[0%] text-[#191A15] mb-4">
+            <p className="font-bold text-4xl sm:text-7xl md:text-6xl lg:text-[75px] xl:text-[75px] leading-[1] sm:leading-[1] md:leading-[1] tracking-[0%] text-[#191A15] mb-4">
               Building <br className="" /> Healthier
               <br />
               Futures <br className="" /> Together!
@@ -88,7 +91,7 @@ const Hero = () => {
                       <img
                         src={image}
                         alt={`Slide ${index + 1}`}
-                        className="w-full h-auto max-h-[100vh] object-contain rounded-b-2xl"
+                        className="w-full h-full max-h-[100vh] object-cover rounded-b-2xl"
                         loading="lazy"
                       />
                     </SwiperSlide>
