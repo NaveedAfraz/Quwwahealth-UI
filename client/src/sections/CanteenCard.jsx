@@ -22,20 +22,36 @@ const CanteenCard = () => {
           </div>
           {/* Right Column with SVG background */}
           <div className="w-full relative flex justify-center items-center min-h-[250px] xs:min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px]">
-            {/* SVG Background */}
-            <div className="absolute -bottom-4 xs:-bottom-6 flex justify-center items-center z-0 pointer-events-none w-full h-full">
-              <svg width="713" height="627" viewBox="0 0 713 627" fill="none" xmlns="http://www.w3.org/2000/svg" 
-                   className="w-[90vw] max-w-[400px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[700px] h-auto transform scale-110 transition-transform duration-500">
-                <rect y="471.948" width="666.284" height="217.934" transform="rotate(-45 0 471.948)" fill="#FDE68A"/>
-                <rect opacity="0.75" x="458" y="454" width="74" height="74" rx="30" fill="#A21CAF"/>
-                <rect opacity="0.75" x="55" y="159" width="90" height="90" rx="30" fill="#B45309"/>
-                <rect opacity="0.75" x="513" y="46" width="59" height="60" rx="29.5" fill="#0369A1"/>
-                <rect opacity="0.75" x="495" y="375" width="218" height="218" rx="50" fill="#0540F2"/>
-              </svg>
-            </div>
-            {/* Card Image */}
-            <div className="relative z-10 w-[70vw] max-w-[240px] sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px] rounded-2xl overflow-hidden mt-6 sm:mt-8 transition-transform duration-300 hover:scale-105">
-              <img src={cardImage} alt="Healthy Canteen" className="w-full h-auto object-cover rounded-2xl" />
+            {/* Wrapper to contain both SVG and Image in the same stacking context */}
+            <div className="relative w-full h-full flex justify-center items-center">
+
+              {/* SVG Background */}
+              <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
+                <svg
+                  width="713"
+                  height="627"
+                  viewBox="0 0 713 627"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-[90vw] max-w-[400px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[700px] h-auto transform scale-110 transition-transform duration-500"
+                >
+                  <rect y="471.948" width="666.284" height="217.934" transform="rotate(-45 0 471.948)" fill="#FDE68A" />
+                  <rect opacity="0.75" x="458" y="454" width="74" height="74" rx="30" fill="#A21CAF" />
+                  <rect opacity="0.75" x="85" y="109" width="90" height="90" rx="30" fill="#B45309" />
+                  <rect opacity="0.75" x="513" y="46" width="59" height="60" rx="29.5" fill="#0369A1" />
+                  <rect opacity="0.75" x="495" y="325" width="218" height="218" rx="50" fill="#0540F2" />
+                </svg>
+              </div>
+
+              {/* Card Image */}
+              <div className="relative z-10 w-[70vw] max-w-[240px] sm:max-w-[320px] md:max-w-[400px] lg:max-w-[500px] rounded-2xl overflow-hidden mt-6 sm:mt-8 transition-transform duration-300 hover:scale-105">
+                <img
+                  src={cardImage}
+                  alt="Healthy Canteen"
+                  className="w-full h-auto object-cover rounded-2xl"
+                />
+              </div>
+
             </div>
           </div>
         </div>

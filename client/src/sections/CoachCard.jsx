@@ -21,16 +21,16 @@ const CoachCard = () => {
             </button>
           </div>
           {/* Right Column with SVG background */}
-          <div className="w-full   relative flex justify-center items-center min-h-[450px] xs:min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[600px]">
+          <div className="w-2/3 relative flex justify-center items-center min-h-[450px] xs:min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[600px]">
             {/* SVG Background */}
             <div className="absolute -bottom-4 xs:-bottom-6 flex justify-center items-center z-0 pointer-events-none w-full h-full">
               <svg width="713" height="627" viewBox="0 0 713 627" fill="none" xmlns="http://www.w3.org/2000/svg"
-                className="w-[100%] max-w-[400px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[740px] h-auto transform scale-110 transition-transform duration-500">
-                <rect y="471.948" width="666.284" height="217.934" transform="rotate(-45 0 471.948)" fill="#FDE68A" />
+                className="w-[100%] max-w-[300px] sm:max-w-[400px] md:max-w-[590px] lg:max-w-[550px] h-auto transform scale-110 transition-transform duration-500">
+                <rect y="471.948" width="666.284" height="217.934" transform="rotate(-45 0 391.948)" fill="#FDE68A" />
                 <rect opacity="0.75" x="458" y="454" width="74" height="74" rx="30" fill="#A21CAF" />
-                <rect opacity="0.75" x="55" y="159" width="90" height="90" rx="40" fill="#B45309" />
-                <rect opacity="0.75" x="513" y="46" width="59" height="60" rx="29.5" fill="#0369A1" />
-                <rect opacity="0.75" x="495" y="375" width="218" height="218" rx="50" fill="#0540F2" />
+                <rect opacity="0.75" x="115" y="100" width="90" height="90" rx="40" fill="#B45309" />
+                <rect opacity="0.75" x="553" y="6" width="59" height="60" rx="29.5" fill="#0369A1" />
+                <rect opacity="0.75" x="495" y="375" width="218" height="138" rx="50" fill="#0540F2" />
               </svg>
             </div>
             {/* Card Image */}

@@ -64,7 +64,7 @@ const KeyBenefits = () => {
       </div>
 
       <div className="container flex flex-col justify-center items-center mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20 md:mt-24 lg:mt-28 text-center">
-        <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#191A15] mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+        <p className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#191A15] mb-10 sm:mb-6 md:mb-6 lg:mb-8">
           Our Program Offerings Include:
         </p>
         <ul className="flex flex-col  items-center w-[100%] md:w-[70%] lg:w-[60%] text-[#A6A6A6] text-base sm:text-lg md:text-xl font-medium">
