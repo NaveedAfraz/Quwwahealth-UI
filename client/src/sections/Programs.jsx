@@ -42,7 +42,7 @@ const ProgramCard = ({ image, title, description }) => (
 
 const Programs = () => {
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-white px-0 md:px-12 lg:px-22 xl:px-25">
+    <section className="py-10 md:py-13 lg:py-15 bg-white px-0 md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto">
         <p className="text-4xl md:text-5xl lg:text-5xl font-semibold leading-tight md:leading-[100%] tracking-[0%] text-[#191A15] text-center mb-12 md:mb-16 lg:mb-24">
           Our Programs

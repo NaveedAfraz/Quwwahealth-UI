@@ -52,7 +52,7 @@ const InvestmentReturn = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 md:gap-x-16 lg:gap-x-20 gap-y-12   mx-30 sm:gap-y-16 md:gap-y-20 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-2 md:gap-x-6 lg:gap-x-0 gap-y-12 mx-0 sm:gap-y-16 md:gap-y-20 text-center">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center group">
               <img
@@ -60,14 +60,14 @@ const InvestmentReturn = () => {
                 alt={feature.title}
                 className="h-20 sm:h-24 md:h-28 lg:h-32 mb-4 sm:mb-6 md:mb-8 transition-transform duration-300 group-hover:scale-110"
               />
-              <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl font-bold text-[#191A15] mb-3 sm:mb-4 md:mb-6">{feature.title}</h3>
+              <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl font-semibold text-[#191A15] mb-1 sm:mb-2 md:mb-2">{feature.title}</h3>
               <p className="text-[#000000] text-sm sm:text-base md:text-base lg:text-base max-w-sm md:max-w-md lg:max-w-lg">{feature.description}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 h-30   flex justify-center items-center w-[100%] ">
-          <div className="relative rounded-full flex justify-center  items-center border border-black px-6 sm:px-8 md:px-2 w-[100%] lg:px-16 py-4 sm:py-6 md:py-8 lg:py-10">
+          <div className="relative rounded-full flex justify-center   items-center border border-black px-6 sm:px-8 md:px-2 w-[100%] lg:px-16 py-4 sm:py-6 md:py-8 lg:py-10">
             <img
               src={quwwaAlpro}
               alt="Quwwa Health + Alpro"

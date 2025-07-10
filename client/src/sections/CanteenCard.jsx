@@ -9,8 +9,8 @@ const CanteenCard = () => {
       <div className="container mx-auto flex justify-center min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px]">
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
-          <div className="w-full md:w-1/2 z-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <p className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
+          <div className="w-full z-10 flex flex-col items-center md:items-start text-center md:text-left">
+            <p className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-2 md:mb-4 leading-tight">
               Healthy Canteen
             </p>
             <p className="text-[#0F172A] text-sm xs:text-base sm:text-sm md:text-md lg:text-lg font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 leading-relaxed max-w-xl lg:max-w-2xl">
@@ -21,7 +21,7 @@ const CanteenCard = () => {
             </button>
           </div>
           {/* Right Column with SVG background */}
-          <div className="w-full md:w-1/2 relative flex justify-center items-center min-h-[250px] xs:min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px]">
+          <div className="w-full relative flex justify-center items-center min-h-[250px] xs:min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px]">
             {/* SVG Background */}
             <div className="absolute -bottom-4 xs:-bottom-6 flex justify-center items-center z-0 pointer-events-none w-full h-full">
               <svg width="713" height="627" viewBox="0 0 713 627" fill="none" xmlns="http://www.w3.org/2000/svg" 

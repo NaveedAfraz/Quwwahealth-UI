@@ -29,11 +29,11 @@ const CanteenMenu = () => {
           <div className="flex flex-col md:flex-row items-center gap-12">
             {/* Left Column */}
             <div className="md:w-1/2 text-left">
-              <div className="border-t-4 border-[#F3F25B] w-1/2 mb-4 md:mb-6" />
-              <p className="text-[#848383] text-base sm:text-md md:text-lg lg:text-lg font-medium mb-4 sm:mb-6 md:mb-8">
+              <div className="border-t-4 border-[#F3F25B] w-1/2 mb-2 md:mb-2" />
+              <p className="text-[#848383] text-base sm:text-sm md:text-md lg:text-lg font-medium mb-4 sm:mb-6 md:mb-8">
                 Quwwa Healthy Canteens create canteen menus that offer a huge variety of fresh healthy foods.
               </p>
-              <p className="text-[#848383] text-base sm:text-md md:text-lg lg:text-lg font-medium mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+              <p className="text-[#848383] text-base sm:text-sm md:text-md lg:text-lg font-medium mb-6 sm:mb-8 md:mb-10 lg:mb-12">
                 We understand that it is both ours and the schools responsibility to help students gain an understanding of how what they choose to eat each day impacts their mental and physical well being.
               </p>
 

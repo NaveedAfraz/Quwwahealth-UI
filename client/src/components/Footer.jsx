@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Newsletter */}
           <div className="lg:col-span-2 flex justify-center flex-col ">
-            <img src={footerLogo} alt="Quwwa Health Logo" className="h-8 sm:h-10 md:h-12 lg:h-14 xl:h-16 w-[40%] mb-6" />
+            <img src={footerLogo} alt="Quwwa Health Logo" className="h-auto w-[30%] md:w-[50%] lg:w-[40%] xl:w-[30%] mb-6" />
             <p className="text-gray-300 mb-4 text-base sm:text-lg md:text-xl">Get started!</p>
             <div className="relative max-w-sm">
               <input
