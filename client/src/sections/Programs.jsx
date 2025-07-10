@@ -47,7 +47,7 @@ const Programs = () => {
         <p className="text-4xl md:text-5xl lg:text-5xl font-semibold leading-tight md:leading-[100%] tracking-[0%] text-[#191A15] text-center mb-12 md:mb-16 lg:mb-24">
           Our Programs
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-12 md:gap-y-16 lg:gap-y-20">
+        <div className="grid grid-cols-1 text-center md:text-start md:grid-cols-2 gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-12 md:gap-y-16 lg:gap-y-20">
           {programData.map((program, index) => (
             <ProgramCard
               key={index}

@@ -52,7 +52,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text Content */}
           <div className="text-center md:text-left p-2 sm:p-2 lg:p-2">
-            <p className="font-bold text-4xl sm:text-7xl md:text-6xl lg:text-[75px] xl:text-[75px] leading-[1] sm:leading-[1] md:leading-[1] tracking-[0%] text-[#191A15] mb-4">
+            <p className="font-bold text-5xl sm:text-7xl md:text-6xl lg:text-[75px] xl:text-[75px] leading-[1] sm:leading-[1] md:leading-[1] tracking-[0%] text-[#191A15] mb-4">
               Building <br className="" /> Healthier
               <br />
               Futures <br className="" /> Together!

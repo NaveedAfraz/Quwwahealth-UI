@@ -10,7 +10,7 @@ const AlproHealthCard = () => {
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
           <div className="w-full md:w-1/2 z-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <p className="text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
+            <p className="text-2xl xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
               Alpro Health Card Reporting System
             </p>
             <p className="text-base xs:text-lg sm:text-sm md:text-md lg:text-lg font-medium text-gray-700 mb-1 xs:mb-2 sm:mb-3 md:mb-4">Empowering decision making with data</p>

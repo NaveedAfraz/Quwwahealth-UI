@@ -6,7 +6,7 @@ const CTA = () => {
     <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-r from-white to-green-50 px-0 md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10 lg:gap-12">
-          <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-semibold text-[#191A15] text-center md:text-left leading-tight">
+          <p className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-semibold text-[#191A15] text-center md:text-left leading-tight">
             Building Healthy
             <br />
             Habits for Life!

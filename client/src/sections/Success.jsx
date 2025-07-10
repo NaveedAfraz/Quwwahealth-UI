@@ -26,21 +26,23 @@ const Success = () => {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-16">
           {/* Left Column */}
           <div className="md:w-1/2 text-left mx-2 md:mx-0">
-            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-semibold text-[#000000] leading-tight mb-2 md:mb-2">
+            <p className="text-xl sm:text-xl md:text-2xl text-center md:text-left lg:text-3xl font-semibold text-[#000000] leading-tight mb-2 md:mb-2">
               Addressing public health concerns: What data can Quwwa Health show?
             </p>
-            <div className="border-t-4 border-[#F3F25B] w-1/2 mb-1 md:mb-1 mt-5">
+            <div className="border-t-4 border-[#F3F25B] w-1/2 mx-auto md:mx-0 mb-1 md:mb-1 mt-5">
             </div>
-            <p className="text-[#848383] text-base sm:text-sm md:text-sm lg:text-md font-medium mb-8 md:mb-10 lg:mb-12">
+            <p className="text-[#848383] text-base text-center md:text-left sm:text-sm md:text-sm lg:text-md font-medium mb-8 md:mb-10 lg:mb-12">
               Quwwa Health plays a vital role in addressing childhood obesity, promoting mental health and preventing negative health outcomes in adulthood through early detection and intervention. It allows schools to view data, compare and compile reports from which policies can be created.
             </p>
-            <button className="bg-[#F3F25B] text-gray-900 font-[600] text-base sm:text-lg md:text-xl py-3 sm:py-4 px-8 sm:px-10 rounded-lg hover:bg-yellow-500 transition-colors">
+            <div className="flex justify-center items-center md:justify-start ">
+            <button className="bg-[#F3F25B] mx-auto md:mx-0 text-gray-900 font-[600] text-base sm:text-lg md:text-xl py-3 sm:py-4 px-8 sm:px-10 rounded-lg hover:bg-yellow-500 transition-colors">
               View More
             </button>
+            </div>
           </div>
 
           {/* Right Column */}
-          <div className="md:w-1/2 relative flex justify-center items-center">
+          <div className="md:w-1/2 relative flex  justify-center items-center">
             <div className="absolute z-0">
               <svg width="454" height="450" viewBox="0 0 454 450" fill="none" xmlns="http://www.w3.org/2000/svg"
                 className="w-[300px] sm:w-[350px] md:w-[400px] lg:w-[454px] h-auto">
