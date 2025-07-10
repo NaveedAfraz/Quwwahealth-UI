@@ -44,16 +44,15 @@ const SvgBackground = () => (
 
 const Hero = () => {
   return (
-    <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-r from-white to-green-100 px-1">
-      <div className="container mx-auto px-2 sm:px-2 lg:px-8">
+    <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-r from-white to-green-100 px-0 md:px-12 lg:px-22 xl:px-25">
+      <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text Content */}
           <div className="text-center md:text-left p-2 sm:p-2 lg:p-2">
-
-            <p className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[75px] leading-[1] sm:leading-[1] md:leading-[1] tracking-[0%] text-[#191A15] mb-4">
-              Building <br className="hidden sm:block bg-amber-400" /> Healthier
+            <p className="font-bold text-3xl sm:text-7xl md:text-6xl lg:text-[75px] xl:text-[75px] leading-[1] sm:leading-[1] md:leading-[1] tracking-[0%] text-[#191A15] mb-4">
+              Building <br className="" /> Healthier
               <br />
-              Futures <br className="hidden sm:block" /> Together!
+              Futures <br className="" /> Together!
             </p>
             <div className="flex justify-center md:justify-start my-4 sm:my-6">
               <svg width="500" height="34" viewBox="0 0 487 34" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[450px] h-auto">
@@ -66,7 +65,7 @@ const Hero = () => {
           </div>
 
           {/* Right Column: Image Slider */}
-          <div className="relative mt-6 sm:mt-5 md:mt-0 w-full">
+          <div className="relative mt-6 sm:mt-5 b md:mt-0 w-full">
             <div className="relative aspect-[636/526] w-[100%]">
               <SvgBackground />
               <DecorativeIcons />

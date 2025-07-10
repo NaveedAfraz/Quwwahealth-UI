@@ -10,10 +10,10 @@ const AlproCard = () => {
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
           <div className="w-full md:w-1/2 z-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <p className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold text-[#0F172A] mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
+            <p className="text-2xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#0F172A] mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
               In-School PE & <br /> Sports Programs
             </p>
-            <p className="text-[#848383] text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-xl leading-relaxed">
+            <p className="text-[#0F172A] text-sm xs:text-base sm:text-md md:text-lg lg:text-xl font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-xl leading-relaxed">
               Our structured PE and sports programs focus on developing students' mental and behavioral skills while enhancing their physical conditioning. We conduct regular assessments to track progress, ensuring every student benefits from the program. This is a scalable and sustainable solution for engaging students in physical activity and sports, promoting fitness and overall health.
             </p>
             <button className="border-2 border-blue-600 text-blue-600 font-semibold text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl rounded-lg px-4 xs:px-6 sm:px-8 md:px-10 py-2 xs:py-3 sm:py-4 md:py-5 hover:bg-blue-50 transition-all duration-300 hover:scale-105" onClick={() => navigate('/auth?mode=signup')}>

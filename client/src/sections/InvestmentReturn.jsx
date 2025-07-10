@@ -31,7 +31,7 @@ const features = [
 
 const InvestmentReturn = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-yellow-50 via-yellow-50 to-white">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-32  sm:px-8   bg-yellow-50 px-0 md:px-25 lg:px-45 xl:px-45">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl font-bold text-[#191A15] leading-tight">
@@ -52,7 +52,7 @@ const InvestmentReturn = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 md:gap-x-16 lg:gap-x-20 gap-y-12 sm:gap-y-16 md:gap-y-20 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 md:gap-x-16 lg:gap-x-20 gap-y-12   mx-30 sm:gap-y-16 md:gap-y-20 text-center">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center group">
               <img
@@ -60,20 +60,20 @@ const InvestmentReturn = () => {
                 alt={feature.title}
                 className="h-20 sm:h-24 md:h-28 lg:h-32 mb-4 sm:mb-6 md:mb-8 transition-transform duration-300 group-hover:scale-110"
               />
-              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#191A15] mb-3 sm:mb-4 md:mb-6">{feature.title}</h3>
-              <p className="text-[#848383] text-sm sm:text-base md:text-lg lg:text-xl max-w-sm md:max-w-md lg:max-w-lg">{feature.description}</p>
+              <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl font-bold text-[#191A15] mb-3 sm:mb-4 md:mb-6">{feature.title}</h3>
+              <p className="text-[#000000] text-sm sm:text-base md:text-base lg:text-base max-w-sm md:max-w-md lg:max-w-lg">{feature.description}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 flex justify-center">
-          <div className="relative inline-block rounded-full border border-black/20 px-6 sm:px-8 md:px-12 lg:px-16 py-4 sm:py-6 md:py-8 lg:py-10">
+        <div className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 h-30   flex justify-center items-center w-[100%] ">
+          <div className="relative rounded-full flex justify-center  items-center border border-black px-6 sm:px-8 md:px-2 w-[100%] lg:px-16 py-4 sm:py-6 md:py-8 lg:py-10">
             <img
               src={quwwaAlpro}
               alt="Quwwa Health + Alpro"
-              className="h-8 sm:h-10 md:h-12 lg:h-16 xl:h-20 transition-transform duration-300 hover:scale-105"
+              className="md:h-[10%] xl:h-[70%] lg:h-[50%]   px-10 transition-transform duration-300"
             />
-            <span className="absolute top-2 sm:top-3 md:top-4 right-4 sm:right-6 md:right-8 text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-gray-700">TM</span>
+            <span className="absolute top-2 sm:top-4 md:top-7 right-6 sm:right-12 md:right-11 lg:right-18   sm:text-sm md:text-base lg:text-sm font-thin text-gray-400">TM</span>
           </div>
         </div>
       </div>

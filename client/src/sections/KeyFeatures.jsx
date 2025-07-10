@@ -19,7 +19,7 @@ const features = [
 
 const KeyFeatures = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-yellow-50">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20 md:mb-24">
           <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#191A15]">Key Features</p>
@@ -38,7 +38,7 @@ const KeyFeatures = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-18">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 gap-8 md:gap-12 lg:gap-18">
           {features.map((feature, index) => (
             <div key={index} className="flex items-start space-x-6 sm:space-x-6 md:space-x-8 group hover:transform hover:scale-105 transition-all duration-300">
               <div className="flex-shrink-0 bg-white p-4 sm:p-5 md:p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300">

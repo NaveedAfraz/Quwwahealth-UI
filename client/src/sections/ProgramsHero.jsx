@@ -3,7 +3,7 @@ import backgroundImage from '../assets/images/OurProgrammes/image.png';
 
 const ProgramsHero = () => {
   const heroStyle = {
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${backgroundImage})`,
+    backgroundImage: `linear-gradient(#00000033), url(${backgroundImage})`,
     backgroundAttachment: 'fixed',
   };
 

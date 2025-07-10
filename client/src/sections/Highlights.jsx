@@ -23,7 +23,7 @@ const Rating = ({ rating, source, totalStars = 5 }) => {
 const Feature = ({ icon, text }) => (
   <div className="flex items-center space-x-4 md:space-x-6">
     <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-white rounded-lg flex items-center justify-center shadow-md">
-      {React.cloneElement(icon, { className: "text-2xl md:text-3xl lg:text-4xl text-[#54BD95]" })}
+      {React.cloneElement(icon, { className: "text-xl md:text-2xl lg:text-3xl xl:text-4xl text-[#54BD95]" })}
     </div>
     <p className="text-gray-700 text-base md:text-lg lg:text-xl font-medium w-full md:w-2/3">{text}</p>
   </div>
@@ -47,12 +47,12 @@ const Highlights = () => {
   ];
 
   return (
-    <section className="py-30 md:py-28 lg:py-32 px-6 sm:px-8 lg:px-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-30 md:py-28 lg:py-32 px-0 md:px-12 lg:px-22 xl:px-25">
+      <div className="container mx-auto">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
           {/* Left Column */}
           <div>
-            <p className="text-4xl md:text-5xl lg:text-5xl text-center sm:text-left font-semibold leading-tight md:leading-[100%] tracking-[0%] text-[#191A15] mb-12 md:mb-16 lg:mb-24">
+            <p className="text-4xl md:text-5xl lg:text-5xl text-center  md:text-left font-semibold leading-tight md:leading-[100%] tracking-[0%] text-[#191A15] mb-12 md:mb-16 lg:mb-24">
               Program
               <br />
               Highlights
@@ -64,7 +64,7 @@ const Highlights = () => {
           </div>
 
           {/* Right Column */}
-          <div className="space-y-10 md:space-y-12 flex flex-col justify-center  lg:space-y-16 pl-8">
+          <div className="space-y-10 md:space-y-12 flex flex-col justify-center lg:space-y-16 pl-8">
             {features.map((feature, index) => (
               <Feature key={index} icon={feature.icon} text={feature.text} />
             ))}

@@ -30,7 +30,7 @@ const offerings = [
 
 const KeyBenefits = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-yellow-50">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-yellow-50 px-0 md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20 md:mb-24 lg:mb-28">
           <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-[#191A15]">Key Benefits</p>
@@ -49,7 +49,7 @@ const KeyBenefits = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
           {features.map((feature, index) => (
             <div key={index} className="flex items-start space-x-4 sm:space-x-6 md:space-x-8 group hover:transform hover:scale-105 transition-all duration-300">
               <div className="flex-shrink-0 bg-white p-4 sm:p-5 md:p-4 lg:p-5 rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300">

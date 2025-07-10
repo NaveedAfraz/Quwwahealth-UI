@@ -291,7 +291,7 @@ const Blogs = () => {
 
   return (
     <div className="bg-[#F9F6F1] text-[#1E1E1E] py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-12">

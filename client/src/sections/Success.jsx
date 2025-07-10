@@ -3,7 +3,7 @@ import studentImage from '../assets/images/AboutUs/child.png';
 
 const Success = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-b from-yellow-50 via-yellow-50 to-white px-6 sm:px-8 lg:px-12">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-yellow-50 px-0  md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-semibold text-[#191A15]">
@@ -31,7 +31,7 @@ const Success = () => {
             </p>
             <div className="border-t-4 border-[#F3F25B] w-1/2 mb-4">
             </div>
-            <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-2xl font-medium mb-8 md:mb-10 lg:mb-12">
+            <p className="text-[#848383] text-base sm:text-lg md:text-xl lg:text-xl font-medium mb-8 md:mb-10 lg:mb-12">
               Quwwa Health plays a vital role in addressing childhood obesity, promoting mental health and preventing negative health outcomes in adulthood through early detection and intervention. It allows schools to view data, compare and compile reports from which policies can be created.
             </p>
             <button className="bg-[#F3F25B] text-gray-900 font-[600] text-base sm:text-lg md:text-xl py-3 sm:py-4 px-8 sm:px-10 rounded-lg hover:bg-yellow-500 transition-colors">

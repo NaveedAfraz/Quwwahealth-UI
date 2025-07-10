@@ -5,7 +5,7 @@ import amandaImage from '../assets/images/About/image1.png'; // Placeholder for 
  
 const About = ({ isChatOpen, setIsChatOpen }) => {
   return (
-    <section className="py-16 md:py-20 lg:py-28  bg-gradient-to-r from-white to-green-50 px-6 sm:px-8 lg:px-14">
+    <section className="py-16 md:py-20 lg:py-28  bg-gradient-to-r from-white to-green-50 px-0 md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 lg:gap-10">
           {/* Left Column */}

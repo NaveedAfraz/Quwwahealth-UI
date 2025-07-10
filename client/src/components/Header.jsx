@@ -109,18 +109,18 @@ const Header = () => {
           <div className="mx-auto flex items-center justify-between p-2 sm:p-4 md:py-4">
             {/* Logo */}
             <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-              <img src={Logo} alt="QuwwaHealth Logo" className="h-10 ml-2 md:ml-24 sm:h-12 md:h-14 lg:h-16 w-auto" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x50?text=Logo'; }} />
+              <img src={Logo} alt="QuwwaHealth Logo" className="h-10 ml-2 sm:ml-5 md:ml-10 lg:ml-14 sm:h-12 md:h-14 lg:h-16 w-auto" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x50?text=Logo'; }} />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex float-right space-x-8">
+            <div className="hidden xl:flex float-right space-x-8">
               {navLinks.map(link => (
                 <NavLink key={link.to} to={link.to} className={navLinkClasses}>{link.text}</NavLink>
               ))}
             </div>
 
             {/* Desktop Action Buttons & User Menu */}
-            <div className="hidden lg:flex items-center space-x-6">
+            <div className="hidden xl:flex items-center space-x-6">
               {isAuthenticated && user ? (
                 <div className="relative">
                   <button
@@ -163,7 +163,7 @@ const Header = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="lg:hidden">
+            <div className="xl:hidden lg:mr-15 sm:mr-5">
               <button onClick={toggleMenu} className="text-black focus:outline-none p-2">
                 <FaBars className="w-7 h-7" />
               </button>
@@ -174,7 +174,7 @@ const Header = () => {
 
       {/* Mobile Menu (Slide-in Panel) - This will not appear on auth pages because the button to open it is hidden */}
       {!authPage && (
-        <div className={`lg:hidden fixed inset-0 z-50 flex justify-end ${isMenuOpen ? '' : 'pointer-events-none'}`}>
+        <div className={`xl:hidden fixed inset-0 z-50 flex justify-end ${isMenuOpen ? '' : 'pointer-events-none'}`}>
           {/* Overlay */}
           <div
             className={`fixed inset-0 bg-black/60 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}

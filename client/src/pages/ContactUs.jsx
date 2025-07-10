@@ -86,7 +86,7 @@ const ContactUs = () => {
       </div>
 
       {/* Contact Card */}
-      <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl flex flex-col md:flex-row overflow-hidden">
+      <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-2xl flex flex-col md:flex-row overflow-hidden">
 
         {/* Left Side: Contact Info */}
         <div className="w-full md:w-1/3 bg-[#54BD95] text-white p-8 sm:p-12 flex flex-col justify-between relative overflow-hidden">

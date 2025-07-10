@@ -13,8 +13,8 @@ const AlproHealthCard = () => {
             <p className="text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
               Alpro Health Card<br />Reporting System
             </p>
-            <p className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl font-medium text-gray-700 mb-1 xs:mb-2 sm:mb-3 md:mb-4">Empowering decision making with data</p>
-            <p className="text-[#0F172A] text-xs xs:text-base sm:text-md md:text-lg lg:text-xl font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-xl">
+            <p className="text-base xs:text-lg sm:text-sm md:text-md lg:text-lg font-medium text-gray-700 mb-1 xs:mb-2 sm:mb-3 md:mb-4">Empowering decision making with data</p>
+            <p className="text-[#0F172A] text-xs xs:text-base sm:text-sm md:text-md lg:text-lg font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-xl">
               A structured health monitoring system that tracks children's growth and physical development. Parents and schools receive detailed health reports with actionable insights.
             </p>
             <button className="border-2 border-blue-600 text-blue-600 font-semibold text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl rounded-lg px-4 xs:px-6 sm:px-8 md:px-10 py-2 xs:py-3 sm:py-4 md:py-5 hover:bg-blue-50 transition-all duration-300 hover:scale-105" onClick={() => navigate('/auth?mode=signup')}>
