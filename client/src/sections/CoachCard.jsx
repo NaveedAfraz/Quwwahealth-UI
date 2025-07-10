@@ -35,7 +35,7 @@ const CoachCard = () => {
             </div>
             {/* Card Image */}
             <div className="relative z-10 w-[70vw] max-w-[240px] sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px] overflow-hidden mt-6 sm:mt-8 transition-transform duration-300 hover:scale-105">
-              <img src={cardImage} alt="Sports Coaching" className="w-full h-auto object-cover " />
+              <img src={cardImage} alt="Sports Coaching" className="w-full h-auto object-cover rounded-2xl" />
             </div>
           </div>
         </div>
