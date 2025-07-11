@@ -41,7 +41,7 @@ const teamMembers = [
   },
   {
     name: 'Dr. Prashant',
-    roles: [  'MPT (Sports Physiotherapy), India'],
+    roles: ['MPT (Sports Physiotherapy), India'],
     image: team2,
     description: 'Dr. Prashant offers specialized knowledge in pediatric physiotherapy and functional movement assessments, helping shape Quwwa Health’s student fitness screening and recovery frameworks.'
   },
@@ -58,14 +58,14 @@ const TeamCard = ({ member, isFounder = false }) => (
     <img
       src={member.image}
       alt={`Portrait of ${member.name}`}
-      className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover mb-6 ring-4 ring-yellow-200 ring-offset-4 flex-shrink-0"
+      className="w-42 h-48 md:w-40 md:h-48 rounded-full object-cover mb-6 ring-4 ring-yellow-200 ring-offset-4 flex-shrink-0"
       onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/CCCCCC/FFFFFF?text=Image+Not+Found'; }}
     />
     <div className={`w-full ${isFounder ? 'lg:ml-8' : 'text-center'}`}>
       <h3 className="text-2xl font-bold text-[#191A15] mb-2">{member.name}</h3>
       <div className={`text-gray-600 w-full mt-4 space-y-2 border-b border-gray-200 pb-4 mb-4 ${isFounder ? '' : 'text-left'}`}>
         {member.roles.map((role, i) => (
-          <p key={i} className={`flex text-sm ${isFounder ? ' md:flex md:justify-start justify-center md:items-center' : 'items-start'}`}>
+          <p key={i} className={`flex text-sm ${isFounder ? 'md:flex md:justify-start justify-center md:items-center' : 'items-start'}`}>
             <span className="mr-2 mt-1 text-yellow-400 flex-shrink-0">&#8226;</span>
             <span>{role}</span>
           </p>

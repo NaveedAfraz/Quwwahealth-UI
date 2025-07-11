@@ -273,7 +273,7 @@ function Login() {
 
                         {/* Footer */}
                         <Typography sx={{ color: '#6B7281', fontSize: '0.875rem', mt: 6, textAlign: 'center' }}>
-                            &copy; Quwwa 2023
+                            &copy; Quwwa 2025
                         </Typography>
                     </Box>
                 </Box>
