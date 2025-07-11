@@ -30,7 +30,7 @@ const offerings = [
 
 const KeyBenefits = () => {
   return (
-    <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-12 sm:pb-10 md:pb-10 bg-yellow-50 px-0 md:px-12 lg:px-22 xl:px-25">
+    <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-7 sm:pb-0 md:pb-0 lg:pb-0 bg-yellow-50 px-0 md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20 md:mb-24 lg:mb-28">
           <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-[#191A15]">Key Benefits</p>
@@ -67,9 +67,9 @@ const KeyBenefits = () => {
         <p className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#191A15] mb-10 sm:mb-6 md:mb-6 lg:mb-8">
           Our Program Offerings Include:
         </p>
-        <ul className="flex flex-col  items-center w-[100%] md:w-[70%] lg:w-[60%] text-[#A6A6A6] text-base sm:text-lg md:text-xl font-medium">
+        <ul className="flex flex-col  items-center w-[100%] md:w-[70%] lg:w-[60%] text-[#A6A6A6] text-base sm:text-lg md:text-xl font-thin">
           {offerings.map((offering) => (
-            <li key={offering} className="flex   items-center">
+            <li key={offering} className="flex items-center">
               <span className="h-3 w-3 bg-[#848383] rounded-full mr-3 shrink-0"></span>
               <span className="text-left text-md text-[#848383]">{offering}</span>
             </li>

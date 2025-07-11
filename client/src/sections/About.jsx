@@ -11,18 +11,18 @@ const About = ({ isChatOpen, setIsChatOpen }) => {
           {/* Left Column */}
           <div className="md:w-1/2">
             <p className="text-3xl sm:text-4xl text-center md:text-start md:text-5xl lg:text-5xl font-bold leading-tight md:leading-[110%] lg:leading-[120%] tracking-[0%] text-[#191A15] mb-8 md:mb-12 lg:mb-14 w-full md:w-3/4">
-              Health & Fitness Reporting System
+              Health & Fitness Reporting <br/>System
             </p>
             <ul className="space-y-4 md:space-y-6">
-              <li className="flex items-center text-lg text-[#848383]">
+              <li className="flex items-center text-lg text-[#191A15]">
                 <CheckIcon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 mr-3 md:mr-4 flex-shrink-0" />
                 <span className="text-base md:text-lg lg:text-xl font-medium">Empowering decision making with data.</span>
               </li>
-              <li className="flex items-center text-lg text-[#848383]">
+              <li className="flex items-center text-lg text-[#191A15]">
                 <CheckIcon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 mr-3 md:mr-4 flex-shrink-0" />
                 <span className="text-base md:text-lg lg:text-xl font-medium">Annual & Biannual Health Check-Ups</span>
               </li>
-              <li className="flex items-center text-lg text-[#848383]">
+              <li className="flex items-center text-lg text-[#191A15]">
                 <CheckIcon className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 mr-3 md:mr-4 flex-shrink-0" />
                 <span className="text-base md:text-lg lg:text-xl font-medium">Ensuring continuous monitoring and timely interventions</span>
               </li>

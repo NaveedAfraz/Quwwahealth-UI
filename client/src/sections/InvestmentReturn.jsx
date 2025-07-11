@@ -31,7 +31,7 @@ const features = [
 
 const InvestmentReturn = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32  sm:px-8   bg-yellow-50 px-0 md:px-25 lg:px-45 xl:px-45">
+    <section className="py-16 sm:py-0 md:py-0 lg:py-0  sm:px-8   bg-yellow-50 px-0 md:px-25 lg:px-45 xl:px-45">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl font-bold text-[#191A15] leading-tight">

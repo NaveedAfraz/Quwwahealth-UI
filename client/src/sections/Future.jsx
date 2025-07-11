@@ -8,7 +8,7 @@ import futureImage3 from '../assets/images/OurProgrammes/program2.png';
 const Future = () => {
   const navigate = useNavigate();
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32  bg-yellow-50">
+    <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-30 sm:pb-0 md:pb-0 lg:pb-0  bg-yellow-50">
       <div className="mx-auto px-0 sm:px-0 lg:px-0">
         <div className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24 px-0 md:px-12 lg:px-22 xl:px-25">
           <p className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#191A15]">
@@ -32,7 +32,7 @@ const Future = () => {
         <div className="space-y-6 sm:space-y-8 md:space-y-10  lg:space-y-12">
           {/* Block 1 */}
           <div className="flex flex-col md:flex-row rounded-2xl bg-[#54BD95] px-0 md:pl-12 lg:pl-22 xl:pl-25 overflow-hidden shadow-lg ">
-            <div className="md:w-1/2 bg-[#54BD95] text-white p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16  flex flex-col justify-center">
+            <div className="md:w-1/2 bg-[#54BD95] my-10 text-white p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16  flex flex-col justify-center">
               <p className="text-xl sm:text-xl font-Inter md:text-2xl lg:text-3xl font-[800] mb-4 sm:mb-6 md:mb-8">Comprehensive health <br />monitoring</p>
               <p className="mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-base sm:text-sm md:text-md lg:text-lg font-[400] leading-relaxed">Tailor educational strategies with data driven insights to enhance student health now into the future</p>
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
@@ -49,9 +49,9 @@ const Future = () => {
 
           {/* Block 2 */}
           <div className="flex flex-col md:flex-row-reverse rounded-2xl bg-[#54BD95]  overflow-hidden shadow-lg">
-            <div className="md:w-1/2 bg-[#54BD95] text-white p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 flex flex-col justify-center">
+            <div className="md:w-1/2 bg-[#54BD95] my-10 text-white p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 flex flex-col justify-center">
               <p className="text-xl sm:text-xl font-Inter md:text-2xl lg:text-3xl font-[800] mb-4 sm:mb-6 md:mb-8 leading-tight">Curriculum development</p>
-              <p className="mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-base sm:text-sm md:text-md lg:text-lg font-[400] leading-relaxed">Quwwa Health helps develop targeted programs ensuring every student reaches their fitness potential.</p>
+              <p className="mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-base sm:text-sm md:text-md lg:text-lg font-[400] leading-relaxed">Quwwa Health helps develop targeted programs <br /> ensuring every student reaches their fitness potential.</p>
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                 <button className="bg-white text-green-600 font-semibold text-sm sm:text-base md:text-lg py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-md flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => navigate('/contact')}>
                   Get in touch <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ml-2" />
@@ -66,15 +66,15 @@ const Future = () => {
 
           {/* Block 3 */}
           <div className="flex flex-col md:flex-row rounded-2xl bg-[#54BD95] px-0 md:pl-12 lg:pl-22 xl:pl-25 overflow-hidden shadow-lg">
-            <div className="md:w-1/2 bg-[#54BD95] text-white p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 flex flex-col justify-center">
+            <div className="md:w-1/2   my-10 text-white p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 flex flex-col justify-center">
               <p className="text-xl sm:text-xl font-Inter md:text-2xl lg:text-3xl font-[800] mb-4 sm:mb-6 md:mb-8 leading-tight">Link between Fitness and
                 academic excellence</p>
-              <p className="mb-4 sm:mb-6 md:mb-8 lg:mb-10 text-base sm:text-sm md:text-md lg:text-lg font-[400] leading-relaxed">Schools committed to regular fitness assessment witness healthier students with heightened concentration cognitive function and overall academic excellence.</p>
+              <p className="mb-4 sm:mb-6 md:mb-8 lg:mb-10 text-base sm:text-sm md:text-md lg:text-lg font-[400] leading-relaxed">Schools committed to regular fitness assessment <br />  witness healthier students with heightened  <br />  concentration cognitive function and overall academic excellence.</p>
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                <button className="bg-white text-green-600 font-semibold text-sm sm:text-base md:text-lg py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-md flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => navigate('/contact')}>
+                <button className="bg-white text-green-600 font-semibold text-sm sm:text-base md:text-lg py-1 sm:py-2 md:py-3 px-3 sm:px-3 md:px-6 rounded-md flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => navigate('/contact')}>
                   Get in touch <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ml-2" />
                 </button>
-                <button className="border border-white text-white font-semibold text-sm sm:text-base md:text-lg py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 rounded-md hover:bg-white hover:text-green-600 transition-colors">Learn more</button>
+                <button className=" text-white font-semibold text-sm sm:text-base md:text-lg py-1 sm:py-2 md:py-3 px-3 sm:px-3 md:px-6 rounded-md hover:bg-white hover:text-green-600 transition-colors">Learn more</button>
               </div>
             </div>
             <div className="md:w-1/2">

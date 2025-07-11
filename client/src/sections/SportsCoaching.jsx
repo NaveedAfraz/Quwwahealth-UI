@@ -2,7 +2,7 @@ import React from 'react';
 
 const SportsCoaching = () => {
   return (
-    <section className="py-24 sm:py-24 md:py-24 lg:py-32 bg-yellow-50 px-0 md:px-12 lg:px-22 xl:px-25 ">
+    <section className="pt-14 sm:py-11 md:py-11 lg:py-11  px-0 md:px-12 lg:px-22 xl:px-25  bg-gradient-to-r from-white to-green-50 ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-x-16 lg:gap-x-24 xl:gap-x-32 gap-y-12 md:gap-y-16 lg:gap-y-20">
 
@@ -23,7 +23,7 @@ const SportsCoaching = () => {
                 <li>Baseball</li>
               </ul>
             </div>
-            <button className="bg-[#F3F25B] mx-auto md:mx-0 text-gray-900 font-[600] text-base sm:text-sm md:text-md lg:text-lg py-2 sm:py-2 md:py-2 px-4 sm:px-6 md:px-8 lg:px-10 rounded-xl shadow-md hover:bg-yellow-400 transition-all duration-300 hover:scale-105">
+            <button className="bg-[#F3F25B] mx-auto md:mx-0 text-gray-900 font-[500] text-base sm:text-sm md:text-md lg:text-md py-2 sm:py-2 md:py-4 px-4 sm:px-6 md:px-8 lg:px-20 rounded-xl shadow-md hover:bg-yellow-400 transition-all duration-300 hover:scale-105">
               View More
             </button>
           </div>
@@ -42,7 +42,7 @@ const SportsCoaching = () => {
                 We also organize Sports Day programs and Inter-house matches to give children a platform to participate in competitive sports at multiple levels. These events not only foster team spirit but also provide a fun and engaging environment where students can showcase their talents.
               </p>
             </div>
-            <button className="bg-[#F3F25B] mx-auto md:mx-0 text-gray-900 font-[600] text-base sm:text-sm md:text-md lg:text-lg py-2 sm:py-2 md:py-2 px-4 sm:px-6 md:px-8 lg:px-10 rounded-xl shadow-md hover:bg-yellow-400 transition-all duration-300 hover:scale-105">
+            <button className="bg-[#F3F25B] mx-auto md:mx-0 text-gray-900 font-[500] text-base sm:text-sm md:text-md lg:text-md py-2 sm:py-2 md:py-4 px-4 sm:px-6 md:px-8 lg:px-20 rounded-xl shadow-md hover:bg-yellow-400 transition-all duration-300 hover:scale-105">
               View More
             </button>
           </div>
