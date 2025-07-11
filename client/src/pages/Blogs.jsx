@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import blogImage1 from '../assets/images/Blogs/blog1.png';
-import blogImage2 from '../assets/images/Blogs/blog2.png';
-import blogImage3 from '../assets/images/Blogs/blog3.png';
-import blogImage4 from '../assets/images/Blogs/blog4.png';
+import blogImage1 from '../assets/images/Hero/10.jpg';
+import blogImage2 from '../assets/images/Hero/11.jpg';
+import blogImage3 from '../assets/images/Hero/12 1.jpg';
+import blogImage4 from '../assets/images/Hero/ChatGPT Image Apr 14, 2025, 04_24_06 PM 1.jpg';
  
 
 /**

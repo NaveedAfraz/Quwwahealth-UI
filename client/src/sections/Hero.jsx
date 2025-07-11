@@ -13,7 +13,7 @@ import image4 from '../assets/images/Hero/image4.png';
 import image6 from '../assets/images/Hero/hero2.jpg';
 import image7 from '../assets/images/Hero/hero1.jpg';
 
-const images = [image1, image2, image3, image4, image6, image7];
+const images = [image2, image3, image4, image6, image7];
 
 const DecorativeIcons = () => (
   <>
