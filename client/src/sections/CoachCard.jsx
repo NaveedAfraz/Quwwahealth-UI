@@ -21,7 +21,7 @@ const CoachCard = () => {
             </button>
           </div>
           {/* Right Column with SVG background */}
-          <div className="w-2/3 relative flex justify-center items-center min-h-[550px] xs:min-h-[550px] sm:min-h-[550px] md:min-h-[500px] lg:min-h-[600px]">
+          <div className="w-2/3 relative flex justify-center items-center min-h-[350px] xs:min-h-[350px] sm:min-h-[350px] md:min-h-[500px] lg:min-h-[600px]">
             {/* SVG Background */}
             <div className="absolute -bottom-4 xs:-bottom-6 flex justify-center items-center z-0 pointer-events-none w-full h-full">
               <svg width="713" height="627" viewBox="0 0 713 627" fill="none" xmlns="http://www.w3.org/2000/svg"

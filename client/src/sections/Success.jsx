@@ -6,7 +6,7 @@ const Success = () => {
     <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-yellow-50 px-0  md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-semibold text-[#191A15]">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-4xl font-semibold text-[#191A15]">
             Preparing Students to Achieve Success
           </h2>
           <div className="flex justify-center mt-2 sm:mt-3 md:mt-4">

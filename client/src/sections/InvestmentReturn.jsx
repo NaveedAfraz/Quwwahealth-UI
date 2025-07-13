@@ -66,7 +66,7 @@ const InvestmentReturn = () => {
           ))}
         </div>
 
-        <div className="mt-16 sm:mt-20 md:mt-24 lg:mt-32 h-60 flex justify-center items-center w-[100%] ">
+        <div className="mt-10 sm:mt-20 md:mt-24 lg:mt-32 h-16 md:h-60 lg:h-60 flex justify-center items-center w-[100%] ">
           <div className="relative rounded-full flex justify-center   items-center border border-black px-6 sm:px-8 md:px-2 w-[100%] lg:px-16 py-4 sm:py-6 md:py-8 lg:py-10">
             <img
               src={quwwaAlpro}
