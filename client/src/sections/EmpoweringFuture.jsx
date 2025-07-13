@@ -27,16 +27,18 @@ const EmpoweringFuture = () => {
 
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-16 px-0 md:px-12 lg:px-20 xl:px-25">
           {/* Left Column */}
-          <div className="md:w-1/2 text-center md:text-left">
-            <div className="border-t-4 border-[#F3F25B] w-1/2 mx-auto md:mx-0 mb-4 md:mb-6" />
-            <p className="text-[#848383] text-base sm:text-md md:text-lg lg:text-lg font-light mb-4 sm:mb-6 md:mb-8">
+          <div className="md:w-1/2 text-center md:text-left font-lato">
+            <div className="border-t-4 border-[#F3F25B] w-1/2 mx-auto md:mx-0 mb-1 md:mb-2" />
+
+            <p className="text-[#848383] text-base sm:text-md md:text-lg lg:text-lg font-normal mb-4 sm:mb-6 md:mb-8">
               Discover how integrating the Quwwa Health program into your curriculum can transform student wellness and academic achievement.
             </p>
-            <p className="text-[#848383] text-base sm:text-md md:text-lg lg:text-lg font-light mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-              Quwwa Health Card Reporting System
-              designed to ensure that children receive proper health tracking, leading to a healthier and more active lifestyle. Transform student health and academic achievement.
+
+            <p className="text-[#848383] text-base sm:text-md md:text-lg lg:text-lg font-normal mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+              Quwwa Health Card Reporting System designed to ensure that children receive proper health tracking, leading to a healthier and more active lifestyle. Transform student health and academic achievement.
             </p>
           </div>
+
 
           {/* Right Column */}
           <div className="md:w-1/2  relative flex justify-center items-center">

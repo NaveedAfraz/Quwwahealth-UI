@@ -5,7 +5,7 @@ import canteenImage from '../assets/images/OurProgrammes/fruit.png';
 const CanteenMenu = () => {
   return (
     <>
-      <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 bg-yellow-50 ">
+      <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 bg-yellow-50 bg-gradient-to-r from-white to-green-100">
         <div className="container mx-auto px-0 md:px-12 lg:px-22 xl:px-25">
           <div className="text-center mb-5 sm:mb-10 md:mb-12 lg:mb-14">
             <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#191A15] leading-tight">
@@ -30,7 +30,7 @@ const CanteenMenu = () => {
             {/* Left Column */}
             <div className="md:w-1/2 text-left">
               <div className="border-t-4 border-[#F3F25B] w-1/2 mx-auto md:mx-0 mb-2 md:mb-2" />
-              <p className="text-[#848383] text-base  text-center md:text-left sm:text-sm md:text-md lg:text-lg font-medium mb-4 sm:mb-6 md:mb-8">
+              <p className="text-[#848383] text-base  text-center md:text-left sm:text-sm md:text-md lg:text-lg font-medium mb-4 sm:mb-4 md:mb-6 lg:mb-8">
                 Quwwa Healthy Canteens create canteen menus that offer a huge variety of fresh healthy foods.
               </p>
               <p className="text-[#848383] text-base  text-center md:text-left sm:text-sm md:text-md lg:text-lg font-medium mb-6 sm:mb-8 md:mb-10 lg:mb-12">

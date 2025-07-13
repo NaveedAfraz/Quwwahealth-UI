@@ -19,7 +19,7 @@ const features = [
 
 const KeyFeatures = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16">
+    <section className="py-5 sm:py-7 md:py-12 lg:py-15 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20 md:mb-24">
           <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#191A15]">Key Features</p>

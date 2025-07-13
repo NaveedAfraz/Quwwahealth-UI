@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const CanteenCard = () => {
   const navigate = useNavigate();
   return (
-    <section className="py-13 sm:py-14 md:py-5 lg:py-5 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16 bg-gradient-to-r from-white to-green-50">
+    <section className="py-13 sm:py-14 md:py-7 lg:py-8   px-3 sm:px-6 md:px-10 lg:px-16 bg-gradient-to-r from-white to-green-100">
       <div className="container mx-auto flex justify-center min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px]">
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
@@ -14,7 +14,7 @@ const CanteenCard = () => {
               Healthy Canteen
             </p>
             <p className="text-[#0F172A] text-sm xs:text-base sm:text-sm md:text-md lg:text-lg font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 leading-relaxed max-w-xl lg:max-w-2xl">
-              Promoting nutritious eating habits through school canteen options. Get Kids active and healthy again as the pandemic continues!
+              Promoting nutritious eating habits through school <br /> canteen options. Get Kids active and healthy again  <br />as the pandemic continues!
             </p>
             <button className="border-2 border-blue-600 text-blue-600 font-semibold text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl rounded-lg px-2 xs:px-6 sm:px-8 md:px-10 py-2 xs:py-2 sm:py-2 md:py-2 hover:bg-blue-50 transition-all duration-300 hover:scale-105" onClick={() => navigate('/auth?mode=signup')}>
               Sign up now

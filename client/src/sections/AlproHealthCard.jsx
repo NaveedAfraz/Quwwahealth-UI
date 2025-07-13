@@ -5,14 +5,15 @@ import { useNavigate } from 'react-router-dom';
 const AlproHealthCard = () => {
   const navigate = useNavigate();
   return (
-    <section className="py-10 sm:py-14 md:py-20 lg:py-28 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16">
+    <section className="py-10 sm:py-12 md:py-16 lg:py-20 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16">
       <div className="container mx-auto flex justify-center min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px]">
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
           <div className="w-full md:w-1/2 z-10 flex flex-col items-center md:items-start text-center md:text-left">
-            <p className="text-2xl xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 xs:mb-4 sm:mb-6 md:mb-8 leading-tight">
+            <p className="text-4xl xs:text-4xl sm:text-4xl mb-5 md:text-[48px] lg:text-[45px] xl:text-[56px] font-extrabold text-[#0F172A] leading-tight">
               Alpro Health Card Reporting System
             </p>
+
             <p className="text-base xs:text-lg sm:text-sm md:text-md lg:text-lg font-medium text-gray-700 mb-1 xs:mb-2 sm:mb-3 md:mb-4">Empowering decision making with data</p>
             <p className="text-[#0F172A] text-xs xs:text-base sm:text-sm md:text-md lg:text-lg font-medium mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-xl">
               A structured health monitoring system that tracks children's growth and physical development. Parents and schools receive detailed health reports with actionable insights.

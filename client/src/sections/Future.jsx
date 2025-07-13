@@ -8,7 +8,7 @@ import futureImage3 from '../assets/images/OurProgrammes/program2.png';
 const Future = () => {
   const navigate = useNavigate();
   return (
-    <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-30 sm:pb-0 md:pb-0 lg:pb-0  bg-yellow-50">
+    <section className="pt-16 sm:pt-14 md:pt-18 lg:pt-22 pb-30 sm:pb-0 md:pb-0 lg:pb-0  bg-yellow-50">
       <div className="mx-auto px-0 sm:px-0 lg:px-0">
         <div className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24 px-0 md:px-12 lg:px-22 xl:px-25">
           <p className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#191A15]">
