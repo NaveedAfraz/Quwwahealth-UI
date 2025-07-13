@@ -18,10 +18,27 @@ body {
 
 .scrollbar-hide {
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;             /* Chrome, Safari, Opera */
+  display: none; /* Chrome, Safari, Opera */
 }
 
+.radial-bg {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 600px; /* Adjust as needed */
+  height: 600px;
+  border: 111px solid black;
+  background: radial-gradient(
+    circle,
+    rgba(84, 190, 150, 0.2) 20%,
+    transparent 10%
+  );
+  filter: blur(102px); /* Soft blur like in Figma */
+  pointer-events: none;
+  z-index: -1;
+}
