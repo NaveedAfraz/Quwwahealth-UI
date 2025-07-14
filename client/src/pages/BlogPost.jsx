@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { allBlogPosts } from './Blogs'; // Assuming you export this from Blogs.jsx
 import { FaLinkedinIn, FaFacebookF, FaTwitter } from 'react-icons/fa';
-
+import { X } from "lucide-react";
 import authorImage from '../assets/images/AboutUs/team1.jpeg';
-
+import { FiInstagram } from 'react-icons/fi';
+ 
 // --- New Component for Related Articles ---
 const RelatedArticles = ({ currentPostId }) => {
   // Filter out the current post and take the next 3 articles
@@ -144,9 +145,11 @@ const BlogPost = () => {
           <div className="bg-[#0A1C8F] text-white p-6 rounded-2xl shadow-lg">
             <h3 className="font-bold text-lg">Share with your community!</h3>
             <div className="flex space-x-3 mt-4">
-              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaFacebookF /></a>
-              <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaTwitter /></a>
-              <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaLinkedinIn /></a>
+              <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><X /></a>
+              <a href="https://www.linkedin.com/company/quwwahealth/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaLinkedinIn /></a>
+               <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw=="  className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30">
+                            <FiInstagram />
+                          </a>
             </div>
           </div>
 

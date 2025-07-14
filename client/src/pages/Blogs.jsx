@@ -25,7 +25,7 @@ export const allBlogPosts = [
     title: 'Why School-Based Fitness Builds Lifelong Health',
     image: blogImage1,
     readTime: '5 Min',
-    date: 'July 7, 2025',
+    date: 'July 12, 2025',
 
     // --- Detailed Content (Merged) ---
     category: 'Health & Wellness',
@@ -101,7 +101,7 @@ export const allBlogPosts = [
     title: 'How Fitness Impacts Focus: The Link Between Movement and Academic Performance',
     image: blogImage2,
     readTime: '5 Min',
-    date: 'August 19, 2022',
+    date: 'July 12, 2025',
     // --- Detailed Content (Added) ---
     category: 'Academic Performance',
     author: {
@@ -157,7 +157,7 @@ export const allBlogPosts = [
     title: 'Understanding BMI and Fitness Metrics in Children: What Schools and Parents Should Know',
     image: blogImage3,
     readTime: '6 Min',
-    date: 'August 19, 2022',
+    date: 'July 12, 2025',
     // --- Detailed Content (Added) ---
     category: 'Fitness Metrics',
     author: {
@@ -213,7 +213,7 @@ export const allBlogPosts = [
     title: 'Building a Health-Promoting School: Practical Steps for Educators and Administrators',
     image: blogImage4,
     readTime: '4 Min',
-    date: 'August 19, 2022',
+    date: 'July 12, 2025',
     // --- Detailed Content (Added) ---
     category: 'School Policy',
     author: {

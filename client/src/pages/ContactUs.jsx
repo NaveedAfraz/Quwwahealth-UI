@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Make sure to install axios: npm install axios
-import { FiMail, FiMapPin, FiTwitter, FiInstagram, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import { FiMail, FiMapPin, FiTwitter, FiInstagram, FiCheckCircle, FiAlertCircle, FiX } from 'react-icons/fi';
 import { FaDiscord } from 'react-icons/fa';
-
+import { X } from "lucide-react";
 const ContactUs = () => {
   // State for the form fields
   const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ const ContactUs = () => {
     try {
       // The backend server URL
       const API_URL = 'http://localhost:5000/api/send-email';
-      
+
       // The backend expects `visitorEmail`. Let's create the correct payload.
       const payload = {
         ...formData,
@@ -121,15 +121,15 @@ const ContactUs = () => {
             </div>
           </div>
           <div className="flex space-x-4 mt-12">
-            <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" className="w-10 h-10 bg-black bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
-              <FiTwitter />
+            <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" className="w-10 h-10 cursor-pointer z-20 bg-black bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
+              <X />
             </a>
-            <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw==" className="w-10 h-10 bg-black bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
+            <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw==" className="w-10 h-10 cursor-pointer z-20 bg-black bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
               <FiInstagram />
             </a>
-            <a href="#" className="w-10 h-10 bg-black bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
+            {/* <a href="#" className="w-10 h-10 bg-black bg-opacity-20 rounded-full flex items-center cursor-pointer z-20 justify-center hover:bg-opacity-30 transition">
               <FaDiscord />
-            </a>
+            </a> */}
           </div>
           <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-blue-400 rounded-full opacity-50"></div>
           <div className="absolute -bottom-24 -right-4 w-48 h-48 bg-green-800 rounded-full opacity-40"></div>
