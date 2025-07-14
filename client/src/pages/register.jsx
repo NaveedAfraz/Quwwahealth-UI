@@ -62,6 +62,10 @@ const QuwwaLogo = () => (
 function Register() {
     const [checked, setChecked] = React.useState(true);
     const navigate = useNavigate();
+    const handleSubmit = (e) => {
+       // console.log('Register')
+       e.preventDefault();
+    }
     return (
         <div className="bg-white font-sans h-[100%]  ">
             {/* <div className='md:block sm:hidden xs:hidden'>
@@ -271,7 +275,6 @@ function Register() {
                                 }
                                 sx={{ mt: 2, alignItems: 'flex-start' }}
                             />
-
                             <Button
                                 type="submit"
                                 fullWidth
@@ -281,6 +284,7 @@ function Register() {
                                     borderRadius: '8px', textTransform: 'none', fontSize: '1rem',
                                     boxShadow: 'none', '&:hover': { backgroundColor: '#DB2777' }
                                 }}
+                                onClick={handleSubmit}
                             >
                                 Create Account
                             </Button>

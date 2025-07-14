@@ -61,16 +61,14 @@ const GoogleIcon = () => (
     </Box>
 );
 
-const QuwwaLogo = () => (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Box component="img" src="./public/Group (1).svg" sx={{ width: 80, height: 80, mx: 1 }} />
-        <Box component="img" src="./public/Group.svg" alt="Quwwa Logo" />
-    </Box>
-);
 
 function Login() {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('')
+    }
     return (
-        <Box component="main" sx={{ fontFamily: 'sans-serif', bgcolor: '#F2D184', height: '100%' , overflow: 'hidden'}}>
+        <Box component="main" sx={{ fontFamily: 'sans-serif', bgcolor: '#F2D184', height: '100%', overflow: 'hidden' }}>
             <Box sx={{
                 minHeight: { xs: 'calc(100vh - 4rem)', md: 'calc(100vh - 5rem)' },
                 display: 'flex',
@@ -213,6 +211,7 @@ function Login() {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                onClick={handleSubmit}
                                 sx={{
                                     mt: 3,
                                     mb: 2,
