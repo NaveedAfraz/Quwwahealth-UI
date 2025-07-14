@@ -9,6 +9,8 @@ import setupAxiosInterceptors from './utils/setupAxiosInterceptors.js'
 import './index.css'
 import App from './App.jsx'
 import { Analytics } from "@vercel/analytics/react"
+import { Toaster } from './components/ui/sonner.jsx'
+
 // Initialize axios interceptors
 setupAxiosInterceptors(store)
 
@@ -18,6 +20,7 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}>
         <App />
+        <Toaster />
       </GoogleOAuthProvider>
     </Provider>
   </StrictMode>,

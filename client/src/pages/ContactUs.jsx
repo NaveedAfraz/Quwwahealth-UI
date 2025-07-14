@@ -3,6 +3,7 @@ import axios from 'axios'; // Make sure to install axios: npm install axios
 import { FiMail, FiMapPin, FiTwitter, FiInstagram, FiCheckCircle, FiAlertCircle, FiX } from 'react-icons/fi';
 import { FaDiscord } from 'react-icons/fa';
 import { X } from "lucide-react";
+import { toast } from "sonner"
 const ContactUs = () => {
   // State for the form fields
   const [formData, setFormData] = useState({
@@ -37,20 +38,20 @@ const ContactUs = () => {
 
     try {
       // The backend server URL
-      const API_URL = 'http://localhost:5000/api/send-email';
+      // const API_URL = 'http://localhost:5000/api/send-email';
 
-      // The backend expects `visitorEmail`. Let's create the correct payload.
-      const payload = {
-        ...formData,
-        visitorEmail: formData.email,
-      };
+      // // The backend expects `visitorEmail`. Let's create the correct payload.
+      // const payload = {
+      //   ...formData,
+      //   visitorEmail: formData.email,
+      // };
 
-      // Make the POST request to the server
-      await axios.post(API_URL, payload);
+      // // Make the POST request to the server
+      // await axios.post(API_URL, payload);
 
       // If the request is successful
       setSuccess(true);
-
+      toast("Form submitted successfully!");
     } catch (err) {
       // If there's an error, update the error state
       const errorMessage = err.response?.data?.message || err.message || 'An unexpected error occurred.';

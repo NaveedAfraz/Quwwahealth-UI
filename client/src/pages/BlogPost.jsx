@@ -5,7 +5,7 @@ import { FaLinkedinIn, FaFacebookF, FaTwitter } from 'react-icons/fa';
 import { X } from "lucide-react";
 import authorImage from '../assets/images/AboutUs/team1.jpeg';
 import { FiInstagram } from 'react-icons/fi';
- 
+
 // --- New Component for Related Articles ---
 const RelatedArticles = ({ currentPostId }) => {
   // Filter out the current post and take the next 3 articles
@@ -147,9 +147,9 @@ const BlogPost = () => {
             <div className="flex space-x-3 mt-4">
               <a href="https://x.com/Quwwahealth?t=ZXp9QQMRDKK-DECQhXtFiQ&s=09" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><X /></a>
               <a href="https://www.linkedin.com/company/quwwahealth/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30"><FaLinkedinIn /></a>
-               <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw=="  className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30">
-                            <FiInstagram />
-                          </a>
+              <a href="https://www.instagram.com/quwwahealth?igsh=MXVyYTllbjE0bTFucw==" className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center hover:bg-white/30">
+                <FiInstagram />
+              </a>
             </div>
           </div>
 
