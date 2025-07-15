@@ -97,15 +97,15 @@ const ContactUs = () => {
               For inquiries or to join our movement towards healthier schools, reach out at:
               <br />
               <span className="mt-2 inline-block">
-                <strong>Headquarter Office:</strong> 9/2 Immamigate, Agrasen Choraha, Syed Complex, Bhopal
+                <strong>Headquarter office </strong> 9/2 Immamigate agrasen choraha Syed complex Bhopal India 462001
               </span>
               <br />
               <span className="mt-2 inline-block">
-                <strong>Regional Office:</strong> Gwalior District, Alpro Physio Clinic,
+              <strong> Regional office </strong> Gwalior district old Shivpuri alpro physio clinic Madhya Pradesh India 473551
               </span>
               <br />
               <span className="inline-block">
-               Bhopal Pin Code: 462001
+
               </span>
             </p>
             <div className="mt-6 space-y-6">
@@ -116,7 +116,7 @@ const ContactUs = () => {
               <div className="flex items-start space-x-4">
                 <FiMapPin className="h-6 w-6 mt-1" />
                 <span>
-                  9/2 Immamigate, Agrasen Choraha, Syed Complex, Bhopal
+                  9/2 Immamigate, Agrasen Choraha, Syed Complex, Bhopal Pin Code: 462001
                 </span>
               </div>
             </div>
