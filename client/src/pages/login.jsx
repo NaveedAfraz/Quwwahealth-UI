@@ -81,11 +81,11 @@ function Login() {
                     width: { md: '60%', lg: '70%' },
                     height: '100%',
                     overflow: 'hidden',
-                    background: 'url(/login.png) no-repeat center center',
+                    background: 'url(/d7699b9ac2b8af917bb156b67220e266c8fb9dd6.png) no-repeat center center',
                 }}>
                     <Box
                         component="img"
-                        src={loginBg}
+                        src={"/d7699b9ac2b8af917bb156b67220e266c8fb9dd6.png"}
                         alt="Login background"
                         sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />

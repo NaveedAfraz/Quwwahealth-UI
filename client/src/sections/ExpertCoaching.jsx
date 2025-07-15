@@ -2,7 +2,7 @@ import React from 'react';
 
 const ExpertCoaching = () => {
   return (
-    <section className="pt-20 px-0 md:px-12 lg:px-22 xl:px-25  bg-gradient-to-r from-white to-green-100">
+    <section className="pt-20 px-0 md:px-12 lg:px-22 xl:px-25 bg-yellow-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-x-16 lg:gap-x-24 xl:gap-x-32 gap-y-12 md:gap-y-16 lg:gap-y-20">
 

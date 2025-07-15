@@ -30,7 +30,7 @@ const offerings = [
 
 const KeyBenefits = () => {
   return (
-    <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-5 sm:pb-0 md:pb-0 lg:pb-0 bg-gradient-to-r from-white to-green-50 px-0 md:px-12 lg:px-22 xl:px-25">
+    <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-5 sm:pb-0 md:pb-0 lg:pb-0 bg-yellow-50 px-0 md:px-12 lg:px-22 xl:px-25">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20 md:mb-24 lg:mb-28">
           <p className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-[#191A15]">Key Benefits</p>

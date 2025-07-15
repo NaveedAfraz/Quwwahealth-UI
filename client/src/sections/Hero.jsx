@@ -5,15 +5,15 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { FiChevronLeft, FiChevronRight, FiDatabase, FiMessageSquare } from 'react-icons/fi';
 
-import image1 from '../assets/images/Hero/image.png';
+import image1 from '../assets/images/Hero/WhatsApp Image 2025-04-13 at 9.50.52 AM 1.jpg';
 import image2 from '../assets/images/Hero/image1.png';
 import image3 from '../assets/images/Hero/image2.png';
 import image4 from '../assets/images/Hero/image4.png';
-// import image5 from '../assets/images/Hero/image5.png';
+import image5 from '../assets/images/Hero/image5.png';
 import image6 from '../assets/images/Hero/hero2.jpg';
 import image7 from '../assets/images/Hero/hero1.jpg';
 
-const images = [image2, image3, image4, image6, image7];
+const images = [image1, image2, image3, image4, image6, image7];
 
 const DecorativeIcons = () => (
   <>

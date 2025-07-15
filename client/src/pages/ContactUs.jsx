@@ -101,11 +101,11 @@ const ContactUs = () => {
               </span>
               <br />
               <span className="mt-2 inline-block">
-                <strong>Regional Office:</strong> Gwalior District, Old Shivpuri, Alpro Physio Clinic,
+                <strong>Regional Office:</strong> Gwalior District, Alpro Physio Clinic,
               </span>
               <br />
               <span className="inline-block">
-                Madhya Pradesh, PIN 47355
+               Bhopal Pin Code: 462001
               </span>
             </p>
             <div className="mt-6 space-y-6">
