@@ -39,10 +39,10 @@ const Footer = () => {
           <div>
             <h4 className="text-base sm:text-lg md:text-xl font-bold mb-4">Our Programs</h4>
             <ul className="space-y-2 sm:space-y-3 text-gray-300 text-sm sm:text-base md:text-lg">
-              <li><Link to="/programs/health-card" className="hover:text-white transition-colors">Health Card</Link></li>
-              <li><Link to="/programs/sports" className="hover:text-white transition-colors">Sports Program</Link></li>
-              <li><Link to="/programs/sports-day" className="hover:text-white transition-colors">Sports Day</Link></li>
-              <li><Link to="/programs/healthy-canteen" className="hover:text-white transition-colors">Healthy Canteen</Link></li>
+              <li><Link to="/programs#alpro-health-card" className="hover:text-white transition-colors">Health Card</Link></li>
+              <li><Link to="/programs#alpro-card" className="hover:text-white transition-colors">Sports Program</Link></li>
+              <li><Link to="/programs#coach-card" className="hover:text-white transition-colors">Sports Day</Link></li>
+              <li><Link to="/programs#canteen-card" className="hover:text-white transition-colors">Healthy Canteen</Link></li>
               <li><Link to="/holiday-camp" className="hover:text-white transition-colors">Holiday Camps</Link></li>
               <li><Link to="/branding" className="hover:text-white transition-colors">Branding Sponsorships</Link></li>
             </ul>

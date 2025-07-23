@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const AlproHealthCard = () => {
   const navigate = useNavigate();
   return (
-    <section className="py-10 sm:py-12 md:py-16 lg:py-20 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16">
+    <section id="alpro-health-card" className="py-10 sm:py-12 md:py-16 lg:py-20 bg-yellow-50 px-3 sm:px-6 md:px-10 lg:px-16">
       <div className="container mx-auto flex justify-center min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px]">
         <div className="w-full rounded-3xl shadow-xl bg-white flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-4 xs:p-6 sm:p-8 md:p-12 lg:p-16 relative">
           {/* Left Column */}
