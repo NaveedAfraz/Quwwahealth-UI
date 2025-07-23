@@ -1,7 +1,9 @@
-import React from 'react';
-import { TextField, Button, Box, Typography, Link, Checkbox, FormControlLabel, IconButton } from '@mui/material';
+import React, { useState } from 'react';
+import { TextField, Button, Box, Typography, Link, Checkbox, FormControlLabel, IconButton, Snackbar, Alert } from '@mui/material';
 import quwwaLogo from '../assets/images/header.png';
 import { useNavigate } from 'react-router';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../firebase';
 // Google G icon SVG
 const GoogleIcon = () => (
     <svg 
@@ -60,12 +62,75 @@ const QuwwaLogo = () => (
 );
 
 function Register() {
-    const [checked, setChecked] = React.useState(true);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        schoolName: '',
+        contactPerson: '',
+        phoneNumber: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: ''
+    });
+    const [checked, setChecked] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
     const navigate = useNavigate();
-    const handleSubmit = (e) => {
-       // console.log('Register')
-       e.preventDefault();
-    }
+    const googleProvider = new GoogleAuthProvider();
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+        
+        if (!formData.email || !formData.password) {
+            setError('Email and password are required');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            setOpenSnackbar(true);
+            // Redirect to login or dashboard after successful registration
+            setTimeout(() => navigate('/login'), 2000);
+        } catch (error) {
+            setError(error.message);
+            console.error('Registration error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleSignUp = async () => {
+        try {
+            setLoading(true);
+            setError('');
+            await signInWithPopup(auth, googleProvider);
+            setOpenSnackbar(true);
+            // Redirect to dashboard after successful Google sign-up
+            setTimeout(() => navigate('/'), 2000);
+        } catch (error) {
+            setError(error.message);
+            console.error('Google sign up error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
     return (
         <div className="bg-white font-sans h-[100%]  ">
             {/* <div className='md:block sm:hidden xs:hidden'>
@@ -112,15 +177,21 @@ function Register() {
                                 fullWidth
                                 variant="contained"
                                 startIcon={<GoogleIcon />}
+                                onClick={handleGoogleSignUp}
+                                disabled={loading}
                                 sx={{
                                     py: 1.25, backgroundColor: '#4285F4', color: 'white',
                                     borderRadius: '8px', textTransform: 'none', fontSize: '1rem',
-                                    boxShadow: 'none', '&:hover': { backgroundColor: '#3367D6' }
+                                    boxShadow: 'none', '&:hover': { backgroundColor: '#3367D6' },
+                                    '&:disabled': { backgroundColor: '#9CA3AF' }
                                 }}
                             >
-                                Sign up with Google
+                                {loading ? 'Signing up...' : 'Sign up with Google'}
                             </Button>
-                            <IconButton sx={{ border: '1px solid #D1D5DB', borderRadius: '8px', color: '#1DA1F2' }}>
+                            <IconButton 
+                                sx={{ border: '1px solid #D1D5DB', borderRadius: '8px', color: '#1DA1F2' }}
+                                disabled={loading}
+                            >
                                 <TwitterIcon />
                             </IconButton>
                         </Box>
@@ -131,13 +202,21 @@ function Register() {
                             <Box sx={{ flexGrow: 1, height: '1px', backgroundColor: '#E5E7EB' }} />
                         </Box>
 
-                        <Box component="form" noValidate>
+                        {error && (
+                            <Alert severity="error" sx={{ mb: 2 }}>
+                                {error}
+                            </Alert>
+                        )}
+                        <Box component="form" onSubmit={handleSubmit} noValidate>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-1 gap-y-1">
                                 <div>
                                     <Typography component="label" htmlFor="school-name" sx={{ fontWeight: 'bold', color: '#111827', fontSize: '0.75rem', display: 'block', mb: 0.5 }}>School Name</Typography>
                                     <TextField
                                         size="small"
                                         id="school-name"
+                                        name="schoolName"
+                                        value={formData.schoolName}
+                                        onChange={handleInputChange}
                                         variant="filled"
                                         fullWidth
                                         InputProps={{
@@ -155,10 +234,14 @@ function Register() {
                                     />
                                 </div>
                                 <div>
-                                    <Typography component="label" htmlFor="user-id" sx={{ fontWeight: 'bold', color: '#111827', fontSize: '0.75rem', display: 'block', mb: 0.5 }}>User ID</Typography>
+                                    <Typography component="label" htmlFor="email" sx={{ fontWeight: 'bold', color: '#111827', fontSize: '0.75rem', display: 'block', mb: 0.5 }}>Email</Typography>
                                     <TextField
-                                        size="small"
-                                        id="user-id"
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        required
                                         variant="filled"
                                         fullWidth
                                         InputProps={{
@@ -201,6 +284,9 @@ function Register() {
                                     <TextField
                                         size="small"
                                         id="state"
+                                        name="state"
+                                        value={formData.state}
+                                        onChange={handleInputChange}
                                         variant="filled"
                                         fullWidth
                                         InputProps={{
@@ -221,7 +307,10 @@ function Register() {
                                     <Typography component="label" htmlFor="country" sx={{ fontWeight: 'bold', color: '#111827', fontSize: '0.75rem', display: 'block', mb: 0.5 }}>Country</Typography>
                                     <TextField
                                         size="small"
-                                        id="country"
+                                        id="contact-person"
+                                        name="contactPerson"
+                                        value={formData.contactPerson}
+                                        onChange={handleInputChange}
                                         variant="filled"
                                         fullWidth
                                         InputProps={{
@@ -296,7 +385,17 @@ function Register() {
                         </Box>
                     </div>
                 </div>
-            </main >
+            </main>
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                    Account created successfully! Redirecting...
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

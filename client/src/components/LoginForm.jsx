@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 import { FaEnvelope, FaExclamationTriangle } from 'react-icons/fa';
-import { login, googleLogin, clearError, resendVerificationEmail } from '../store/slices/authSlice';
+import { clearError } from '../store/slices/authSlice';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../firebase';
 import quwwaLogo from '../assets/images/header.png';
 
 const LoginForm = ({ onSwitchMode }) => {
@@ -49,32 +50,38 @@ const LoginForm = ({ onSwitchMode }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!formData.email || !formData.password) {
-      return;
+    setError('');
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
+      if (error.code === 'auth/email-not-verified') {
+        setShowResendVerification(true);
+      }
     }
-
-    await dispatch(login(formData));
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    await dispatch(googleLogin(credentialResponse.credential));
-  };
-
-  const handleGoogleError = () => {
-    console.error('Google login failed');
-  };
-
-  const handleResendVerification = async () => {
-    if (!formData.email) {
-      return;
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
     }
+  };
+
+  const handleResendVerificationEmail = async () => {
     setResendLoading(true);
     try {
-      await dispatch(resendVerificationEmail(formData.email));
+      // Firebase automatically sends verification email on sign up
+      // This is just a fallback in case user didn't receive it
+      await auth.currentUser.sendEmailVerification();
       setShowResendVerification(false);
+      setError('Verification email sent. Please check your inbox.');
     } catch (error) {
-      console.error('Failed to resend verification email:', error);
+      setError(error.message);
     } finally {
       setResendLoading(false);
     }
@@ -94,7 +101,7 @@ const LoginForm = ({ onSwitchMode }) => {
             <FaExclamationTriangle className="h-5 w-5 text-red-500 mt-0.5 mr-3" />
             <div>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">{error}</p>
-              {isEmailVerificationError && (
+              {error.includes('email not verified') && (
                 <div className="mt-2">
                   <button
                     onClick={() => setShowResendVerification(!showResendVerification)}
@@ -119,7 +126,7 @@ const LoginForm = ({ onSwitchMode }) => {
               </p>
               <div className="flex space-x-2">
                 <button
-                  onClick={handleResendVerification}
+                  onClick={handleResendVerificationEmail}
                   disabled={resendLoading}
                   className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 disabled:opacity-50"
                 >
@@ -199,10 +206,10 @@ const LoginForm = ({ onSwitchMode }) => {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={false}
           className="w-full bg-[#54BD95] text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl"
         >
-          {loading ? 'Signing In...' : 'Sign In'}
+          Sign In
         </button>
 
         <div className="my-6 flex items-center">
@@ -212,16 +219,14 @@ const LoginForm = ({ onSwitchMode }) => {
         </div>
         
         <div className="w-full">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-            useOneTap
-            theme="filled_black"
-            size="large"
-            text="signin_with"
-            shape="rectangular"
-            width="100%"
-          />
+          <button
+            onClick={handleGoogleSignIn}
+            className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+            type="button"
+          >
+            <FcGoogle className="w-5 h-5" />
+            <span>Continue with Google</span>
+          </button>
         </div>
 
         <p className="text-center text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-[#848383] mt-8">

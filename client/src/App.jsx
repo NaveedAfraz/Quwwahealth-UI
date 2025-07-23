@@ -28,6 +28,7 @@ import Branding from './pages/Branding'
 import Login from './pages/login'
 import Register from './pages/register'
 import { useState } from 'react'
+import { AuthProvider } from './contexts/AuthContext'
 function App() {
   const dispatch = useDispatch()
   const { initialLoad } = useSelector((state) => state.auth)
@@ -50,52 +51,54 @@ function App() {
   // }
   const [isChatOpen, setIsChatOpen] = useState(false);
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />}>
-          <Route index element={<Home isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />} />
-          <Route path="about" element={<AboutUs />} />
-          <Route path="programs" element={<Programs />} />
-          <Route path="contact" element={<ContactUs />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="blog/:id" element={<BlogPost />} />
-          <Route path="/holiday-camp" element={<HolidayCamp />} />
-          <Route path="/branding" element={<Branding />} />
-          <Route path="auth" element={<Auth />}>
-            <Route index path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />}>
+            <Route index element={<Home isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="programs" element={<Programs />} />
+            <Route path="contact" element={<ContactUs />} />
+            <Route path="blogs" element={<Blogs />} />
+            <Route path="blog/:id" element={<BlogPost />} />
+            <Route path="/holiday-camp" element={<HolidayCamp />} />
+            <Route path="/branding" element={<Branding />} />
+            <Route path="auth" element={<Auth />}>
+              <Route index path='login' element={<Login />} />
+              <Route path='register' element={<Register />} />
+            </Route>
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="terms" element={<Terms />} />
           </Route>
+
           <Route
-            path="profile"
+            path="/admin"
             element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
+              <AdminRoute>
+                <AdminLayout />
+              </AdminRoute>
             }
-          />
-          <Route path="terms" element={<Terms />} />
-        </Route>
+          >
+            <Route index element={<AdminBlogs />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="blogs" element={<AdminBlogs />} />
+            <Route path="contacts" element={<AdminContacts />} />
+          </Route>
 
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <AdminLayout />
-            </AdminRoute>
-          }
-        >
-          <Route index element={<AdminBlogs />} />
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="blogs" element={<AdminBlogs />} />
-          <Route path="contacts" element={<AdminContacts />} />
-        </Route>
+          <Route path="/verify-email" element={<EmailVerification />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
-        <Route path="/verify-email" element={<EmailVerification />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 

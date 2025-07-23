@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Switch, FormControlLabel, styled } from '@mui/material';
-import { Link } from 'react-router';
+import React, { useState, useContext } from 'react';
+import { TextField, Button, Box, Typography, Switch, FormControlLabel, styled, Snackbar, Alert } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../firebase';
+import { AuthContext } from '../contexts/AuthContext';
 import quwwaLogo from '../assets/images/header.png';
 import loginBg from '../assets/images/login.png'
 // Custom styled switch
@@ -63,9 +66,77 @@ const GoogleIcon = () => (
 
 
 function Login() {
-    const handleSubmit = (e) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+    const navigate = useNavigate();
+    const { setCurrentUser } = useContext(AuthContext);
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackbar(false);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('')
+        setLoading(true);
+        setError('');
+
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            setCurrentUser(userCredential.user);
+            
+            if (rememberMe) {
+                localStorage.setItem('rememberMe', 'true');
+            }
+            
+            setSnackbarMessage('Login successful! Redirecting...');
+            setSnackbarSeverity('success');
+            setOpenSnackbar(true);
+            
+            // Redirect to home page after successful login
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
+        } catch (error) {
+            console.error('Login error:', error);
+            setError(error.message);
+            setSnackbarMessage(error.message);
+            setSnackbarSeverity('error');
+            setOpenSnackbar(true);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            setCurrentUser(result.user);
+            
+            setSnackbarMessage('Google login successful! Redirecting...');
+            setSnackbarSeverity('success');
+            setOpenSnackbar(true);
+            
+            // Redirect to home page after successful login
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
+        } catch (error) {
+            console.error('Google sign in error:', error);
+            setError(error.message);
+            setSnackbarMessage(error.message);
+            setSnackbarSeverity('error');
+            setOpenSnackbar(true);
+        }
     }
     return (
         <Box component="main" sx={{ fontFamily: 'sans-serif', bgcolor: '#F2D184', height: '100%', overflow: 'hidden' }}>
@@ -145,10 +216,15 @@ function Login() {
                                 <TextField
                                     fullWidth
                                     id="email"
-                                    placeholder="Email or phone number"
+                                    placeholder="Email address"
                                     name="email"
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     autoComplete="email"
                                     variant="outlined"
+                                    required
+                                    disabled={loading}
                                     sx={{
                                         '& .MuiOutlinedInput-root': {
                                             borderRadius: '8px',
@@ -170,8 +246,12 @@ function Login() {
                                     placeholder="Enter password"
                                     type="password"
                                     id="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     autoComplete="current-password"
                                     variant="outlined"
+                                    required
+                                    disabled={loading}
                                     sx={{
                                         '& .MuiOutlinedInput-root': {
                                             borderRadius: '8px',
@@ -191,6 +271,9 @@ function Login() {
                                         control={
                                             <CustomSwitch
                                                 size="small"
+                                                checked={rememberMe}
+                                                onChange={(e) => setRememberMe(e.target.checked)}
+                                                disabled={loading}
                                                 sx={{ ml: 1, mr: 1 }}
                                             />
                                         }
@@ -212,6 +295,7 @@ function Login() {
                                 fullWidth
                                 variant="contained"
                                 onClick={handleSubmit}
+                                disabled={loading}
                                 sx={{
                                     mt: 3,
                                     mb: 2,
@@ -224,10 +308,14 @@ function Login() {
                                     '&:hover': {
                                         backgroundColor: '#54BD95',
                                         boxShadow: 'none',
+                                    },
+                                    '&.Mui-disabled': {
+                                        backgroundColor: '#A5D6A7',
+                                        color: 'white'
                                     }
                                 }}
                             >
-                                Sign In
+                                {loading ? 'Signing In...' : 'Sign In'}
                             </Button>
 
                             {/* Google Sign In Button */}
@@ -235,6 +323,8 @@ function Login() {
                                 fullWidth
                                 variant="outlined"
                                 startIcon={<GoogleIcon />}
+                                onClick={handleGoogleSignIn}
+                                disabled={loading}
                                 sx={{
                                     py: 1.5,
                                     backgroundColor: '#333333',
@@ -245,12 +335,18 @@ function Login() {
                                     fontSize: '1rem',
                                     justifyContent: 'center',
                                     '&:hover': {
-                                        backgroundColor: 'rgba(0, 0, 0, 0.02)',
-                                        borderColor: '#9CA3AF'
+                                        backgroundColor: '#444444',
+                                        borderColor: '#9CA3AF',
+                                        bgcolor: '#444444'
+                                    },
+                                    '&.Mui-disabled': {
+                                        backgroundColor: '#757575',
+                                        color: '#E0E0E0',
+                                        borderColor: '#9E9E9E'
                                     }
                                 }}
                             >
-                                Sign in with Google
+                                {loading ? 'Signing In...' : 'Sign in with Google'}
                             </Button>
                         </Box>
 
@@ -277,6 +373,20 @@ function Login() {
                     </Box>
                 </Box>
             </Box>
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert 
+                    onClose={handleCloseSnackbar} 
+                    severity={snackbarSeverity} 
+                    sx={{ width: '100%' }}
+                >
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }
