@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="bg-[#161C28]  text-white">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Logo and Newsletter */}
+         
           <div className="lg:col-span-2 flex justify-center flex-col ">
             <img src={footerLogo} alt="Quwwa Health Logo" className="h-auto w-[30%] md:w-[50%] lg:w-[40%] xl:w-[30%] mb-6" />
             <p className="text-gray-300 mb-4 text-base sm:text-lg md:text-xl">Get started!</p>
@@ -24,18 +24,17 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Support Links */}
           <div>
             <h4 className="text-base sm:text-lg md:text-xl font-bold mb-4">Support</h4>
             <ul className="space-y-2 sm:space-y-3 text-gray-300 text-sm sm:text-base md:text-lg">
-              <li><Link to="/help" className="hover:text-white transition-colors">Help centre</Link></li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">Help centre</Link></li>
               <li><Link to="/terms" className="hover:text-white transition-colors">T&C Private Policy</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">About us</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Contact us</Link></li>
             </ul>
           </div>
 
-          {/* Our Programs Links */}
+
           <div>
             <h4 className="text-base sm:text-lg md:text-xl font-bold mb-4">Our Programs</h4>
             <ul className="space-y-2 sm:space-y-3 text-gray-300 text-sm sm:text-base md:text-lg">

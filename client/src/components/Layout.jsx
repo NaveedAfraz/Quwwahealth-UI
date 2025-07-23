@@ -7,6 +7,10 @@ import { useState } from 'react'
 const Layout = ({ isChatOpen, setIsChatOpen }) => {
   const login = true
   const location = useLocation();
+
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
   
   const isAuthPage = location.pathname === "/auth/login" || location.pathname === "/auth/register";
   return (
