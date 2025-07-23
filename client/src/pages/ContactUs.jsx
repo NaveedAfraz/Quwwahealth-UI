@@ -38,16 +38,10 @@ const ContactUs = () => {
 
     try {
       // The backend server URL
-      // const API_URL = 'http://localhost:5000/api/send-email';
+      const API_URL = 'http://localhost:3006/contact';
 
-      // // The backend expects `visitorEmail`. Let's create the correct payload.
-      // const payload = {
-      //   ...formData,
-      //   visitorEmail: formData.email,
-      // };
-
-      // // Make the POST request to the server
-      // await axios.post(API_URL, payload);
+      // Make the POST request to the server with all fields
+      await axios.post(API_URL, formData);
 
       // If the request is successful
       setSuccess(true);
