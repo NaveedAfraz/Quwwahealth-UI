@@ -185,7 +185,7 @@ app.post("/auth/login", async (req, res) => {
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
-  // Login logic here
+ 
   try {
     const [users] = await db.query("SELECT * FROM users WHERE email = ?", [
       email,
