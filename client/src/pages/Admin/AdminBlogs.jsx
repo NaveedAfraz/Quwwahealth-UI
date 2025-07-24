@@ -8,7 +8,17 @@ const AdminBlogs = () => {
   const { blogs, categories, loading, error, success } = useSelector((state) => state.blog);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState(null);
-  const [editorData, setEditorData] = useState(null);
+  const [editorData, setEditorData] = useState({
+    title: '',
+    featuredImage: '',
+    category: '',
+    meta: {
+      title: '',
+      description: ''
+    },
+    headings: [],
+    content: '',
+  });
 
   useEffect(() => {
     dispatch(getAdminBlogs());
@@ -149,7 +159,7 @@ const AdminBlogs = () => {
         <div className="px-6 py-4 border-b border-gray-200">
           <h2 className="text-lg font-semibold text-gray-900">All Blog Posts ({blogs.length})</h2>
         </div>
-        
+
         {blogs.length === 0 ? (
           <div className="p-8 text-center">
             <div className="text-6xl mb-4">📝</div>

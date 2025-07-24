@@ -373,6 +373,8 @@ app.post("/reset-password", async (req, res) => {
       .json({ message: "Failed to reset password.", success: false });
   }
 });
+const uploadRoutes = require("./routes/upload");
+app.use("/api/upload",  uploadRoutes);
 app.use("/blog", blogRoutes);
 app.listen(PORT, async () => {
   try {

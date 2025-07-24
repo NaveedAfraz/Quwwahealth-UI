@@ -75,7 +75,7 @@ function App() {
             <Route index element={<AdminBlogs />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="blogs" element={<AdminBlogs />} />
-            <Route path="contacts" element={<AdminContacts />} />
+            {/* <Route path="contacts" element={<AdminContacts />} /> */}
           </Route>
 
           <Route path="/verify-email" element={<EmailVerification />} />

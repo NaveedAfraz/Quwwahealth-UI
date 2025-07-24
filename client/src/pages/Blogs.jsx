@@ -5,14 +5,14 @@ import blogImage1 from '../assets/images/Hero/10.jpg';
 import blogImage2 from '../assets/images/Hero/11.jpg';
 import blogImage3 from '../assets/images/Hero/12 1.jpg';
 import blogImage4 from '../assets/images/Hero/ChatGPT Image Apr 14, 2025, 04_24_06 PM 1.jpg';
- 
+
 
 /**
  * Note: This is a combined data structure. 
  * The detailed information has been merged into the first post.
  * You can follow this pattern to add detailed content for the other posts.
  */
- 
+
 /**
  * Note: This is a combined data structure. 
  * The detailed information has been merged into the first post.
@@ -35,10 +35,6 @@ export const allBlogPosts = [
       bio: `With 11 years in SaaS, I've built MillionVerifier and SAAS First. Passionate about SaaS, data, and AI. Let's connect if you share the same drive for success!`,
       image: blogImage1,
       linkedin: '#',
-    },
-    meta: {
-      title: 'School-Based Fitness Programs | Building Lifelong Health in Students',
-      description: `Discover how school-based fitness programs improve children's physical health, mental well-being, and long-term habits. Learn why early physical education matters.`,
     },
     headings: [
       { id: 'physical-health-starts-early', title: 'Physical Health Starts Early' },
@@ -111,15 +107,12 @@ export const allBlogPosts = [
       image: blogImage2,
       linkedin: '#',
     },
-    meta: {
-      title: 'How Fitness Improves Focus and Learning in Students',
-      description: 'Learn how physical activity enhances concentration, memory, and academic performance in school-aged children.',
-    },
+
     headings: [
-        { id: 'improved-concentration', title: 'Improved Concentration and Attention' },
-        { id: 'enhanced-memory', title: 'Enhanced Memory and Learning Capacity' },
-        { id: 'emotional-regulation', title: 'Better Emotional Regulation in Class' },
-        { id: 'brain-development', title: 'Support for Brain Development' },
+      { id: 'improved-concentration', title: 'Improved Concentration and Attention' },
+      { id: 'enhanced-memory', title: 'Enhanced Memory and Learning Capacity' },
+      { id: 'emotional-regulation', title: 'Better Emotional Regulation in Class' },
+      { id: 'brain-development', title: 'Support for Brain Development' },
     ],
     content: `
       <h1 class="text-4xl font-bold mt-8 mb-4">How Fitness Impacts Focus: The Link Between Movement and Academic Performance</h1>
@@ -167,10 +160,7 @@ export const allBlogPosts = [
       image: blogImage3,
       linkedin: '#',
     },
-    meta: {
-      title: 'BMI and Fitness Assessments for Children | A Guide for Schools & Parents',
-      description: 'Learn what BMI means for kids, how fitness assessments work, and how schools can track student health effectively.',
-    },
+
     headings: [
       { id: 'what-is-bmi', title: 'What is BMI?' },
       { id: 'why-tracking-matters', title: 'Why BMI and Fitness Tracking Matter' },
@@ -223,10 +213,7 @@ export const allBlogPosts = [
       image: blogImage4,
       linkedin: '#',
     },
-    meta: {
-      title: 'How to Build a Health-Promoting School | Practical Guide',
-      description: 'A step-by-step guide for educators to create health-promoting schools through fitness, nutrition, and wellness policies.',
-    },
+
     headings: [
       { id: 'structured-fitness', title: 'Start with Structured Fitness' },
       { id: 'mental-wellness', title: 'Embed Mental Wellness' },

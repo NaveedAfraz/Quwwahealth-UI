@@ -39,7 +39,7 @@ const AdminLayout = () => {
                   Blogs
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink 
                   to="/admin/contacts" 
                   className={({ isActive }) => 
@@ -53,7 +53,7 @@ const AdminLayout = () => {
                   <span className="mr-3">📧</span>
                   Contact Submissions
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </div>

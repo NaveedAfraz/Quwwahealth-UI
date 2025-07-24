@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import axios from 'axios';
+const api = axios.create({
+  baseURL: 'http://localhost:3006',
+  withCredentials: true,
+});
 // Get all blogs for admin
 export const getAdminBlogs = createAsyncThunk('blog/getAdminBlogs', async (_, { rejectWithValue }) => {
   try {
