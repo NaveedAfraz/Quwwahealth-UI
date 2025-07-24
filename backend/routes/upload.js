@@ -55,8 +55,24 @@ const handleUploadError = (err, req, res, next) => {
 // POST /api/upload
 router.post('/', upload.single('file'), handleUploadError, async (req, res) => {
   try {
+    console.log('Upload request received');
+    console.log('Request file:', req.file);
+    
     if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+      console.error('No file in request');
+      return res.status(400).json({ 
+        error: 'No file uploaded',
+        details: 'The request did not contain a file' 
+      });
+    }
+    
+    // Verify file exists on disk
+    if (!fs.existsSync(req.file.path)) {
+      console.error('File does not exist on disk:', req.file.path);
+      return res.status(400).json({ 
+        error: 'File upload failed',
+        details: 'The uploaded file could not be found on the server' 
+      });
     }
     console.log('Cloudinary ENV:', {
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -64,26 +80,69 @@ router.post('/', upload.single('file'), handleUploadError, async (req, res) => {
         api_secret: process.env.CLOUDINARY_API_SECRET
       });
       
-    // Upload to Cloudinary with explicit API credentials
-    const result = await cloudinary.uploader.upload(req.file.path, {
+    console.log('Uploading to Cloudinary...');
+    const uploadOptions = {
       folder: 'blog_images',
       resource_type: 'auto',
       use_filename: true,
       unique_filename: true,
-      overwrite: false
-    });
+      overwrite: false,
+      invalidate: true
+    };
+    
+    console.log('Upload options:', uploadOptions);
+    
+    let result;
+    try {
+      result = await cloudinary.uploader.upload(req.file.path, uploadOptions);
+      console.log('Cloudinary upload successful:', result);
+    } catch (uploadErr) {
+      console.error('Cloudinary upload error:', {
+        message: uploadErr.message,
+        http_code: uploadErr.http_code,
+        name: uploadErr.name,
+        code: uploadErr.code
+      });
+      
+      // Clean up the temp file
+      fs.unlinkSync(req.file.path);
+      
+      return res.status(400).json({
+        error: 'Failed to upload to Cloudinary',
+        details: uploadErr.message || 'Unknown error during upload',
+        code: uploadErr.http_code || 'UPLOAD_ERROR'
+      });
+    }
 
-    // Clean up local file
-    fs.unlink(req.file.path, (err) => {
-      if (err) console.error('Error deleting temp file:', err);
-    });
+    // Clean up the temp file
+    try {
+      fs.unlinkSync(req.file.path);
+      console.log('Temporary file deleted:', req.file.path);
+    } catch (cleanupErr) {
+      console.error('Error deleting temp file:', cleanupErr);
+      // Continue even if cleanup fails
+    }
 
-    return res.json({ 
+    if (!result || !result.secure_url) {
+      console.error('Invalid Cloudinary response:', result);
+      return res.status(500).json({
+        error: 'Invalid response from Cloudinary',
+        details: 'The upload was successful but no URL was returned'
+      });
+    }
+
+    console.log('Sending success response with URL:', result.secure_url);
+    res.json({
+      success: true,
       url: result.secure_url,
-      public_id: result.public_id
+      public_id: result.public_id,
+      format: result.format,
+      bytes: result.bytes,
+      width: result.width,
+      height: result.height
     });
   } catch (err) {
-    console.error('Cloudinary upload error:', err);
+    console.error('Error during upload:', err);
     
     // Clean up temp file if it exists
     if (req.file?.path && fs.existsSync(req.file.path)) {

@@ -12,14 +12,14 @@ const AdminBlogs = () => {
     title: '',
     featuredImage: '',
     category: '',
-    meta: {
-      title: '',
-      description: ''
-    },
-    headings: [],
+    headings: [{ title: '', content: '' },
+    { title: '', content: '' },
+    { title: '', content: '' },
+    { title: '', content: '' },
+    { title: '', content: '' }],
     content: '',
   });
-
+  console.log(blogs);
   useEffect(() => {
     dispatch(getAdminBlogs());
     dispatch(getBlogCategories());
@@ -44,6 +44,11 @@ const AdminBlogs = () => {
       title: '',
       content: '',
       category: '',
+      headings: [{ title: '', content: '' },
+      { title: '', content: '' },
+      { title: '', content: '' },
+      { title: '', content: '' },
+      { title: '', content: '' }],
       status: 'draft',
       excerpt: '',
       tags: '',
@@ -56,10 +61,25 @@ const AdminBlogs = () => {
 
   const handleEdit = (blog) => {
     setSelectedBlog(blog);
+    
+    // Handle tags whether they come as string, array, or undefined
+    let tagsValue = '';
+    if (Array.isArray(blog.tags)) {
+      // If tags is an array, join with comma and space
+      tagsValue = blog.tags.join(', ');
+    } else if (typeof blog.tags === 'string') {
+      // If tags is already a string, use it as is
+      tagsValue = blog.tags;
+    } else if (blog.tags === null || blog.tags === undefined) {
+      // If tags is null or undefined, default to empty string
+      tagsValue = '';
+    }
+
     setEditorData({
       ...blog,
-      featured_image: blog.featured_image || '',
-      tags: blog.tags ? blog.tags.join(', ') : '',
+      featured_image: blog.featured_image || blog.featured_image_url || '',
+      tags: tagsValue,
+      headings: blog.headings || Array(5).fill({ title: '', content: '' }),
       meta_title: blog.meta_title || '',
       meta_description: blog.meta_description || ''
     });
@@ -74,17 +94,39 @@ const AdminBlogs = () => {
 
   const handleSave = async (blogData) => {
     const dataToSave = { ...blogData };
+    console.log('Saving blog with data:', { selectedBlog, dataToSave });
 
     try {
       if (selectedBlog) {
-        await dispatch(updateBlog({ id: selectedBlog._id, blogData: dataToSave })).unwrap();
+        const blogId = selectedBlog.id || selectedBlog._id;
+        console.log('Updating blog with ID:', blogId);
+        if (!blogId) {
+          throw new Error('No blog ID found for update');
+        }
+        await dispatch(updateBlog({ id: blogId, blogData: dataToSave })).unwrap();
       } else {
+        console.log('Creating new blog');
         await dispatch(createBlog(dataToSave)).unwrap();
       }
       setIsEditorOpen(false);
-      setEditorData(null);
+      setSelectedBlog(null);
+      setEditorData({
+        title: '',
+        featuredImage: '',
+        category: '',
+        headings: Array(5).fill({ title: '', content: '' }),
+        content: '',
+        status: 'draft',
+        excerpt: '',
+        tags: '',
+        meta_title: '',
+        meta_description: ''
+      });
+      // Refresh the blog list
+      dispatch(getAdminBlogs());
     } catch (err) {
       console.error('Failed to save blog:', err);
+      alert(`Failed to save blog: ${err.message || 'Unknown error'}`);
     }
   };
 
@@ -109,137 +151,135 @@ const AdminBlogs = () => {
     );
   }
 
+  // Render the BlogEditor if isEditorOpen is true
+  if (isEditorOpen) {
+    return (
+      <div className="px-6 py-8 max-w-screen-2xl mx-auto">
+        <BlogEditor
+          formData={editorData}
+          onFormChange={setEditorData}
+          onSave={handleSave}
+          onCancel={() => {
+            setIsEditorOpen(false);
+            setSelectedBlog(null);
+            setEditorData({
+              title: '',
+              featuredImage: '',
+              category: '',
+              headings: Array(5).fill({ title: '', content: '' }),
+              content: '',
+              status: 'draft',
+              excerpt: '',
+              tags: '',
+              meta_title: '',
+              meta_description: ''
+            });
+          }}
+          categories={categories}
+        />
+      </div>
+    );
+  }
+
+  // Render the blog list if not in edit mode
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
+    <div className="px-6 py-8 max-w-screen-2xl mx-auto">
+      <div className="flex flex-wrap justify-between items-center mb-10 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
-          <p className="text-[#848383] mt-1">Create, edit, and manage your blog posts</p>
+          <h1 className="text-4xl font-extrabold text-gray-900">Manage Blogs</h1>
+          <p className="text-lg text-gray-500 mt-1">Create and manage all your blog content</p>
         </div>
         <button
           onClick={handleCreate}
-          className="px-6 py-3 bg-[#54BD95] text-white rounded-lg hover:bg-[#4a9f7f] transition-colors flex items-center"
+          className="px-6 py-3 bg-[#54BD95] text-white text-lg rounded-xl hover:bg-[#3e8d74] transition shadow-lg"
         >
-          <span className="mr-2">📝</span>
-          Create New Blog
+          + Create Blog
         </button>
       </div>
-
-      {error && (
-        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded" role="alert">
-          <strong className="font-bold">Error: </strong>
-          <span className="block sm:inline">{typeof error === 'string' ? error : (error.message || 'An unexpected error occurred.')}</span>
-          {error.errors && Array.isArray(error.errors) && (
-            <ul className="mt-2 list-disc list-inside">
-              {error.errors.map((err, index) => (
-                <li key={index}>{err.msg}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
-
-      {success && (
-        <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          {success}
-        </div>
-      )}
-
-      {isEditorOpen && editorData && (
-        <BlogEditor
-          formData={editorData}
-          onFormChange={handleEditorChange}
-          onSave={handleSave}
-          onCancel={() => setIsEditorOpen(false)}
-          categories={categories}
-        />
-      )}
-
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">All Blog Posts ({blogs.length})</h2>
-        </div>
-
-        {blogs.length === 0 ? (
-          <div className="p-8 text-center">
-            <div className="text-6xl mb-4">📝</div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No blog posts yet</h3>
-            <p className="text-[#848383] mb-4">Get started by creating your first blog post</p>
-            <button
-              onClick={handleCreate}
-              className="px-4 py-2 bg-[#54BD95] text-white rounded-md hover:bg-[#4a9f7f] transition-colors"
-            >
-              Create Your First Blog
-            </button>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#A6A6A6] uppercase tracking-wider">
-                    Title
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#A6A6A6] uppercase tracking-wider">
-                    Category
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#A6A6A6] uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-[#A6A6A6] uppercase tracking-wider">
-                    Created
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-[#A6A6A6] uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {blogs.map((blog) => (
-                  <tr key={blog._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <div>
-                        <div className="text-sm font-medium text-gray-900">{blog.title}</div>
-                        {blog.excerpt && (
-                          <div className="text-sm text-[#A6A6A6] truncate max-w-xs">
-                            {blog.excerpt}
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                        {blog.category}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {getStatusBadge(blog.status)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#A6A6A6]">
-                      {new Date(blog.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={() => handleEdit(blog)}
-                        className="text-[#54BD95] hover:text-[#4a9f7f] mr-4"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(blog._id)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+  
+    {blogs.length === 0 ? (
+      <div className="text-center py-40 text-gray-500">
+        <div className="text-7xl mb-6">📝</div>
+        <h3 className="text-3xl font-bold mb-2">No Blogs Yet</h3>
+        <p className="text-lg mb-6">Click below to start your first blog post.</p>
+        <button
+          onClick={handleCreate}
+          className="px-5 py-3 bg-[#54BD95] text-white rounded-lg text-base hover:bg-[#3e8d74]"
+        >
+          Create Blog
+        </button>
       </div>
-    </div>
+    ) : (
+      <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-2">
+        {blogs.map((blog) => (
+          <div
+            key={blog._id || blog.id}
+            className="bg-white rounded-2xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-300 flex flex-col"
+          >
+            {blog.featured_image_url ? (
+              <img
+                src={blog.featured_image_url}
+                alt={blog.title}
+                className="h-72 w-full object-cover"
+              />
+            ) : (
+              <div className="h-72 bg-gray-100 flex items-center justify-center text-gray-400 text-xl">
+                No Image
+              </div>
+            )}
+  
+            <div className="p-8 flex-1 flex flex-col justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">{blog.title}</h2>
+                <p className="text-base text-gray-700 mb-4 leading-relaxed line-clamp-4">
+                  {blog.excerpt || 'No excerpt available.'}
+                </p>
+  
+                <div className="flex flex-wrap gap-3 mb-4">
+                  {(Array.isArray(blog.tags) ? blog.tags : blog.tags?.split(',') || []).map((tag, i) => (
+                    <span
+                      key={i}
+                      className="text-sm bg-gray-200 text-gray-800 px-3 py-1 rounded-full"
+                    >
+                      {typeof tag === 'object' ? tag.name : tag.trim()}
+                    </span>
+                  ))}
+                </div>
+  
+                <div className="text-sm text-gray-600 mt-1">
+                  <span className="font-semibold">Category:</span> {blog.category || 'Uncategorized'}
+                </div>
+                <div className="text-sm text-gray-600 mt-1">
+                  <span className="font-semibold">Created:</span> {new Date(blog.created_at).toLocaleString()}
+                </div>
+                <div className="text-sm mt-3">
+                  {getStatusBadge(blog.status || 'draft')}
+                </div>
+              </div>
+  
+              <div className="mt-6 flex justify-end gap-4">
+                <button
+                  onClick={() => handleEdit(blog)}
+                  className="text-[#54BD95] hover:text-[#3e8d74] font-semibold text-base"
+                >
+                  ✏️ Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(blog.id || blog._id)}
+                  className="text-red-600 hover:text-red-800 font-medium"
+                >
+                  🗑️ Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+  
+  
+  
   );
 };
 

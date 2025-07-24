@@ -10,16 +10,20 @@ export const getAdminBlogs = createAsyncThunk('blog/getAdminBlogs', async (_, { 
     const response = await api.get('/blog/admin/all');
     return response.data;
   } catch (error) {
+    console.log(error);
     return rejectWithValue(error.response?.data || 'Failed to fetch blogs');
   }
 });
 
 // Create new blog
 export const createBlog = createAsyncThunk('blog/createBlog', async (blogData, { rejectWithValue }) => {
+  console.log(blogData);
   try {
     const response = await api.post('/blog', blogData);
+    console.log(response.data);
     return response.data;
   } catch (error) {
+    console.log(error);
     if (error.response && error.response.data) {
       return rejectWithValue(error.response.data);
     }
@@ -100,6 +104,7 @@ const blogSlice = createSlice({
       })
       .addCase(createBlog.fulfilled, (state, { payload }) => {
         state.loading = false;
+        console.log(payload);
         const newBlog = payload?.data?.blog || payload.blog || payload;
         if (newBlog?._id) {
           state.blogs.push(newBlog);
@@ -144,14 +149,19 @@ const blogSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(deleteBlog.fulfilled, (state, { payload: id }) => {
+      .addCase(deleteBlog.fulfilled, (state, { payload: deletedId }) => {
         state.loading = false;
-        state.blogs = state.blogs.filter((blog) => blog._id !== id);
+        // Handle both 'id' and '_id' cases for blog identification
+        state.blogs = state.blogs.filter((blog) => {
+          // Check both 'id' and '_id' properties to find a match
+          const blogId = blog.id || blog._id;
+          return blogId != deletedId; // Use loose equality to handle string/number mismatches
+        });
         state.success = 'Blog deleted successfully';
       })
       .addCase(deleteBlog.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = payload;
+        state.error = payload || 'Failed to delete blog. Please try again.';
       })
       // Get categories
       .addCase(getBlogCategories.fulfilled, (state, { payload }) => {

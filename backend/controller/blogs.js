@@ -12,9 +12,9 @@ const createBlog = async (req, res) => {
       meta_title,
       meta_description,
     } = req.body;
-
+    console.log(req.body);
     // Validate required fields
-    if (!title || !content || !excerpt) {
+    if (!title || !content) {
       return res
         .status(400)
         .json({ message: "Title, content, and excerpt are required." });
@@ -40,13 +40,13 @@ const createBlog = async (req, res) => {
       [
         title,
         content,
-        excerpt,
+        excerpt || '',
         category,
-        status,
+        status || 'Draft',
         tags,
         featured_image_url,
-        meta_title,
-        meta_description,
+        meta_title || '',
+        meta_description || '',
       ]
     );
     const [newBlog] = await db.query("SELECT * FROM blogs WHERE id = ?", [
@@ -99,10 +99,10 @@ const updateBlog = async (req, res) => {
       meta_description,
     } = req.body;
 
-    if (!title || !content || !excerpt) {
+    if (!title || !content || !category) {
       return res
         .status(400)
-        .json({ message: "Title, content, and excerpt are required." });
+        .json({ message: "Title, content, and category are required." });
     }
 
     const blog = await db.query(
@@ -120,12 +120,12 @@ const updateBlog = async (req, res) => {
       [
         title,
         content,
-        excerpt,
+        excerpt || '',
         category,
-        status,
+        status || 'Draft',
         tags,
         featured_image_url,
-        meta_title,
+        meta_title || '',
         meta_description,
         req.params.id,
       ]

@@ -4,36 +4,52 @@ import axios from 'axios';
 const BlogEditor = ({ formData, onFormChange, onSave, onCancel, categories = [] }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
-  const [headings, setHeadings] = useState([
-    { id: '', title: '' },
-    { id: '', title: '' },
-    { id: '', title: '' },
-    { id: '', title: '' },
-    { id: '', title: '' }
-  ]);
-  const handleHeadingChange = (index, field, value) => {
-    const newHeadings = [...headings];
-    newHeadings[index][field] = value;
-    setHeadings(newHeadings);
-  };
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     onFormChange({ ...formData, [name]: value });
   };
 
+  const handleSubsectionChange = (index, field, value) => {
+    const updatedHeadings = [...(formData.headings || [])];
+    
+    // Ensure we have enough headings
+    while (updatedHeadings.length <= index) {
+      updatedHeadings.push({ title: '', content: '' });
+    }
+    
+    // Update the specific field
+    updatedHeadings[index] = {
+      ...updatedHeadings[index],
+      [field]: value
+    };
+    
+    // Update the form data with the new headings
+    onFormChange({ 
+      ...formData, 
+      headings: updatedHeadings 
+    });
+  };
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (!file) {
+      setUploadError('No file selected');
+      return;
+    }
 
-    // Basic file type validation (optional)
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']; // Added webp
+    // Reset file input to allow re-uploading the same file
+    e.target.value = '';
+
+    // File type validation
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
       setUploadError('Invalid file type. Please upload a JPEG, PNG, GIF, or WebP image.');
       return;
     }
 
-    // Basic file size validation (optional, e.g., max 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    // File size validation (5MB limit)
+    const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
       setUploadError('File size exceeds 5MB limit.');
       return;
@@ -43,31 +59,67 @@ const BlogEditor = ({ formData, onFormChange, onSave, onCancel, categories = [] 
     formDataToSend.append('file', file);
 
     setIsUploading(true);
-    setUploadError(''); // Clear previous errors
+    setUploadError('');
 
     try {
+      console.log('Starting file upload:', file.name);
+      
       const response = await axios.post('http://localhost:3006/api/upload', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
-        withCredentials: true
+        withCredentials: true,
+        timeout: 30000 // 30 second timeout
       });
 
-      if (!response.data || !response.data.url) { // Ensure URL is returned
+      console.log('Upload response:', response.data);
+
+      if (!response.data || !response.data.url) {
         throw new Error('Upload failed: No image URL returned from server.');
       }
 
-      onFormChange({ ...formData, featured_image: response.data.url }); // Assuming `featured_image` is the correct key
+      console.log('Upload successful, image URL:', response.data.url);
+      // Update the correct property name that matches the backend's expectation
+      onFormChange({ 
+        ...formData, 
+        featured_image_url: response.data.url,  // Changed from featured_image to featured_image_url
+        featuredImage: response.data.url        // Keep both for backward compatibility
+      });
+      
     } catch (err) {
       console.error('Upload error:', err);
-      // More descriptive error messages
+      console.error('Upload error:', {
+        message: err.message,
+        response: err.response?.data,
+        status: err.response?.status,
+        code: err.code
+      });
+
+      let errorMessage = 'Upload failed';
+      
       if (err.response) {
-        setUploadError(`Upload failed: ${err.response.data?.message || err.response.statusText}`);
+        // Server responded with an error status code
+        const { status, data } = err.response;
+        if (status === 400) {
+          errorMessage = data?.details || data?.message || 'Invalid file format or content';
+        } else if (status === 413) {
+          errorMessage = 'File is too large. Maximum size is 5MB.';
+        } else if (status >= 500) {
+          errorMessage = 'Server error. Please try again later.';
+        } else {
+          errorMessage = data?.message || `Upload failed with status ${status}`;
+        }
       } else if (err.request) {
-        setUploadError('Upload failed: No response from server. Check your network or server URL.');
+        // Request was made but no response received
+        errorMessage = 'No response from server. Check your network connection.';
+      } else if (err.code === 'ECONNABORTED') {
+        errorMessage = 'Upload timed out. Please try again.';
       } else {
-        setUploadError(`Upload failed: ${err.message}`);
+        // Other errors
+        errorMessage = err.message || 'An unknown error occurred';
       }
+      
+      setUploadError(errorMessage);
     } finally {
       setIsUploading(false);
     }
@@ -97,7 +149,7 @@ const BlogEditor = ({ formData, onFormChange, onSave, onCancel, categories = [] 
       meta: {
         title: formData.metaTitle || '', // Directly use metaTitle from formData
         description: formData.metaDescription || '' // Directly use metaDescription from formData
-      }
+      },
       // Author and Headings are completely removed from submitData
     };
     onSave(submitData);
@@ -158,42 +210,6 @@ const BlogEditor = ({ formData, onFormChange, onSave, onCancel, categories = [] 
               </div>
             )}
           </div>
-
-          {/* Headings and Content Sections */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Headings and Content Sections</label>
-            <div className="space-y-4">
-              {headings.map((heading, index) => (
-                <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor={`heading-${index}-id`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Heading ID</label>
-                    <input
-                      type="text"
-                      id={`heading-${index}-id`}
-                      name={`heading-${index}-id`}
-                      value={heading.id}
-                      onChange={(e) => handleHeadingChange(index, 'id', e.target.value)}
-                      className="input input-bordered w-full bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 text-base"
-                      placeholder={`heading-${index + 1}`}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor={`heading-${index}-title`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Heading Title</label>
-                    <input
-                      type="text"
-                      id={`heading-${index}-title`}
-                      name={`heading-${index}-title`}
-                      value={heading.title}
-                      onChange={(e) => handleHeadingChange(index, 'title', e.target.value)}
-                      className="input input-bordered w-full bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 text-base"
-                      placeholder={`Heading ${index + 1} Title`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Tags Input */}
           <div>
             <label htmlFor="tags" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tags <span className="text-gray-400 text-xs">(comma-separated)</span></label>
@@ -221,6 +237,61 @@ const BlogEditor = ({ formData, onFormChange, onSave, onCancel, categories = [] 
               className="textarea textarea-bordered w-full resize-y bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 text-base"
               required
             />
+          </div>
+
+          {/* Subsections */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Subsections</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                Add up to 5 subsections. Each will be displayed as a numbered section in your blog post.
+              </p>
+            </div>
+            <div className="space-y-6">
+              {formData.headings.map((subsection, index) => (
+                <div key={index} className="space-y-4 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 font-medium">
+                      {index + 1}
+                    </span>
+                    <h4 className="text-base font-medium text-gray-800 dark:text-gray-200">
+                      Section {index + 1}
+                    </h4>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor={`subsection-${index}-title`}
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    >
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      id={`subsection-${index}-title`}
+                      value={subsection.title}
+                      onChange={(e) => handleSubsectionChange(index, 'title', e.target.value)}
+                      className="input input-bordered w-full bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 text-base"
+                      placeholder={`Enter section ${index + 1} title...`}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor={`subsection-${index}-content`}
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    >
+                      Content <span className="text-xs text-gray-500">(supports HTML)</span>
+                    </label>
+                    <textarea
+                      id={`subsection-${index}-content`}
+                      value={subsection.content}
+                      onChange={(e) => handleSubsectionChange(index, 'content', e.target.value)}
+                      className="textarea textarea-bordered w-full bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 text-base min-h-[100px]"
+                      placeholder={`Enter section ${index + 1} content...`}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Buttons */}
