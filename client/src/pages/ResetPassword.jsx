@@ -1,61 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { FaLock, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
-import { resetPassword, clearPasswordReset, clearError } from '../store/slices/authSlice';
+//import { resetPassword, clearPasswordReset, clearError } from '../store/slices/authSlice';
 import quwwaLogo from '../assets/images/header.png';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
 
-  const dispatch = useDispatch();
-  const { loading, error, passwordResetSuccess } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email;
 
   useEffect(() => {
-    dispatch(clearError());
-    dispatch(clearPasswordReset());
-  }, [dispatch]);
+    if (!email) {
+      // If no email is passed, redirect to the forgot password page
+      navigate('/forgot-password');
+    }
+  }, [email, navigate]);
 
-  const handleSubmit = (e) => {
+     const handleResetPassword = async (e) => {
     e.preventDefault();
+    setError(null);
+    setPasswordsMatch(true);
+
     if (password !== confirmPassword) {
       setPasswordsMatch(false);
       return;
     }
-    setPasswordsMatch(true);
-    if (token) {
-      dispatch(resetPassword({ token, password }));
+
+    setLoading(true);
+
+    try {
+      await axios.post('http://localhost:3006/reset-password', {
+        email,
+        newPassword: password,
+      });
+      setLoading(false);
+      setPasswordResetSuccess(true);
+      // Redirect to login after a short delay
+      setTimeout(() => {
+        navigate('/auth');
+      }, 3000);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to reset password.');
+      setLoading(false);
     }
   };
-
-  if (!token) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center text-center p-4">
-        <div>
-          <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-12 mx-auto mb-6" />
-          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
-            <FaExclamationTriangle className="h-6 w-6 text-red-600" />
-          </div>
-          <h2 className="text-3xl font-extrabold text-gray-900">Invalid Link</h2>
-          <p className="mt-2 text-sm text-[#848383]">
-            No password reset token was found. This link is either invalid or has expired.
-          </p>
-          <div className="mt-8">
-            <Link
-              to="/forgot-password"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#54BD95] hover:bg-green-600"
-            >
-              Request a new link
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (passwordResetSuccess) {
     return (
@@ -101,12 +98,12 @@ const ResetPassword = () => {
           </div>
         )}
         {!passwordsMatch && (
-            <div className="bg-red-50 border-l-4 border-red-400 p-4">
-              <p className="text-sm text-red-700">Passwords do not match.</p>
-            </div>
+          <div className="bg-red-50 border-l-4 border-red-400 p-4">
+            <p className="text-sm text-red-700">Passwords do not match.</p>
+          </div>
         )}
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={handleResetPassword}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="password">New Password</label>

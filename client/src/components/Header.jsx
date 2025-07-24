@@ -3,20 +3,22 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaCog, FaSearch } from 'react-icons/fa';
-import { logout } from '../store/slices/authSlice'; // Assuming this is your slice
+// Assuming this is your slice
 import Logo from '../assets/images/header.png'; // Assuming this is your logo path
 import { Button } from '@mui/material';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
+  const { user, isAuthenticated, logout , setUser , setIsAuthenticated} = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   // Provide a fallback for state.auth if it's undefined
-  const { isAuthenticated, user } = useSelector((state) => state.auth) || { isAuthenticated: false, user: null };
+  // const { isAuthenticated, user } = useSelector((state) => state.auth) || { isAuthenticated: false, user: null };
   const location = useLocation();
-
+  
+  console.log('auth state', isAuthenticated, user);
   // Function to handle navigation clicks in the mobile menu
   const handleMobileNavClick = () => {
     window.scrollTo(0, 0); // Scroll to the top of the page
@@ -60,7 +62,9 @@ const Header = () => {
 
   // Logout handler
   const handleLogout = () => {
-    dispatch(logout());
+    logout()
+    setUser(null);
+    setIsAuthenticated(false);
     navigate('/');
     setIsUserMenuOpen(false);
     handleMobileNavClick(); // Close mobile menu and scroll to top
@@ -68,7 +72,7 @@ const Header = () => {
 
   const authPage = location.pathname === '/auth/login' || location.pathname === '/auth/register';
   const homePage = location.pathname === '/';
-  
+
   // Navigation links array for cleaner mapping 
   const navLinks = [
     { to: '/', text: 'Home' },
@@ -218,21 +222,21 @@ const Header = () => {
                       <FaCog className="w-5 h-5" /> <span>Admin Panel</span>
                     </Link>
                   )}
-                  <Link to="/profile" onClick={handleMobileNavClick} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
+                  {/* <Link to="/profile" onClick={handleMobileNavClick} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
                     <FaUserCircle className="w-5 h-5" /> <span>Profile</span>
-                  </Link>
+                  </Link> */}
                   <button onClick={handleLogout} className="flex items-center space-x-3 p-3 rounded-md text-gray-700 font-medium hover:bg-gray-200 w-full">
                     <FaSignOutAlt className="w-5 h-5" /> <span>Logout</span>
                   </button>
                 </div>
               ) : (
                 <div className="space-y-3">
-                    <Link to="/auth/register" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-white bg-[#54BD95] px-5 py-3 rounded-lg hover:opacity-90 transition-opacity">
-                      Sign Up
-                    </Link>
-                    <Link to="/auth/login" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-gray-700 bg-gray-200 px-5 py-3 rounded-lg hover:bg-gray-300 transition-colors">
-                      Login
-                    </Link>
+                  <Link to="/auth/register" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-white bg-[#54BD95] px-5 py-3 rounded-lg hover:opacity-90 transition-opacity">
+                    Sign Up
+                  </Link>
+                  <Link to="/auth/login" onClick={handleMobileNavClick} className="block w-full text-center font-medium text-gray-700 bg-gray-200 px-5 py-3 rounded-lg hover:bg-gray-300 transition-colors">
+                    Login
+                  </Link>
                 </div>
               )}
             </div>

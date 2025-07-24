@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import Header from './Header'
 import Footer from './Footer'
 import Chatbot from './Chatbot'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext'
+import axios from 'axios'
 const Layout = ({ isChatOpen, setIsChatOpen }) => {
   const login = true
   const location = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
-  
+
   const isAuthPage = location.pathname === "/auth/login" || location.pathname === "/auth/register";
   return (
 

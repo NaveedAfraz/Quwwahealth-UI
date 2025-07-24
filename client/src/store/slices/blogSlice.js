@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../utils/axiosConfig';
 
 // Get all blogs for admin
 export const getAdminBlogs = createAsyncThunk('blog/getAdminBlogs', async (_, { rejectWithValue }) => {

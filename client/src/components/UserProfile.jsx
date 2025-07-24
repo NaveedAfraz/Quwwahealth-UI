@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile } from '../store/slices/authSlice';
+//import { updateProfile } from '../store/slices/authSlice';
 import { FaUser, FaEnvelope, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 
 const UserProfile = () => {
@@ -31,7 +31,7 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(updateProfile(formData));
+ //   await dispatch(updateProfile(formData));
     setIsEditing(false);
   };
 

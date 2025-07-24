@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../utils/axiosConfig';
 
 // Get all contact submissions
 export const getContactSubmissions = createAsyncThunk('adminContact/getSubmissions', async (_, { rejectWithValue }) => {

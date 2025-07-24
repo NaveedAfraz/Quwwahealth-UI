@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Button, Box, Typography, Switch, FormControlLabel, styled, Snackbar, Alert } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import LinkPasswordModal from '../components/LinkPasswordModal';
 import { auth } from '../firebase';
-import { AuthContext } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import quwwaLogo from '../assets/images/header.png';
 import loginBg from '../assets/images/login.png'
+import axios from 'axios';
 // Custom styled switch
 const CustomSwitch = styled(Switch)(({ theme }) => ({
     width: 42,
@@ -66,6 +68,7 @@ const GoogleIcon = () => (
 
 
 function Login() {
+    const { setUser, setIsAuthenticated } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
@@ -75,7 +78,9 @@ function Login() {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     const navigate = useNavigate();
-    const { setCurrentUser } = useContext(AuthContext);
+
+    const [showLinkModal, setShowLinkModal] = useState(false);
+    const [googleUserEmail, setGoogleUserEmail] = useState('');
 
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
@@ -88,27 +93,81 @@ function Login() {
         e.preventDefault();
         setLoading(true);
         setError('');
-
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            setCurrentUser(userCredential.user);
-            
-            if (rememberMe) {
-                localStorage.setItem('rememberMe', 'true');
+            const response = await axios.post('http://localhost:3006/auth/login', { email: email, password: password }, {
+                withCredentials: true
+            });
+            console.log(response.data);
+            if (response.data.message === 'Login successful') {
+                setOpenSnackbar(true);
+                setSnackbarMessage('Login successful');
+                setSnackbarSeverity('success');
+                setUser(response.data.user);
+                setIsAuthenticated(true);
+                setTimeout(() => navigate('/'), 1000);
             }
-            
-            setSnackbarMessage('Login successful! Redirecting...');
-            setSnackbarSeverity('success');
-            setOpenSnackbar(true);
-            
-            // Redirect to home page after successful login
-            setTimeout(() => {
-                navigate('/');
-            }, 1500);
+
+            // await signInWithEmailAndPassword(auth, email, password);
+            // The onAuthStateChanged listener in AuthContext and the AuthNavigator component
+            // will handle the session creation and redirection automatically.
         } catch (error) {
-            console.error('Login error:', error);
+            console.log(error);
+            setOpenSnackbar(true);
+            setSnackbarMessage(error.response.data.message);
+            setSnackbarSeverity('error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        setLoading(true);
+        setError('');
+        try {
+            const result = await signInWithPopup(auth, new GoogleAuthProvider());
+            const user = result.user;
+
+            // Try to sync with backend (e.g., /auth/session)
+            try {
+                const idToken = await user.getIdToken();
+                console.log(idToken);
+                const response = await axios.post('http://localhost:3006/auth/session', { idToken }, { withCredentials: true });
+                // Success: navigate or let AuthContext handle
+                console.log(response.data);
+                if (response.data.user.password == "") {
+                    setGoogleUserEmail(response.data.user.email);
+                    setShowLinkModal(true);
+                } else {
+                    setUser(response.data.user);
+                    setIsAuthenticated(true);
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Login successful');
+                    setSnackbarSeverity('success');
+                    setTimeout(() => navigate('/'), 1000);
+                }
+            } catch (backendErr) {
+                // Check for MySQL 'password' field error
+                const msg = backendErr?.response?.data?.message || backendErr.message;
+                if (msg && msg.includes("Field 'password' doesn't have a default value")) {
+                    // Prompt for password linking
+                    setGoogleUserEmail(user.email);
+                    setShowLinkModal(true);
+                    setSnackbarMessage('Please set a password to complete your account setup.');
+                    setSnackbarSeverity('info');
+                    setOpenSnackbar(true);
+                    return;
+                } else {
+                    setError(msg);
+                    setSnackbarMessage(msg || 'Google sign-in failed.');
+                    setSnackbarSeverity('error');
+                    setOpenSnackbar(true);
+                    return;
+                }
+            }
+        } catch (error) {
+            console.error('Google sign in error:', error);
             setError(error.message);
-            setSnackbarMessage(error.message);
+            setSnackbarMessage(error.message || 'Google sign-in failed.');
             setSnackbarSeverity('error');
             setOpenSnackbar(true);
         } finally {
@@ -116,28 +175,6 @@ function Login() {
         }
     };
 
-    const handleGoogleSignIn = async () => {
-        try {
-            const provider = new GoogleAuthProvider();
-            const result = await signInWithPopup(auth, provider);
-            setCurrentUser(result.user);
-            
-            setSnackbarMessage('Google login successful! Redirecting...');
-            setSnackbarSeverity('success');
-            setOpenSnackbar(true);
-            
-            // Redirect to home page after successful login
-            setTimeout(() => {
-                navigate('/');
-            }, 1500);
-        } catch (error) {
-            console.error('Google sign in error:', error);
-            setError(error.message);
-            setSnackbarMessage(error.message);
-            setSnackbarSeverity('error');
-            setOpenSnackbar(true);
-        }
-    }
     return (
         <Box component="main" sx={{ fontFamily: 'sans-serif', bgcolor: '#F2D184', height: '100%', overflow: 'hidden' }}>
             <Box sx={{
@@ -284,7 +321,7 @@ function Login() {
                                         sx={{ margin: 0, userSelect: 'none' }}
                                     />
                                 </Box>
-                                <Link href="#" variant="body2" sx={{ color: '#00A99D', textDecoration: 'none', '&:hover': { textDecoration: 'underline' }, fontSize: '0.875rem' }}>
+                                <Link to="/forgot-password" style={{ color: '#00A99D', textDecoration: 'none', '&:hover': { textDecoration: 'underline' }, fontSize: '0.875rem' }}>
                                     Forgot password?
                                 </Link>
                             </Box>
@@ -379,14 +416,28 @@ function Login() {
                 onClose={handleCloseSnackbar}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert 
-                    onClose={handleCloseSnackbar} 
-                    severity={snackbarSeverity} 
+                <Alert
+                    onClose={handleCloseSnackbar}
+                    severity={snackbarSeverity}
                     sx={{ width: '100%' }}
                 >
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
+            {/* Link password modal for Google users */}
+            <LinkPasswordModal
+                open={showLinkModal}
+                onClose={() => setShowLinkModal(false)}
+                userEmail={googleUserEmail}
+
+                onLinked={() => {
+                    setSnackbarMessage('Password linked! You can now login with email and password.');
+                    setSnackbarSeverity('success');
+                    setOpenSnackbar(true);
+                    setShowLinkModal(false);
+                    // The user is already logged in, AuthNavigator will handle redirection.
+                }}
+            />
         </Box>
     );
 }

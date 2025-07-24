@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProfile } from '../store/slices/authSlice';
+// import { getProfile } from '../store/slices/authSlice';
 
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     // If we have a token but no user, try to get the profile
     if (token && !user) {
-      dispatch(getProfile());
+      // dispatch(getProfile());
     }
     
     // If no token, redirect to auth page

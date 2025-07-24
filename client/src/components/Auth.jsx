@@ -1,45 +1,58 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import LinkPasswordModal from './LinkPasswordModal';
 
 const Auth = () => {
+  const { setLinkingPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [showLinkModal, setShowLinkModal] = useState(false);
+  const [googleUserEmail, setGoogleUserEmail] = useState('');
 
-  const handleGoogleSignIn = async () => {
+  const handleSignIn = async (authFunction) => {
     try {
       setLoading(true);
       setError('');
-      await signInWithPopup(auth, googleProvider);
-      navigate('/');
+      await authFunction();
+      // Navigation is now handled by AuthNavigator to prevent race conditions.
     } catch (error) {
-      setError(error.message);
+      setError(error.message || 'Authentication failed. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+  const handleGoogleSignIn = async () => {
     try {
-      if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+      setLoading(true);
+      setError('');
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const providers = user.providerData.map(p => p.providerId);
+      if (providers.length === 1 && providers[0] === 'google.com') {
+        setLinkingPassword(true); // Signal that the linking process is starting
+        setGoogleUserEmail(user.email);
+        setShowLinkModal(true);
       }
-      navigate('/');
+      // If other providers exist, AuthNavigator will handle redirection.
     } catch (error) {
-      setError(error.message);
+      setError(error.message || 'Authentication failed. Please try again.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const authAction = isLogin
+      ? () => signInWithEmailAndPassword(auth, email, password)
+      : () => createUserWithEmailAndPassword(auth, email, password);
+    handleSignIn(authAction);
   };
 
   return (
@@ -118,6 +131,14 @@ const Auth = () => {
           </button>
         </div>
       </div>
+      <LinkPasswordModal
+        open={showLinkModal}
+        onClose={() => setShowLinkModal(false)}
+        userEmail={googleUserEmail}
+        onLinked={() => {
+          setShowLinkModal(false);
+        }}
+      />
     </div>
   );
 };

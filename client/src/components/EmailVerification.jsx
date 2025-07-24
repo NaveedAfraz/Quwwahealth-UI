@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FaEnvelope, FaCheckCircle, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
-import { verifyEmail, resendVerificationEmail, clearEmailVerification } from '../store/slices/authSlice';
 import quwwaLogo from '../assets/images/header.png';
 
 const EmailVerification = () => {
@@ -12,89 +11,89 @@ const EmailVerification = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, emailVerificationSuccess, emailVerificationSent } = useSelector((state) => state.auth);
+  // const { loading, error, emailVerificationSuccess, emailVerificationSent } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    // Clear any previous verification states
-    dispatch(clearEmailVerification());
+  // useEffect(() => {
+  //   // Clear any previous verification states
+  //   dispatch(clearEmailVerification());
 
-    // If there's a token in URL, verify it
-    if (token) {
-      dispatch(verifyEmail(token));
-    }
-  }, [dispatch, token]);
+  //   // If there's a token in URL, verify it
+  //   if (token) {
+  //     dispatch(verifyEmail(token));
+  //   }
+  // }, [dispatch, token]);
 
-  const handleResendVerification = async (e) => {
-    e.preventDefault();
-    if (!email) {
-      return;
-    }
-    await dispatch(resendVerificationEmail(email));
-  };
+  // const handleResendVerification = async (e) => {
+  //   e.preventDefault();
+  //   if (!email) {
+  //     return;
+  //   }
+  //   await dispatch(resendVerificationEmail(email));
+  // };
 
-  const handleBackToLogin = () => {
-    navigate('/auth');
-  };
+  // const handleBackToLogin = () => {
+  //   navigate('/auth');
+  // };
 
-  // If there's a token and verification is successful
-  if (token && emailVerificationSuccess) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          <div className="text-center">
-            <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-12 mx-auto mb-6" />
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-              <FaCheckCircle className="h-6 w-6 text-green-600" />
-            </div>
-            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-              Email Verified!
-            </h2>
-            <p className="mt-2 text-sm text-[#848383]">
-              Your email has been successfully verified. You can now log in to your account.
-            </p>
-          </div>
-          <div className="mt-8 space-y-4">
-            <button
-              onClick={handleBackToLogin}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#54BD95] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#54BD95]"
-            >
-              Continue to Login
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // // If there's a token and verification is successful
+  // if (token && emailVerificationSuccess) {
+  //   return (
+  //     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  //       <div className="max-w-md w-full space-y-8">
+  //         <div className="text-center">
+  //           <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-12 mx-auto mb-6" />
+  //           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+  //             <FaCheckCircle className="h-6 w-6 text-green-600" />
+  //           </div>
+  //           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+  //             Email Verified!
+  //           </h2>
+  //           <p className="mt-2 text-sm text-[#848383]">
+  //             Your email has been successfully verified. You can now log in to your account.
+  //           </p>
+  //         </div>
+  //         <div className="mt-8 space-y-4">
+  //           <button
+  //             onClick={handleBackToLogin}
+  //             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#54BD95] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#54BD95]"
+  //           >
+  //             Continue to Login
+  //           </button>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  // If there's a token but verification failed
-  if (token && error) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          <div className="text-center">
-            <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-12 mx-auto mb-6" />
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-              <FaExclamationTriangle className="h-6 w-6 text-red-600" />
-            </div>
-            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-              Verification Failed
-            </h2>
-            <p className="mt-2 text-sm text-[#848383]">
-              {error || 'The verification link is invalid or has expired.'}
-            </p>
-          </div>
-          <div className="mt-8 space-y-4">
-            <button
-              onClick={handleBackToLogin}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#54BD95] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#54BD95]"
-            >
-              Back to Login
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // // If there's a token but verification failed
+  // if (token && error) {
+  //   return (
+  //     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  //       <div className="max-w-md w-full space-y-8">
+  //         <div className="text-center">
+  //           <img src={quwwaLogo} alt="Quwwa Health Logo" className="h-12 mx-auto mb-6" />
+  //           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+  //             <FaExclamationTriangle className="h-6 w-6 text-red-600" />
+  //           </div>
+  //           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+  //             Verification Failed
+  //           </h2>
+  //           <p className="mt-2 text-sm text-[#848383]">
+  //             {error || 'The verification link is invalid or has expired.'}
+  //           </p>
+  //         </div>
+  //         <div className="mt-8 space-y-4">
+  //           <button
+  //             onClick={handleBackToLogin}
+  //             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#54BD95] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#54BD95]"
+  //           >
+  //             Back to Login
+  //           </button>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   // Resend verification email form
   return (

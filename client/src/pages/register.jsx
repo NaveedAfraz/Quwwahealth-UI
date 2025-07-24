@@ -4,64 +4,62 @@ import quwwaLogo from '../assets/images/header.png';
 import { useNavigate } from 'react-router';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase';
+import LinkPasswordModal from '../components/LinkPasswordModal';
+import { useAuth } from '../contexts/AuthContext';
+import axios from 'axios';
+import { EmailAuthProvider, linkWithCredential } from 'firebase/auth';
 // Google G icon SVG
 const GoogleIcon = () => (
-    <svg 
-      className="w-[40px] h-[40px] bg-amber-50 p-1" 
-      viewBox="0 0 48 48" 
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="Google sign-in" // Added for accessibility
-      role="img"
+    <svg
+        className="w-[40px] h-[40px] bg-amber-50 p-1"
+        viewBox="0 0 48 48"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="Google sign-in" // Added for accessibility
+        role="img"
     >
-      {/* The main "G" shape is composed of four distinct paths, one for each color. */}
-      
-      {/* Blue Path */}
-      <path 
-        fill="#4285F4" 
-        d="M45.12 24.52c0-1.6-.14-3.15-.4-4.62H24.4v8.69h11.62c-.5 2.82-2 5.22-4.27 6.88v5.62h7.22c4.22-3.88 6.68-9.69 6.68-16.57z"
-      />
-      {/* Green Path */}
-      <path 
-        fill="#34A853" 
-        d="M24.4 48c6.5 0 11.96-2.14 15.94-5.81l-7.22-5.62c-2.16 1.45-4.94 2.3-8.72 2.3-6.7 0-12.37-4.49-14.4-10.48H2.46v5.81C6.44 42.62 14.63 48 24.4 48z"
-      />
-      {/* Yellow Path */}
-      <path 
-        fill="#FBBC05" 
-        d="M9.98 28.5c-.48-1.45-.76-3-.76-4.59s.27-3.14.76-4.59V13.5H2.46C.92 16.46 0 20.28 0 24.41c0 4.13.92 7.95 2.46 10.91l7.52-5.82z"
-      />
-      {/* Red Path */}
-      <path 
-        fill="#EA4335" 
-        d="M24.4 9.48c3.52 0 6.7.96 9.24 3.44l6.4-6.4C36.34 2.46 30.9 0 24.4 0 14.63 0 6.44 5.38 2.46 13.5l7.52 5.81c2.03-5.99 7.7-10.48 14.42-10.48z"
-      />
-    </svg>
-  );
+        {/* The main "G" shape is composed of four distinct paths, one for each color. */}
 
-  const TwitterIcon = () => (
-    <svg 
-      className="w-7 h-7" 
-      viewBox="0 0 24 24" 
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="Twitter login"
-      role="img"
-      fill="currentColor" // Use current text color for easy styling
+        {/* Blue Path */}
+        <path
+            fill="#4285F4"
+            d="M45.12 24.52c0-1.6-.14-3.15-.4-4.62H24.4v8.69h11.62c-.5 2.82-2 5.22-4.27 6.88v5.62h7.22c4.22-3.88 6.68-9.69 6.68-16.57z"
+        />
+        {/* Green Path */}
+        <path
+            fill="#34A853"
+            d="M24.4 48c6.5 0 11.96-2.14 15.94-5.81l-7.22-5.62c-2.16 1.45-4.94 2.3-8.72 2.3-6.7 0-12.37-4.49-14.4-10.48H2.46v5.81C6.44 42.62 14.63 48 24.4 48z"
+        />
+        {/* Yellow Path */}
+        <path
+            fill="#FBBC05"
+            d="M9.98 28.5c-.48-1.45-.76-3-.76-4.59s.27-3.14.76-4.59V13.5H2.46C.92 16.46 0 20.28 0 24.41c0 4.13.92 7.95 2.46 10.91l7.52-5.82z"
+        />
+        {/* Red Path */}
+        <path
+            fill="#EA4335"
+            d="M24.4 9.48c3.52 0 6.7.96 9.24 3.44l6.4-6.4C36.34 2.46 30.9 0 24.4 0 14.63 0 6.44 5.38 2.46 13.5l7.52 5.81c2.03-5.99 7.7-10.48 14.42-10.48z"
+        />
+    </svg>
+);
+
+const TwitterIcon = () => (
+    <svg
+        className="w-7 h-7"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="Twitter login"
+        role="img"
+        fill="currentColor" // Use current text color for easy styling
     >
-      {/* This path creates the standard "X" logo shape. */}
-      <path 
-        d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 7.184L18.901 1.153zm-1.653 19.57h2.636L5.05 3.32H2.24l15.008 17.403z"
-      />
+        {/* This path creates the standard "X" logo shape. */}
+        <path
+            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 7.184L18.901 1.153zm-1.653 19.57h2.636L5.05 3.32H2.24l15.008 17.403z"
+        />
     </svg>
-  );
-
-const QuwwaLogo = () => (
-    <div className="flex items-center justify-center">
-        <img src="./public/Group (1).svg" className="w-20 h-20 mx-2" />
-        <img src="./public/Group.svg" alt="Quwwa Logo" />
-    </div>
 );
 
 function Register() {
+ 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -79,7 +77,11 @@ function Register() {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const navigate = useNavigate();
     const googleProvider = new GoogleAuthProvider();
-
+    const [showLinkModal, setShowLinkModal] = useState(false);
+    const [googleUserEmail, setGoogleUserEmail] = useState('');
+    const { setLinkingPassword, linkingPassword, setUser , setIsAuthenticated } = useAuth();
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -92,7 +94,7 @@ function Register() {
         e.preventDefault();
         setLoading(true);
         setError('');
-        
+        console.log(formData);
         if (!formData.email || !formData.password) {
             setError('Email and password are required');
             setLoading(false);
@@ -100,10 +102,52 @@ function Register() {
         }
 
         try {
-            await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+           
+            // Link email/password credential to this user (ensures future Google login is linked)
+
+            try {
+                const response = await axios.post('http://localhost:3006/auth/register', {
+                    email: formData.email,
+                    password: formData.password,
+                    schoolName: formData.schoolName,
+                    contactPerson: formData.contactPerson,
+                    phoneNumber: formData.phoneNumber,
+                    address: formData.address,
+                    city: formData.city,
+                    state: formData.state,
+                    zipCode: formData.zipCode
+                },
+                    {
+                        withCredentials: true
+                    }
+                );
+                console.log(response.data);
+                if (response.data.success) {
+                   
+                    console.log(response.data);
+                   
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Login successful');
+                    setSnackbarSeverity('success');
+                    setIsAuthenticated(true)
+                    setUser(response.data.user);
+                    setTimeout(() => navigate('/'), 1000);
+                    
+                    // Redirect to login or dashboard after successful registration
+                    // setTimeout(() => navigate('/'), 2000);
+                }
+            } catch (linkErr) {
+                // It's safe to ignore 'provider-already-linked' error
+                if (linkErr.code !== 'auth/provider-already-linked') {
+                    console.error('Linking error:', linkErr);
+                    setOpenSnackbar(true);
+                    setSnackbarMessage(linkErr.response.data.message);
+                    setSnackbarSeverity('error');
+                }
+            }
             setOpenSnackbar(true);
             // Redirect to login or dashboard after successful registration
-            setTimeout(() => navigate('/login'), 2000);
+            //setTimeout(() => navigate('/'), 2000);
         } catch (error) {
             setError(error.message);
             console.error('Registration error:', error);
@@ -112,17 +156,58 @@ function Register() {
         }
     };
 
+
     const handleGoogleSignUp = async () => {
+        setLoading(true);
+        setError('');
         try {
-            setLoading(true);
-            setError('');
-            await signInWithPopup(auth, googleProvider);
-            setOpenSnackbar(true);
-            // Redirect to dashboard after successful Google sign-up
-            setTimeout(() => navigate('/'), 2000);
+            const result = await signInWithPopup(auth, new GoogleAuthProvider());
+            const user = result.user;
+
+            // Try to sync with backend (e.g., /auth/session)
+            try {
+                const idToken = await user.getIdToken();
+                console.log(idToken);
+                const response = await axios.post('http://localhost:3006/auth/session', { idToken }, { withCredentials: true });
+                // Success: navigate or let AuthContext handle
+                console.log(response.data);
+                if (response.data.user.password == "") {
+                    setGoogleUserEmail(response.data.user.email);
+                    setShowLinkModal(true);
+                } else {
+                    setUser(response.data.user);
+                    setIsAuthenticated(true);
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Login successful');
+                    setSnackbarSeverity('success');
+                    setTimeout(() => navigate('/'), 1000);
+                }
+            } catch (backendErr) {
+                console.log(backendErr);
+                // Check for MySQL 'password' field error
+                const msg = backendErr?.response?.data?.message || backendErr.message;
+                if (msg && msg.includes("Field 'password' doesn't have a default value")) {
+                    // Prompt for password linking
+                    setGoogleUserEmail(user.email);
+                    setShowLinkModal(true);
+                    setSnackbarMessage('Please set a password to complete your account setup.');
+                    setSnackbarSeverity('info');
+                    setOpenSnackbar(true);
+                    return;
+                } else {
+                    setError(msg);
+                    setSnackbarMessage(msg || 'Google sign-in failed.');
+                    setSnackbarSeverity('error');
+                    setOpenSnackbar(true);
+                    return;
+                }
+            }
         } catch (error) {
+            console.error('Google sign in error:', error);
             setError(error.message);
-            console.error('Google sign up error:', error);
+            setSnackbarMessage(error.message || 'Google sign-in failed.');
+            setSnackbarSeverity('error');
+            setOpenSnackbar(true);
         } finally {
             setLoading(false);
         }
@@ -157,7 +242,7 @@ function Register() {
                             className="w-full rounded-lg h-[400px]  object-cover"
                         />
                         <Typography sx={{ color: '#6B7281', fontSize: '0.875rem', mt: 'auto', pt: 4, textAlign: 'center' }}>
-                            © Alpro 2025
+                            Alpro 2025
                         </Typography>
                     </div>
                 </div>
@@ -188,7 +273,7 @@ function Register() {
                             >
                                 {loading ? 'Signing up...' : 'Sign up with Google'}
                             </Button>
-                            <IconButton 
+                            <IconButton
                                 sx={{ border: '1px solid #D1D5DB', borderRadius: '8px', color: '#1DA1F2' }}
                                 disabled={loading}
                             >
@@ -202,11 +287,11 @@ function Register() {
                             <Box sx={{ flexGrow: 1, height: '1px', backgroundColor: '#E5E7EB' }} />
                         </Box>
 
-                        {error && (
+                        {/* {error && (
                             <Alert severity="error" sx={{ mb: 2 }}>
                                 {error}
                             </Alert>
-                        )}
+                        )} */}
                         <Box component="form" onSubmit={handleSubmit} noValidate>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-1 gap-y-1">
                                 <div>
@@ -265,6 +350,9 @@ function Register() {
                                         id="district"
                                         variant="filled"
                                         fullWidth
+                                        name="district"
+                                        value={formData.district}
+                                        onChange={handleInputChange}
                                         InputProps={{
                                             disableUnderline: true,
                                             sx: {
@@ -336,6 +424,9 @@ function Register() {
                                         helperText="6+ characters"
                                         variant="filled"
                                         fullWidth
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
                                         InputProps={{
                                             disableUnderline: true,
                                             sx: {
@@ -392,10 +483,24 @@ function Register() {
                 onClose={handleCloseSnackbar}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Account created successfully! Redirecting...
+                <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
                 </Alert>
             </Snackbar>
+            {/* Link password modal for Google users */}
+            <LinkPasswordModal
+                open={showLinkModal}
+                onClose={() => {
+                    setShowLinkModal(false);
+                    setLinkingPassword(false); // Reset linking state when modal is closed
+                }}
+                userEmail={googleUserEmail}
+                onLinked={() => {
+                    setShowLinkModal(false);
+                    setLinkingPassword(false); // Reset linking state when done
+                    setOpenSnackbar(true);
+                }}
+            />
         </div>
     );
 }

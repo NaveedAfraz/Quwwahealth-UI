@@ -11,13 +11,12 @@ import Blogs from './pages/Blogs'
 import BlogPost from './pages/BlogPost'
 import Auth from './pages/Auth'
 import Profile from './pages/Profile'
-import EmailVerification from './components/EmailVerification'
+//import EmailVerification from './components/EmailVerification'
 import Terms from './pages/Terms'
-import ForgotPassword from './pages/ForgotPassword'
+ 
 import ResetPassword from './pages/ResetPassword'
-import { getProfile, finishInitialLoad } from './store/slices/authSlice'
+// import { getProfile, finishInitialLoad } from './store/slices/authSlice'
 import './App.css'
-import { Analytics } from "@vercel/analytics/react"
 import AdminRoute from './components/AdminRoute'
 import AdminLayout from './components/AdminLayout'
 import AdminDashboard from './pages/Admin/AdminDashboard'
@@ -28,31 +27,18 @@ import Branding from './pages/Branding'
 import Login from './pages/login'
 import Register from './pages/register'
 import { useState } from 'react'
-import { AuthProvider } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/AuthContext';
+import AuthNavigator from './components/AuthNavigator';
+import EmailVerification from './components/EmailVerification'
+import ForgotPassword from './pages/ForgotPassword'
 function App() {
-  const dispatch = useDispatch()
-  const { initialLoad } = useSelector((state) => state.auth)
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      dispatch(getProfile())
-    } else {
-      dispatch(finishInitialLoad())
-    }
-  }, [dispatch])
 
-  // if (initialLoad) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-white">
-  //       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#54BD95]"></div>
-  //     </div>
-  //   )
-  // }
   const [isChatOpen, setIsChatOpen] = useState(false);
   return (
     <AuthProvider>
       <Router>
+        <AuthNavigator />
         <Routes>
           <Route path="/" element={<Layout isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />}>
             <Route index element={<Home isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />} />
