@@ -28,9 +28,9 @@ app.post("/contact", async (req, res) => {
 
   try {
     await resend.emails.send({
-      from: `QuwwaHealth Contact Form <no-reply@quwwahealth.com>`, // Use verified domain
-      to: [process.env.RECEIVER_EMAIL], // Your Gmail or Zoho inbox
-      reply_to: email, // 🔥 This lets you click "Reply" and reply directly to the user
+      from: `QuwwaHealth Contact Form <no-reply@quwwahealth.com>`, 
+      to: [process.env.RECEIVER_EMAIL],  
+      reply_to: email, 
       subject: `New Contact Message: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333;">
@@ -88,7 +88,6 @@ function authenticateToken(req, res, next) {
           console.error("❌ Invalid JWT:", jwtErr.message);
           return res.status(401).json({ message: "Invalid token" });
         }
-
         console.log("✅ JWT verified");
         req.user = decodedJWT;
         next();
@@ -96,7 +95,7 @@ function authenticateToken(req, res, next) {
     });
 }
 
-// User Registration
+ 
 app.post("/auth/register", async (req, res) => {
   const {
     email,
@@ -110,13 +109,11 @@ app.post("/auth/register", async (req, res) => {
     zipCode,
   } = req.body;
 
-  // Basic validation
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
 
   try {
-    // Check if user already exists
     const [existingUsers] = await db.query(
       "SELECT * FROM users WHERE email = ?",
       [email]
@@ -128,10 +125,8 @@ app.post("/auth/register", async (req, res) => {
         .json({ message: "User already exists with this email" });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Insert new user into database
     const data = await db.query(
       `INSERT INTO users (email, password, school_name, contact_person, phone_number, address, city, state, zip_code) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -148,8 +143,7 @@ app.post("/auth/register", async (req, res) => {
       ]
     );
 
-    // Create Firebase user (if needed)
-    // Set auth cookie
+     
     const jwtToken = jwt.sign(
       { id: data.insertId, email: email },
       process.env.JWT_SECRET,
