@@ -16,7 +16,7 @@ const ForgotPassword = () => {
   const [passwordResetSent, setPasswordResetSent] = useState(false);
   const navigate = useNavigate();
   const [step, setStep] = useState('enter-email');
-    const handleEmailSubmit = async (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -34,14 +34,18 @@ const ForgotPassword = () => {
       setLoading(false);
     }
   };
-    const handleOtpSubmit = async (otp) => {
+  const handleOtpSubmit = async (otp) => {
     setLoading(true);
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/verify-otp', { email, otp });
+      const response = await axios.post('http://localhost:3006/verify-otp', { email, otp });
       setLoading(false);
-      navigate('/reset-password', { state: { email } }); // Pass email to the reset page
+      setMessage(response.data);
+      console.log(response.data);
+      if (response.data.success) {
+        setTimeout(() => navigate('/reset-password', { state: { email } }), 1500);
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid OTP. Please try again.');
       setLoading(false);

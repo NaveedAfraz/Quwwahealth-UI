@@ -25,7 +25,7 @@ const ResetPassword = () => {
     }
   }, [email, navigate]);
 
-     const handleResetPassword = async (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
     setError(null);
     setPasswordsMatch(true);
@@ -38,16 +38,19 @@ const ResetPassword = () => {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:3006/reset-password', {
+      const response = await axios.post('http://localhost:3006/reset-password', {
         email,
         newPassword: password,
       });
-      setLoading(false);
-      setPasswordResetSuccess(true);
-      // Redirect to login after a short delay
-      setTimeout(() => {
-        navigate('/auth');
-      }, 3000);
+      console.log(response.data);
+      if (response.data.success) {
+        setLoading(false);
+        setPasswordResetSuccess(true);
+        // Redirect to login after a short delay
+        setTimeout(() => {
+          navigate('/auth/login');
+        }, 1500);
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to reset password.');
       setLoading(false);
@@ -68,7 +71,7 @@ const ResetPassword = () => {
           </p>
           <div className="mt-8">
             <Link
-              to="/auth"
+              to="/auth/login"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#54BD95] hover:bg-green-600"
             >
               Proceed to Login

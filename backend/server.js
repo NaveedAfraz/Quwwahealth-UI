@@ -154,24 +154,35 @@ app.post("/auth/register", async (req, res) => {
       { id: data.insertId, email: email },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
-    ); 
+    );
     res.cookie("auth_token", jwtToken, {
       httpOnly: false,
       secure: false,
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       sameSite: "lax",
-      path: "/", 
+      path: "/",
     });
 
-   return res.status(201).json({
+    return res.status(201).json({
       message: "User registered successfully",
-      user: { email, schoolName, contactPerson, phoneNumber, address, city, state, zipCode },
+      user: {
+        email,
+        schoolName,
+        contactPerson,
+        phoneNumber,
+        address,
+        city,
+        state,
+        zipCode,
+      },
       // token: jwtToken,
       success: true,
     });
   } catch (error) {
     console.error("Registration error:", error);
-    res.status(500).json({ message: "Failed to register user", success: false });
+    res
+      .status(500)
+      .json({ message: "Failed to register user", success: false });
   }
 });
 
@@ -247,7 +258,7 @@ app.post("/auth/session", async (req, res) => {
     const decoded = await admin.auth().verifyIdToken(idToken);
     const email = decoded.email;
     const firebase_uid = decoded.uid;
- 
+
     // 2. Check if user exists in MySQL
     let [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
     let user;
@@ -356,10 +367,12 @@ app.post("/verify-otp", async (req, res) => {
     // OTP is verified, clean it up to prevent reuse
     await db.query("DELETE FROM otps WHERE id = ?", [otpData.id]);
 
-    res.status(200).json({ message: "OTP verified successfully." });
+    res
+      .status(200)
+      .json({ message: "OTP verified successfully.", success: true });
   } catch (error) {
     console.error("Verify OTP error:", error);
-    res.status(500).json({ message: "Failed to verify OTP." });
+    res.status(500).json({ message: "Failed to verify OTP.", success: false });
   }
 });
 
@@ -381,8 +394,9 @@ app.post("/reset-password", async (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: "User not found." });
     }
-
-    res
+    console.log(result);
+    
+    res  
       .status(200)
       .json({ message: "Password updated successfully.", success: true });
   } catch (error) {
