@@ -59,12 +59,11 @@ const TwitterIcon = () => (
 );
 
 function Register() {
- 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
         schoolName: '',
-        contactPerson: '',
+        country: '',
         phoneNumber: '',
         address: '',
         city: '',
@@ -79,7 +78,7 @@ function Register() {
     const googleProvider = new GoogleAuthProvider();
     const [showLinkModal, setShowLinkModal] = useState(false);
     const [googleUserEmail, setGoogleUserEmail] = useState('');
-    const { setLinkingPassword, linkingPassword, setUser , setIsAuthenticated } = useAuth();
+    const { setLinkingPassword, linkingPassword, setUser, setIsAuthenticated } = useAuth();
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
     const handleInputChange = (e) => {
@@ -89,7 +88,7 @@ function Register() {
             [name]: value
         }));
     };
-
+    console.log(formData);
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -102,18 +101,18 @@ function Register() {
         }
 
         try {
-           
-            // Link email/password credential to this user (ensures future Google login is linked)
 
+            // Link email/password credential to this user (ensures future Google login is linked)
+            console.log(formData);
             try {
                 const response = await axios.post('http://localhost:3006/auth/register', {
                     email: formData.email,
                     password: formData.password,
                     schoolName: formData.schoolName,
-                    contactPerson: formData.contactPerson,
+                    country: formData.country,
                     phoneNumber: formData.phoneNumber,
                     address: formData.address,
-                    city: formData.city,
+                    city: formData.district,
                     state: formData.state,
                     zipCode: formData.zipCode
                 },
@@ -123,16 +122,16 @@ function Register() {
                 );
                 console.log(response.data);
                 if (response.data.success) {
-                   
+
                     console.log(response.data);
-                   
+
                     setOpenSnackbar(true);
-                    setSnackbarMessage('Login successful');
+                    setSnackbarMessage('Registration successful');
                     setSnackbarSeverity('success');
                     setIsAuthenticated(true)
                     setUser(response.data.user);
                     setTimeout(() => navigate('/'), 1000);
-                    
+
                     // Redirect to login or dashboard after successful registration
                     // setTimeout(() => navigate('/'), 2000);
                 }
@@ -178,7 +177,7 @@ function Register() {
                     setUser(response.data.user);
                     setIsAuthenticated(true);
                     setOpenSnackbar(true);
-                    setSnackbarMessage('Login successful');
+                    setSnackbarMessage('Registration successful');
                     setSnackbarSeverity('success');
                     setTimeout(() => navigate('/'), 1000);
                 }
@@ -395,9 +394,9 @@ function Register() {
                                     <Typography component="label" htmlFor="country" sx={{ fontWeight: 'bold', color: '#111827', fontSize: '0.75rem', display: 'block', mb: 0.5 }}>Country</Typography>
                                     <TextField
                                         size="small"
-                                        id="contact-person"
-                                        name="contactPerson"
-                                        value={formData.contactPerson}
+                                        id="country"
+                                        name="country"
+                                        value={formData.country}
                                         onChange={handleInputChange}
                                         variant="filled"
                                         fullWidth

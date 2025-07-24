@@ -146,9 +146,9 @@ const Header = () => {
                           <FaCog /> <span>Admin Panel</span>
                         </Link>
                       )}
-                      <Link to="/profile" onClick={() => setIsUserMenuOpen(false)} className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                      {/* <Link to="/profile" onClick={() => setIsUserMenuOpen(false)} className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
                         <FaUserCircle /> <span>Profile</span>
-                      </Link>
+                      </Link> */}
                       <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
                         <FaSignOutAlt /> <span>Logout</span>
                       </button>
@@ -213,7 +213,7 @@ const Header = () => {
                   <div className="flex items-center space-x-3 mb-4">
                     {renderUserAvatar()}
                     <div>
-                      <div className="font-bold text-gray-800 truncate">{user.name}</div>
+                      <div className="font-bold text-gray-800 truncate">{user.display_name}</div>
                       <div className="text-sm text-gray-500 truncate">{user.email}</div>
                     </div>
                   </div>

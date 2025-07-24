@@ -28,9 +28,9 @@ app.post("/contact", async (req, res) => {
 
   try {
     await resend.emails.send({
-      from: `QuwwaHealth Contact Form <no-reply@quwwahealth.com>`, 
-      to: [process.env.RECEIVER_EMAIL],  
-      reply_to: email, 
+      from: `QuwwaHealth Contact Form <no-reply@quwwahealth.com>`,
+      to: [process.env.RECEIVER_EMAIL],
+      reply_to: email,
       subject: `New Contact Message: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333;">
@@ -95,20 +95,19 @@ function authenticateToken(req, res, next) {
     });
 }
 
- 
 app.post("/auth/register", async (req, res) => {
   const {
     email,
     password,
     schoolName,
-    contactPerson,
+    country,
     phoneNumber,
     address,
     city,
     state,
     zipCode,
   } = req.body;
-
+  console.log(req.body);
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
@@ -128,13 +127,13 @@ app.post("/auth/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const data = await db.query(
-      `INSERT INTO users (email, password, school_name, contact_person, phone_number, address, city, state, zip_code) 
+      `INSERT INTO users (email, password, school_name, country, phone_number, address, city, state, zip_code) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         email,
         hashedPassword,
         schoolName || null,
-        contactPerson || null,
+        country || null,
         phoneNumber || null,
         address || null,
         city || null,
@@ -143,7 +142,6 @@ app.post("/auth/register", async (req, res) => {
       ]
     );
 
-     
     const jwtToken = jwt.sign(
       { id: data.insertId, email: email },
       process.env.JWT_SECRET,
@@ -162,7 +160,7 @@ app.post("/auth/register", async (req, res) => {
       user: {
         email,
         schoolName,
-        contactPerson,
+        country,
         phoneNumber,
         address,
         city,
@@ -185,7 +183,7 @@ app.post("/auth/login", async (req, res) => {
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
- 
+
   try {
     const [users] = await db.query("SELECT * FROM users WHERE email = ?", [
       email,
@@ -196,7 +194,7 @@ app.post("/auth/login", async (req, res) => {
     const user = users[0];
     console.log(user);
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) { 
+    if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
     const token = jwt.sign(
@@ -221,9 +219,19 @@ app.post("/auth/login", async (req, res) => {
 });
 
 // Route for frontend to check authentication status
-app.get("/auth/check", authenticateToken, (req, res) => {
-  console.log("User", req.user);
-  res.json({ authenticated: true, user: req.user });
+app.get("/auth/check", authenticateToken, async (req, res) => {
+  const User = req.user;
+  console.log("User", User);
+  try {
+    const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [
+      User.email,
+    ]);
+    const fetchUser = rows[0];
+    res.json({ authenticated: true, user: fetchUser });
+  } catch (error) {
+    console.error("Auth check error:", error);
+    res.status(500).json({ message: "Failed to check authentication", error });
+  }
 });
 
 // Logout route to clear the cookie
