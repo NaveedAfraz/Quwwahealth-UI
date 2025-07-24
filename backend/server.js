@@ -202,7 +202,7 @@ app.post("/auth/login", async (req, res) => {
     const user = users[0];
     console.log(user);
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    if (!isPasswordValid) { 
       return res.status(401).json({ message: "Invalid email or password" });
     }
     const token = jwt.sign(
@@ -395,8 +395,8 @@ app.post("/reset-password", async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
     console.log(result);
-    
-    res  
+
+    res
       .status(200)
       .json({ message: "Password updated successfully.", success: true });
   } catch (error) {
