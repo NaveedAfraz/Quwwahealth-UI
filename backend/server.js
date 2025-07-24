@@ -11,7 +11,8 @@ const admin = require("./firebaseAdmin");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const jwt = require("jsonwebtoken");
-
+const blogRoutes = require("./routes/blogs");
+const authMiddleware = require("./middleware/authMiddleware");
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -20,7 +21,8 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post("/contact", async (req, res) => {
@@ -57,43 +59,6 @@ app.post("/contact", async (req, res) => {
 });
 
 // Auth: verify Firebase token, set session cookie
-
-function authenticateToken(req, res, next) {
-  const token = req.cookies.auth_token;
-  console.log("Cookies:", req.cookies);
-  console.log("Token:", token);
-
-  if (!token) {
-    return res.status(401).json({ message: "No auth token" });
-  }
-
-  // Try Firebase Admin first
-  admin
-    .auth()
-    .verifyIdToken(token)
-    .then((decodedFirebaseToken) => {
-      req.user = decodedFirebaseToken;
-      console.log("✅ Firebase token verified");
-      next();
-    })
-    .catch((firebaseErr) => {
-      console.warn(
-        "⚠️ Firebase token verification failed, falling back to JWT:",
-        firebaseErr.message
-      );
-
-      // Fallback to custom JWT
-      jwt.verify(token, process.env.JWT_SECRET, (jwtErr, decodedJWT) => {
-        if (jwtErr) {
-          console.error("❌ Invalid JWT:", jwtErr.message);
-          return res.status(401).json({ message: "Invalid token" });
-        }
-        console.log("✅ JWT verified");
-        req.user = decodedJWT;
-        next();
-      });
-    });
-}
 
 app.post("/auth/register", async (req, res) => {
   const {
@@ -219,7 +184,7 @@ app.post("/auth/login", async (req, res) => {
 });
 
 // Route for frontend to check authentication status
-app.get("/auth/check", authenticateToken, async (req, res) => {
+app.get("/auth/check", authMiddleware, async (req, res) => {
   const User = req.user;
   console.log("User", User);
   try {
@@ -408,7 +373,7 @@ app.post("/reset-password", async (req, res) => {
       .json({ message: "Failed to reset password.", success: false });
   }
 });
-
+app.use("/blog", blogRoutes);
 app.listen(PORT, async () => {
   try {
     db.createDatabaseAndTables();
