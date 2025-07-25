@@ -5,6 +5,9 @@ import blogImage1 from '../assets/images/Hero/10.jpg';
 import blogImage2 from '../assets/images/Hero/11.jpg';
 import blogImage3 from '../assets/images/Hero/12 1.jpg';
 import blogImage4 from '../assets/images/Hero/ChatGPT Image Apr 14, 2025, 04_24_06 PM 1.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBlogs } from '@/store/slices/blogSlice';
+import { formatDate } from '@/config/formatDate';
 
 
 /**
@@ -20,77 +23,72 @@ import blogImage4 from '../assets/images/Hero/ChatGPT Image Apr 14, 2025, 04_24_
  */
 export const allBlogPosts = [
   {
-    // --- Basic Info ---
     id: 1,
-    title: 'Why School-Based Fitness Builds Lifelong Health',
-    image: blogImage1,
-    readTime: '5 Min',
-    date: 'July 12, 2025',
-
-    // --- Detailed Content (Merged) ---
-    category: 'Health & Wellness',
-    author: {
-      name: 'Tamás Hám-Szabó',
-      title: 'Founder of SAAS First - the Best AI and Data-Driven Customer Engagement Tool.',
-      bio: `With 11 years in SaaS, I've built MillionVerifier and SAAS First. Passionate about SaaS, data, and AI. Let's connect if you share the same drive for success!`,
-      image: blogImage1,
-      linkedin: '#',
-    },
-    headings: [
-      { id: 'physical-health-starts-early', title: 'Physical Health Starts Early' },
-      { id: 'mental-health-benefits', title: 'Mental Health Benefits' },
-      { id: 'academic-improvement', title: 'Academic Improvement' },
-      { id: 'habit-formation', title: 'Habit Formation That Lasts' },
-      { id: 'equal-access', title: 'Equal Access to Health' },
-    ],
+    title: "Why School-Based Fitness Builds Lifelong Health",
     content: `
       <h1 class="text-4xl font-bold mt-8 mb-4">Why School-Based Fitness Programs Are Key to Lifelong Health</h1>
       <p class="text-lg text-gray-700 leading-relaxed mb-6">
         In today’s screen-heavy, sedentary lifestyle, schools hold the power to influence the future of public health.
         School-based fitness programs serve as a vital foundation for lifelong health by fostering physical, emotional, and cognitive development in students from an early age.
       </p>
- 
+  
       <h2 id="physical-health-starts-early" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Physical Health Starts Early</h2>
       <p class="text-lg text-gray-700 leading-relaxed mb-6">
-        Childhood is a critical period for developing strength, endurance, coordination, and flexibility. Structured physical education in schools ensures consistent exposure to these activities. 
-        Programs like Alpro Health & Fitness incorporate age-appropriate aerobic exercises, strength training routines, balance challenges, and stretching techniques that promote muscular and skeletal development.
-        Regular participation not only enhances daily energy levels but also reduces the risk of childhood obesity, diabetes, and cardiovascular issues.
+        Childhood is a critical period for developing strength, endurance, coordination, and flexibility...
       </p>
- 
+  
       <h2 id="mental-health-benefits" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Mental Health Benefits</h2>
       <p class="text-lg text-gray-700 leading-relaxed mb-6">
-        Physical activity stimulates the release of endorphins and reduces cortisol levels, helping children manage stress and anxiety. 
-        Incorporating student wellness programs that include movement, mindfulness, and group activities can improve mood, boost self-esteem, and support emotional regulation.
-        In inclusive and supportive fitness environments, students feel safer, more connected, and more motivated to participate in school life.
+        Physical activity stimulates the release of endorphins and reduces cortisol levels...
       </p>
- 
+  
       <h2 id="academic-improvement" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Academic Improvement</h2>
       <p class="text-lg text-gray-700 leading-relaxed mb-6">
-        Research consistently shows that physically active students perform better academically. 
-        Movement increases blood flow to the brain, enhancing focus, memory retention, and problem-solving abilities. 
-        By embedding PE and fitness assessments into the curriculum, schools create a feedback loop that supports both cognitive and physical progress.
-        Even short bouts of activity, like classroom fitness breaks or morning exercises, can significantly improve attention spans and learning outcomes.
+        Research consistently shows that physically active students perform better academically...
       </p>
- 
+  
       <h2 id="habit-formation" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Habit Formation That Lasts</h2>
       <p class="text-lg text-gray-700 leading-relaxed mb-6">
-        Children who engage in daily movement are more likely to carry those habits into adulthood. 
-        Consistent participation in school fitness programs fosters routine, discipline, and an understanding of long-term health maintenance. 
-        Programs that emphasize enjoyment, personal goal setting, and self-monitoring help build intrinsic motivation for lifelong physical activity.
+        Children who engage in daily movement are more likely to carry those habits into adulthood...
       </p>
- 
+  
       <h2 id="equal-access" class="text-3xl font-bold mt-12 mb-4 scroll-mt-20">Equal Access to Health</h2>
       <p class="text-lg text-gray-700 leading-relaxed mb-6">
-        Not every family has access to extracurricular fitness programs, safe play areas, or sports facilities. 
-        School-based programs level the playing field by providing equitable access to structured physical activity. 
-        Every child, regardless of background, benefits from a consistent and supportive physical education environment.
+        Not every family has access to extracurricular fitness programs...
       </p>
- 
+  
       <p class="text-lg text-gray-700 leading-relaxed mt-8">
-        <strong>Conclusion:</strong> Quwwa Health delivers structured, inclusive fitness programs and comprehensive health assessments that empower schools to nurture healthy, active, and engaged students. 
-        We believe investing in school fitness is investing in a healthier future.
+        <strong>Conclusion:</strong> Quwwa Health delivers structured, inclusive fitness programs...
       </p>
     `,
+    category: "Health & Wellness",
+    status: "Draft",
+    featured_image_url: blogImage1, // replace with uploaded image URL
+    tags: ["health"],
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    headings: [
+      {
+        title: "Physical Health Starts Early",
+        content: `Childhood is a critical period for developing strength, endurance...`,
+      },
+      {
+        title: "Mental Health Benefits",
+        content: `Physical activity stimulates the release of endorphins...`,
+      },
+      {
+        title: "Academic Improvement",
+        content: `Research consistently shows that physically active students...`,
+      },
+      {
+        title: "Habit Formation That Lasts",
+        content: `Children who engage in daily movement are more likely to...`,
+      },
+      {
+        title: "Equal Access to Health",
+        content: `Not every family has access to extracurricular fitness programs...`,
+      },
+    ],
   },
   {
     id: 2,
@@ -262,20 +260,57 @@ export const allBlogPosts = [
 
 
 const Blogs = () => {
-  const [featuredPost, setFeaturedPost] = useState(allBlogPosts[0]);
-
+  const dispatch = useDispatch();
+  const { blogs, loading, error } = useSelector((state) => ({
+    blogs: state.blog.blogs,
+    loading: state.blog.loading,
+    error: state.blog.error
+  }));
+  console.log(blogs);
   useEffect(() => {
+    dispatch(getAllBlogs());
+  }, [dispatch]);
+
+  // Use the blogs from Redux store if available, otherwise use the fallback data
+  const displayBlogs = blogs?.length > 0 ? blogs : allBlogPosts;
+  const [featuredPost, setFeaturedPost] = useState(null);
+
+  // Set initial featured post when blogs are loaded
+  useEffect(() => {
+    if (blogs?.length > 0 && !featuredPost) {
+      setFeaturedPost(blogs[0]);
+    }
+  }, [blogs, featuredPost]);
+
+  // Auto-rotate featured post
+  useEffect(() => {
+    if (!blogs?.length || !featuredPost) return;
+
     const interval = setInterval(() => {
-      const currentIndex = allBlogPosts.findIndex(p => p.id === featuredPost.id);
-      const nextIndex = (currentIndex + 1) % allBlogPosts.length;
-      setFeaturedPost(allBlogPosts[nextIndex]);
+      const currentIndex = blogs.findIndex(p => p.id === featuredPost.id);
+      if (currentIndex === -1) return;
+
+      const nextIndex = (currentIndex + 1) % blogs.length;
+      setFeaturedPost(blogs[nextIndex]);
     }, 5000); // Change blog post every 5 seconds
 
     return () => clearInterval(interval);
-  }, [featuredPost]);
+  }, [featuredPost, blogs]);
 
-  const otherPosts = allBlogPosts.filter(p => p.id !== featuredPost.id);
+  // Only show other posts if we have a featured post
+  const otherPosts = featuredPost ? blogs?.filter(p => p.id !== featuredPost.id) || [] : [];
 
+  // Show loading state if no blogs are loaded yet
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F9F6F1]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3D22CF] mx-auto mb-4"></div>
+          <p className="text-gray-700">Loading blogs...</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-[#F9F6F1] text-[#1E1E1E] py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -288,12 +323,12 @@ const Blogs = () => {
 
         {/* Featured Blog Post */}
         <div className="mb-16">
-          <Link to={`/blog/${featuredPost.id}`} className="block group">
+          <Link to={`/blog/${featuredPost?.id}`} className="block group">
             <div className="overflow-hidden rounded-lg">
-              <img src={featuredPost.image} alt={featuredPost.title} className="w-full h-96 object-contain group-hover:scale-105 transition-transform duration-300" />
+              <img src={featuredPost?.featured_image_url} alt={featuredPost?.title} className="w-full h-96 object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
-            <p className="text-3xl font-bold mt-6 group-hover:text-gray-700">{featuredPost.title}</p>
-            <p className="text-[#A6A6A6] mt-2 text-sm">{featuredPost.readTime} • {featuredPost.date}</p>
+            <p className="text-3xl font-bold mt-6 group-hover:text-gray-700">{featuredPost?.title}</p>
+            <p className="text-[#A6A6A6] mt-2 text-sm">{featuredPost?.readTime || '4 Min'} • {featuredPost?.updated_at}</p>
           </Link>
         </div>
 
@@ -305,12 +340,12 @@ const Blogs = () => {
                 <div className="flex flex-col sm:flex-row items-start gap-6">
                   <div className="w-full sm:w-48 flex-shrink-0">
                     <div className="overflow-hidden rounded-lg">
-                      <img src={post.image} alt={post.title} className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <img src={post.featured_image_url} alt={post.title} className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300" />
                     </div>
                   </div>
                   <div className="flex-grow">
                     <p className="text-2xl font-bold group-hover:text-gray-700">{post.title}</p>
-                    <p className="text-[#A6A6A6] mt-2 text-sm">{post.readTime} • {post.date}</p>
+                    <p className="text-[#A6A6A6] mt-2 text-sm">{post.readTime || '4 Min'} • {formatDate(post.updated_at)}</p>
                   </div>
                 </div>
               </Link>

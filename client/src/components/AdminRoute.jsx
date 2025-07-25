@@ -1,23 +1,37 @@
 import { useAuth } from '@/contexts/AuthContext';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 const AdminRoute = ({ children }) => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
   const location = useLocation();
-   console.log(isAuthenticated, user);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    // Add a small delay to ensure auth state is loaded
+    const timer = setTimeout(() => {
+      setIsCheckingAuth(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Show loading state while checking authentication
+  if (loading || isCheckingAuth) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#54BD95]"></div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
-    // Redirect them to the /login page, but save the current location they were
-    // trying to go to. This allows us to send them along to that page after they login,
-    // which is a nicer user experience than dropping them off on the home page.
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }
 
-  if (user?.role !== 'admin') {
-    // if user is not an admin, redirect to home page
-    return <Navigate to="/" />;
-  }
+  // if (user?.role !== 'admin') {
+  //   return <Navigate to="/" />;
+  // }
   
   return children;
 };

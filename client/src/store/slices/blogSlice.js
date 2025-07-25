@@ -1,73 +1,112 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 const api = axios.create({
-  baseURL: 'http://localhost:3006',
+  baseURL: "http://localhost:3006",
   withCredentials: true,
 });
-// Get all blogs for admin
-export const getAdminBlogs = createAsyncThunk('blog/getAdminBlogs', async (_, { rejectWithValue }) => {
-  try {
-    const response = await api.get('/blog/admin/all');
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return rejectWithValue(error.response?.data || 'Failed to fetch blogs');
+
+// Get single blog by ID
+export const getBlogById = createAsyncThunk(
+  "blog/getBlogById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/blog/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching blog post:", error);
+      return rejectWithValue(
+        error.response?.data || "Failed to fetch blog post"
+      );
+    }
   }
-});
+);
+// Get all blogs for admin
+export const getAdminBlogs = createAsyncThunk(
+  "blog/getAdminBlogs",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/blog/admin/all");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response?.data || "Failed to fetch blogs");
+    }
+  }
+);
 
 // Create new blog
-export const createBlog = createAsyncThunk('blog/createBlog', async (blogData, { rejectWithValue }) => {
-  console.log(blogData);
-  try {
-    const response = await api.post('/blog', blogData);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    if (error.response && error.response.data) {
-      return rejectWithValue(error.response.data);
+export const createBlog = createAsyncThunk(
+  "blog/createBlog",
+  async (blogData, { rejectWithValue }) => {
+    console.log(blogData);
+    try {
+      const response = await api.post("/blog", blogData);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(
+        "An unexpected error occurred while creating the blog."
+      );
     }
-    return rejectWithValue('An unexpected error occurred while creating the blog.');
   }
-});
+);
 
 // Update blog
-export const updateBlog = createAsyncThunk('blog/updateBlog', async ({ id, blogData }, { rejectWithValue }) => {
-  try {
-    const response = await api.put(`/blog/${id}`, blogData);
-    return response.data;
-  } catch (error) {
-    if (error.response && error.response.data) {
-      return rejectWithValue(error.response.data);
+export const updateBlog = createAsyncThunk(
+  "blog/updateBlog",
+  async ({ id, blogData }, { rejectWithValue }) => {
+    try {
+      const response = await api.put(`/blog/${id}`, blogData);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(
+        "An unexpected error occurred while updating the blog."
+      );
     }
-    return rejectWithValue('An unexpected error occurred while updating the blog.');
   }
-});
+);
 
 // Delete blog
-export const deleteBlog = createAsyncThunk('blog/deleteBlog', async (id, { rejectWithValue }) => {
-  try {
-    await api.delete(`/blog/${id}`);
-    return id;
-  } catch (error) {
-    return rejectWithValue(error.response?.data || 'Failed to delete blog');
+export const deleteBlog = createAsyncThunk(
+  "blog/deleteBlog",
+  async (id, { rejectWithValue }) => {
+    try {
+      await api.delete(`/blog/${id}`);
+      return id;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to delete blog");
+    }
   }
-});
+);
 
 // Get blog categories
-export const getBlogCategories = createAsyncThunk('blog/getCategories', async (_, { rejectWithValue }) => {
-  try {
-    const response = await api.get('/blog/categories');
-    return response.data;
-  } catch (error) {
-    return rejectWithValue(error.response?.data || 'Failed to fetch categories');
+export const getAllBlogs = createAsyncThunk(
+  "blog/getAllBlogs",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/blog/all");
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to fetch categories"
+      );
+    }
   }
-});
+);
 
 const blogSlice = createSlice({
-  name: 'blog',
+  name: "blog",
   initialState: {
     blogs: [],
+    currentBlog: null,
     categories: [],
     loading: false,
     error: null,
@@ -83,6 +122,20 @@ const blogSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Get single blog by ID
+      .addCase(getBlogById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.currentBlog = null;
+      })
+      .addCase(getBlogById.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.currentBlog = payload?.data || payload;
+      })
+      .addCase(getBlogById.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
       // Get admin blogs
       .addCase(getAdminBlogs.pending, (state) => {
         state.loading = true;
@@ -90,7 +143,10 @@ const blogSlice = createSlice({
       })
       .addCase(getAdminBlogs.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.blogs = payload?.data?.blogs || payload.blogs || (Array.isArray(payload) ? payload : []);
+        state.blogs =
+          payload?.data?.blogs ||
+          payload.blogs ||
+          (Array.isArray(payload) ? payload : []);
       })
       .addCase(getAdminBlogs.rejected, (state, { payload }) => {
         state.loading = false;
@@ -108,9 +164,10 @@ const blogSlice = createSlice({
         const newBlog = payload?.data?.blog || payload.blog || payload;
         if (newBlog?._id) {
           state.blogs.push(newBlog);
-          state.success = payload.message || 'Blog created successfully';
+          state.success = payload.message || "Blog created successfully";
         } else {
-          state.error = 'Received an invalid response from the server after creating the blog.';
+          state.error =
+            "Received an invalid response from the server after creating the blog.";
         }
       })
       .addCase(createBlog.rejected, (state, { payload }) => {
@@ -129,15 +186,23 @@ const blogSlice = createSlice({
         const updatedBlogData = payload?.data?.blog || payload.blog || payload;
 
         if (updatedBlogData?._id) {
-          const index = state.blogs.findIndex((blog) => blog._id === updatedBlogData._id);
+          const index = state.blogs.findIndex(
+            (blog) => blog._id === updatedBlogData._id
+          );
           if (index !== -1) {
             // Preserve existing category if not present in the response
-            const category = updatedBlogData.category || state.blogs[index].category;
-            state.blogs[index] = { ...state.blogs[index], ...updatedBlogData, category };
+            const category =
+              updatedBlogData.category || state.blogs[index].category;
+            state.blogs[index] = {
+              ...state.blogs[index],
+              ...updatedBlogData,
+              category,
+            };
           }
-          state.success = payload.message || 'Blog updated successfully';
+          state.success = payload.message || "Blog updated successfully";
         } else {
-          state.error = 'Received an invalid response from the server after updating the blog.';
+          state.error =
+            "Received an invalid response from the server after updating the blog.";
         }
       })
       .addCase(updateBlog.rejected, (state, { payload }) => {
@@ -157,19 +222,32 @@ const blogSlice = createSlice({
           const blogId = blog.id || blog._id;
           return blogId != deletedId; // Use loose equality to handle string/number mismatches
         });
-        state.success = 'Blog deleted successfully';
+        state.success = "Blog deleted successfully";
       })
       .addCase(deleteBlog.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = payload || 'Failed to delete blog. Please try again.';
+        state.error = payload || "Failed to delete blog. Please try again.";
       })
-      // Get categories
-      .addCase(getBlogCategories.fulfilled, (state, { payload }) => {
+      // Get all blogs
+      .addCase(getAllBlogs.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAllBlogs.fulfilled, (state, { payload }) => {
         // Handle various possible API response structures for categories
-        state.categories = payload?.data?.categories || payload.categories || (Array.isArray(payload) ? payload : []);
+        console.log(payload);
+        state.blogs =
+          payload?.data?.blogs ||
+          payload.blogs ||
+          (Array.isArray(payload) ? payload : []);
+          state.loading = false;
+      })
+      .addCase(getAllBlogs.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
       });
   },
 });
 
 export const { clearError, clearSuccess } = blogSlice.actions;
-export default blogSlice.reducer; 
+export default blogSlice.reducer;

@@ -130,7 +130,7 @@ const Header = () => {
                   <button
                     id="user-menu-button"
                     onClick={toggleUserMenu}
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 cursor-pointer mr-10"
                   >
                     {renderUserAvatar()}
                   </button>

@@ -4,84 +4,113 @@ const createBlog = async (req, res) => {
     const {
       title,
       content,
-      excerpt,
       category,
-      status = "Draft",
+      status = "published",
       tags,
       featured_image_url,
-      meta_title,
-      meta_description,
+      headings = [],
     } = req.body;
     console.log(req.body);
-    // Validate required fields
-    if (!title || !content) {
-      return res
-        .status(400)
-        .json({ message: "Title, content, and excerpt are required." });
+    // Basic validation
+    if (!title || !content || !category) {
+      return res.status(400).json({
+        message: "Title, content, and category are required.",
+        success: false,
+      });
     }
 
-    // const blogData = {
-    //   title,
-    //   content,
-    //   excerpt,
-    //   category,
-    //   status: status === 'Published' ? 'Published' : 'Draft',
-    //   tags: parseTags(tags),
-    //   featured_image_url: featured_image_url || '',
-    //   meta_title: meta_title?.slice(0, 60) || '',
-    //   meta_description: meta_description?.slice(0, 160) || ''
-    // };
-
-    const blog = await db.query(
+    // Insert blog
+    const [blogResult] = await db.query(
       `INSERT INTO blogs (
-        title, content, excerpt, category, status, tags, 
-        featured_image_url, meta_title, meta_description
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        title, content, category, status, tags, featured_image_url
+      ) VALUES (?, ?, ?, ?, ?, ?)`,
       [
         title,
         content,
-        excerpt || '',
         category,
-        status || 'Draft',
-        tags,
-        featured_image_url,
-        meta_title || '',
-        meta_description || '',
+        status,
+        JSON.stringify(tags || []),
+        featured_image_url || "",
       ]
     );
-    const [newBlog] = await db.query("SELECT * FROM blogs WHERE id = ?", [
-      blog.insertId,
-    ]);
-    const newblog = newBlog[0];
 
-    return res
-      .status(201)
-      .json({
-        message: "Blog created successfully",
-        blog: newblog,
-        success: true,
-      });
+    const blogId = blogResult.insertId;
+
+    // Insert headings if provided
+    if (Array.isArray(headings) && headings.length > 0) {
+      const headingValues = headings
+        .filter((h) => h.title || h.content) // Avoid empty rows
+        .map((h) => [blogId, h.title || "", h.content || ""]);
+
+      if (headingValues.length > 0) {
+        await db.query(
+          `INSERT INTO blog_headings (blog_id, heading_title, heading_content) VALUES ?`,
+          [headingValues]
+        );
+      }
+    }
+
+    const [newBlog] = await db.query("SELECT * FROM blogs WHERE id = ?", [
+      blogId,
+    ]);
+
+    return res.status(201).json({
+      message: "Blog created successfully",
+      blog: newBlog[0],
+      success: true,
+    });
   } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .json({ message: "Failed to create blog", success: false });
+    console.error("Create blog error:", error);
+    return res.status(500).json({
+      message: "Failed to create blog",
+      success: false,
+    });
   }
 };
 
 const getAllBlogs = async (req, res) => {
   try {
+    // Fetch all blogs
     const [blogs] = await db.query("SELECT * FROM blogs");
-    console.log(blogs);
 
-    return res
-      .status(200)
-      .json({ message: "Blogs fetched successfully", blogs, success: true });
+    // Fetch all headings for these blogs
+    const [blogHeadings] = await db.query(
+      "SELECT * FROM blog_headings WHERE blog_id IN (?)",
+      [blogs.map((b) => b.id)]
+    );
+
+    // Group headings by blog_id
+    const headingMap = {};
+    blogHeadings.forEach((heading) => {
+      const blogId = heading.blog_id;
+      if (!headingMap[blogId]) {
+        headingMap[blogId] = [];
+      }
+      headingMap[blogId].push({
+        id: heading.id,
+        title: heading.heading_title,
+        content: heading.heading_content,
+      });
+    });
+
+    // Attach headings to each blog
+    const blogsWithHeadings = blogs.map((blog) => ({
+      ...blog,
+      tags: safeParse(blog.tags),
+      headings: headingMap[blog.id] || [],
+    }));
+
+    return res.status(200).json({
+      message: "Blogs fetched successfully",
+      blogs: blogsWithHeadings,
+      success: true,
+    });
   } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .json({ message: "Failed to fetch blogs", success: false });
+    console.error("Error fetching blogs:", error);
+    return res.status(500).json({
+      message: "Failed to fetch blogs",
+      success: false,
+    });
   }
 };
 
@@ -90,63 +119,92 @@ const updateBlog = async (req, res) => {
     const {
       title,
       content,
-      excerpt,
       category,
-      status = "Draft",
+      status = "published",
       tags,
       featured_image_url,
-      meta_title,
-      meta_description,
+      headings = [], // <-- receive headings from frontend
     } = req.body;
 
+    const blogId = req.params.id;
+
     if (!title || !content || !category) {
-      return res
-        .status(400)
-        .json({ message: "Title, content, and category are required." });
+      return res.status(400).json({
+        message: "Title, content, and category are required.",
+      });
     }
 
-    const blog = await db.query(
+    // Update the blog
+    await db.query(
       `UPDATE blogs SET 
         title = ?, 
         content = ?, 
-        excerpt = ?, 
         category = ?, 
         status = ?, 
         tags = ?, 
-        featured_image_url = ?, 
-        meta_title = ?, 
-        meta_description = ? 
+        featured_image_url = ?
       WHERE id = ?`,
       [
         title,
         content,
-        excerpt || '',
         category,
-        status || 'Draft',
-        tags,
+        status,
+        typeof tags === "object" ? JSON.stringify(tags) : tags,
         featured_image_url,
-        meta_title || '',
-        meta_description,
-        req.params.id,
+        blogId,
       ]
     );
-    const [updatedBlog] = await db.query("SELECT * FROM blogs WHERE id = ?", [
-      req.params.id,
-    ]);
-    const updatedblog = updatedBlog[0];
 
-    return res
-      .status(200)
-      .json({
-        message: "Blog updated successfully",
-        blog: updatedblog,
-        success: true,
-      });
+    // Update blog headings
+    // 1. Delete old headings
+    await db.query("DELETE FROM blog_headings WHERE blog_id = ?", [blogId]);
+
+    // 2. Insert new headings
+    for (const heading of headings) {
+      const { title, content } = heading;
+      if (title || content) {
+        await db.query(
+          `INSERT INTO blog_headings (blog_id, heading_title, heading_content)
+           VALUES (?, ?, ?)`,
+          [blogId, title, content]
+        );
+      }
+    }
+
+    // Return updated blog and headings
+    const [updatedBlogResult] = await db.query(
+      "SELECT * FROM blogs WHERE id = ?",
+      [blogId]
+    );
+
+    const [updatedHeadings] = await db.query(
+      "SELECT id, heading_title AS title, heading_content AS content FROM blog_headings WHERE blog_id = ?",
+      [blogId]
+    );
+
+    return res.status(200).json({
+      message: "Blog and headings updated successfully",
+      blog: {
+        ...updatedBlogResult[0],
+        tags: safeParse(updatedBlogResult[0].tags),
+        headings: updatedHeadings,
+      },
+      success: true,
+    });
   } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .json({ message: "Failed to update blog", success: false });
+    console.error("Failed to update blog:", error);
+    return res.status(500).json({
+      message: "Failed to update blog",
+      success: false,
+    });
+  }
+};
+
+const safeParse = (val) => {
+  try {
+    return typeof val === "string" ? JSON.parse(val) : val;
+  } catch {
+    return val;
   }
 };
 
@@ -157,13 +215,16 @@ const deleteBlog = async (req, res) => {
     ]);
     console.log(blog);
     const deletedblog = blog;
-    return res
-      .status(200)
-      .json({
-        message: "Blog deleted successfully",
-        blog: deletedblog,
-        success: true,
-      });
+    const [deletedHeadings] = await db.query(
+      "SELECT id, heading_title AS title, heading_content AS content FROM blog_headings WHERE blog_id = ?",
+      [blog[0].id]
+    );
+    return res.status(200).json({
+      message: "Blog deleted successfully",
+      blog: deletedblog,
+      headings: deletedHeadings,
+      success: true,
+    });
   } catch (error) {
     console.error(error);
     return res
@@ -172,9 +233,38 @@ const deleteBlog = async (req, res) => {
   }
 };
 
+const getBlogById = async (req, res) => {
+  try {
+    const [blog] = await db.query("SELECT * FROM blogs WHERE id = ?", [
+      req.params.id,
+    ]);
+    const [headings] = await db.query(
+      "SELECT id, heading_title AS title, heading_content AS content FROM blog_headings WHERE blog_id = ?",
+      [blog[0].id]
+    );
+    console.log(blog);
+    console.log(headings);
+    return res.status(200).json({
+      message: "Blog fetched successfully",
+      blog: {
+        ...blog[0],
+        tags: safeParse(blog[0].tags),
+        headings: headings,
+      },
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Failed to fetch blog", success: false });
+  }
+};
+
 module.exports = {
   createBlog,
   getAllBlogs,
   updateBlog,
   deleteBlog,
+  getBlogById,
 };
