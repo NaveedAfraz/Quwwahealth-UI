@@ -42,7 +42,7 @@ export const createBlog = createAsyncThunk(
   async (blogData, { rejectWithValue }) => {
     console.log(blogData);
     try {
-      const response = await api.post("/blog", blogData);
+      const response = await api.post("/blogs", blogData);
       console.log(response.data);
       return response.data;
     } catch (error) {
