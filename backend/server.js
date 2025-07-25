@@ -34,13 +34,13 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const apiRouter = express.Router();
 
 // Mount all API routes under /api
-app.use('/api', apiRouter);
+app.use("/api", apiRouter);
 
 // Mount blog routes under /api
-apiRouter.use('/blogs', blogRoutes);
+apiRouter.use("/blogs", blogRoutes);
 
 // Mount upload routes under /api
-apiRouter.use('/upload', uploadRoutes);
+apiRouter.use("/upload", uploadRoutes);
 
 apiRouter.post("/contact", async (req, res) => {
   const { firstName, lastName, email, phone, subject, message } = req.body;
@@ -184,13 +184,17 @@ apiRouter.post("/auth/login", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
+    // Check if we're in production (Vercel/Render)
+    const isProduction = process.env.NODE_ENV === "production";
+
     res
       .cookie("auth_token", token, {
-        httpOnly: false,
-        secure: false,
+        httpOnly: true,
+        secure: isProduction, // Use secure cookies in production (HTTPS only)
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-        sameSite: "lax",
+        sameSite: isProduction ? "none" : "lax", // Required for cross-site cookies in production
         path: "/",
+        //domain: isProduction ? '.quwwahealth.com' : undefined, // Only set domain in production
       })
       .status(200)
       .json({ message: "Login successful", user });
@@ -220,12 +224,13 @@ apiRouter.get("/auth/check", authMiddleware, async (req, res) => {
 apiRouter.post("/auth/logout", (req, res) => {
   console.log("Logout request received");
   // Clear the cookie with the exact same options used when setting it
+  const isProduction = process.env.NODE_ENV === "production";
   res.clearCookie("auth_token", {
-    httpOnly: false, // Must match the original cookie settings
-    secure: false, // Must match the original cookie settings
-    sameSite: "lax", // Must match the original cookie settings
-    path: "/", // Must match the original cookie settings
-    // domain: 'localhost'  // Only include if it was set originally
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    path: "/",
+    //domain: isProduction ? '.quwwahealth.com' : undefined
   });
 
   console.log("Auth token cookie cleared");
@@ -261,17 +266,23 @@ apiRouter.post("/auth/session", async (req, res) => {
     }
     console.log("User", user);
     // 4. Set session cookie and return user info
-    res.cookie("auth_token", idToken, {
-      httpOnly: false,
-      secure: false,
+    const jwtToken = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+    res.cookie("auth_token", jwtToken, {
+      httpOnly: true,
+      secure: isProduction, // Use secure cookies in production (HTTPS only)
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      sameSite: "lax",
+      sameSite: isProduction ? "none" : "lax", // Required for cross-site cookies in production
       path: "/",
+      //domain: isProduction ? '.quwwahealth.com' : undefined, // Only set domain in production
     });
-    res.json({ message: "Session cookie set", user });
+    return res.json({ message: "Session cookie set", user });
   } catch (err) {
     console.error("Token verify error:", err);
-    res.status(401).json({ message: "Invalid token" });
+    return res.status(401).json({ message: "Invalid token" });
   }
 });
 
