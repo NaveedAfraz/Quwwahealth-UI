@@ -98,14 +98,6 @@ export const allBlogPosts = [
     date: 'July 12, 2025',
     // --- Detailed Content (Added) ---
     category: 'Academic Performance',
-    author: {
-      name: 'Tamás Hám-Szabó',
-      title: 'Founder of SAAS First - the Best AI and Data-Driven Customer Engagement Tool.',
-      bio: `With 11 years in SaaS, I've built MillionVerifier and SAAS First. Passionate about SaaS, data, and AI. Let's connect if you share the same drive for success!`,
-      image: blogImage2,
-      linkedin: '#',
-    },
-
     headings: [
       { id: 'improved-concentration', title: 'Improved Concentration and Attention' },
       { id: 'enhanced-memory', title: 'Enhanced Memory and Learning Capacity' },
@@ -142,6 +134,7 @@ export const allBlogPosts = [
         <strong>Conclusion:</strong> At Quwwa Health, we create school fitness programs that promote both academic excellence and lifelong wellness. By integrating fitness into education, we help schools build students who are not just smarter—but stronger, calmer, and more focused.
       </p>
     `,
+      
   },
   {
     id: 3,
@@ -256,8 +249,6 @@ export const allBlogPosts = [
     `,
   },
 ];
-
-
 
 const Blogs = () => {
   const dispatch = useDispatch();

@@ -71,7 +71,7 @@ const BlogViewer = ({ blog, onClose, onEdit }) => {
               </div>
             )}
             <div className="ml-auto">
-              {getStatusBadge(blog.status || 'draft')}
+              {getStatusBadge(blog.status == 'published' ? 'Published' : 'Published')}
             </div>
           </div>
 

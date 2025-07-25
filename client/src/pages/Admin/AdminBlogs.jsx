@@ -52,7 +52,7 @@ const AdminBlogs = () => {
       { title: '', content: '' },
       { title: '', content: '' },
       { title: '', content: '' }],
-      status: 'draft',
+      status: 'published',
       tags: '',
       featured_image_url: '',
     });
@@ -114,7 +114,7 @@ const AdminBlogs = () => {
         category: '',
         headings: Array(5).fill({ title: '', content: '' }),
         content: '',
-        status: 'draft',
+        status: 'published',
         tags: '',
       });
       // Refresh the blog list
@@ -251,7 +251,7 @@ const AdminBlogs = () => {
                   </div>
                 )}
                 <div className="absolute top-3 right-3">
-                  {getStatusBadge(blog.status || 'draft')}
+                  {getStatusBadge(blog.status == 'published' ? 'Published' : 'Published')}
                 </div>
               </div>
 
@@ -342,17 +342,23 @@ const AdminBlogs = () => {
                   <div className="text-xs text-gray-500">
                     Last updated: {new Date(blog.updated_at || blog.created_at).toLocaleDateString()}
                   </div>
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 z-10">
                     <button
-                      onClick={() => handleEdit(blog)}
-                      className="p-2 text-gray-600 hover:text-[#54BD95] rounded-lg hover:bg-gray-50 transition-colors hover:scale-105 active:scale-95"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit(blog);
+                      }}
+                      className="p-2 text-gray-600 hover:text-[#54BD95] rounded-lg hover:bg-gray-50 transition-all hover:scale-105 active:scale-95 z-10 relative"
                       title="Edit"
                     >
                       <FiEdit2 className="w-5 h-5" />
                     </button>
                     <button
-                      onClick={() => handleDelete(blog.id || blog._id)}
-                      className="p-2 text-gray-600 hover:text-red-500 rounded-lg hover:bg-gray-50 transition-colors hover:scale-105 active:scale-95"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(blog.id || blog._id);
+                      }}
+                      className="p-2 text-gray-600 hover:text-red-500 rounded-lg hover:bg-gray-50 transition-all hover:scale-105 active:scale-95 z-10 relative"
                       title="Delete"
                     >
                       <FiTrash2 className="w-5 h-5" />
