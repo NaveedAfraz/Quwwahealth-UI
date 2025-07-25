@@ -42,7 +42,7 @@ apiRouter.use("/blogs", blogRoutes);
 // Mount upload routes under /api
 apiRouter.use("/upload", uploadRoutes);
 apiRouter.use("/health", (req, res) => {
-  res.json({ message: "API is healthy" });
+ res.status(200).json({ message: "API is healthy" });
 })
 apiRouter.post("/contact", async (req, res) => {
   const { firstName, lastName, email, phone, subject, message } = req.body;
