@@ -12,7 +12,7 @@ export const getBlogById = createAsyncThunk(
   "blog/getBlogById",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await api.get(`/blog/${id}`);
+      const response = await api.get(`/blogs/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching blog post:", error);
@@ -27,7 +27,7 @@ export const getAdminBlogs = createAsyncThunk(
   "blog/getAdminBlogs",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get("/blog/admin/all");
+      const response = await api.get("/blogs/admin/all");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -62,7 +62,7 @@ export const updateBlog = createAsyncThunk(
   "blog/updateBlog",
   async ({ id, blogData }, { rejectWithValue }) => {
     try {
-      const response = await api.put(`/blog/${id}`, blogData);
+      const response = await api.put(`/blogs/${id}`, blogData);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -80,7 +80,7 @@ export const deleteBlog = createAsyncThunk(
   "blog/deleteBlog",
   async (id, { rejectWithValue }) => {
     try {
-      await api.delete(`/blog/${id}`);
+      await api.delete(`/blogs/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to delete blog");
@@ -93,7 +93,7 @@ export const getAllBlogs = createAsyncThunk(
   "blog/getAllBlogs",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get("/blog/all");
+      const response = await api.get("/blogs/all");
       console.log(response.data);
       return response.data;
     } catch (error) {
