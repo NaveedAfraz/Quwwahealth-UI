@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import axios from 'axios';
+import { config } from '../config/config';
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }) => {
         try {
           // Get fresh token and set up session with backend
           const idToken = await firebaseUser.getIdToken(true);
-          const res = await axios.post('http://localhost:3006/auth/session',
+          const res = await axios.post(`${config.API_BASE_URL}/auth/session`,
             { idToken },
             { withCredentials: true }
           );
@@ -55,7 +56,7 @@ export const AuthProvider = ({ children }) => {
         }
       } else {
         // If Firebase has no user, clear our app's state.
-        const response = await axios.get('http://localhost:3006/auth/check',
+        const response = await axios.get(`${config.API_BASE_URL}/auth/check`,
           { withCredentials: true }
         );
         console.log('Auth check response:', response.data);
@@ -75,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const response = await axios.post('http://localhost:3006/auth/logout',
+      const response = await axios.post(`${config.API_BASE_URL}/auth/logout`,
         {},
         { withCredentials: true }
       );

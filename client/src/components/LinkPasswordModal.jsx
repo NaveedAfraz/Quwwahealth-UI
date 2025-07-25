@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { EmailAuthProvider, linkWithCredential } from 'firebase/auth';
 import { auth } from '../firebase';
 import axios from 'axios';
+import { config } from '../config/config';
 import { useNavigate } from 'react-router';
 
 const style = {
@@ -62,7 +63,7 @@ export default function LinkPasswordModal({ open, onClose, userEmail, onLinked }
       //   await linkWithCredential(auth.currentUser, window.pendingGoogleCredential);
       //   window.pendingGoogleCredential = null;
       //   setSuccess('Google account linked! You can now login with Google or email/password.');
-      const addPassword = await axios.post('http://localhost:3006/reset-password', { email: userEmail, newPassword: password }, { withCredentials: true });
+      const addPassword = await axios.post(`${config.API_BASE_URL}/reset-password`, { email: userEmail, newPassword: password }, { withCredentials: true });
       console.log(addPassword);
 
 

@@ -12,10 +12,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const jwt = require("jsonwebtoken");
 const blogRoutes = require("./routes/blogs");
+const uploadRoutes = require("./routes/upload");
 const authMiddleware = require("./middleware/authMiddleware");
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      process.env.FRONTEND_URL,
+      "https://www.quwwahealth.com/",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );
@@ -25,7 +30,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-app.post("/contact", async (req, res) => {
+// Create API router
+const apiRouter = express.Router();
+
+// Mount all API routes under /api
+app.use('/api', apiRouter);
+
+// Mount blog routes under /api
+apiRouter.use('/blogs', blogRoutes);
+
+// Mount upload routes under /api
+apiRouter.use('/upload', uploadRoutes);
+
+apiRouter.post("/contact", async (req, res) => {
   const { firstName, lastName, email, phone, subject, message } = req.body;
 
   try {
@@ -60,7 +77,7 @@ app.post("/contact", async (req, res) => {
 
 // Auth: verify Firebase token, set session cookie
 
-app.post("/auth/register", async (req, res) => {
+apiRouter.post("/auth/register", async (req, res) => {
   const {
     email,
     password,
@@ -143,7 +160,7 @@ app.post("/auth/register", async (req, res) => {
   }
 });
 
-app.post("/auth/login", async (req, res) => {
+apiRouter.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
@@ -184,7 +201,7 @@ app.post("/auth/login", async (req, res) => {
 });
 
 // Route for frontend to check authentication status
-app.get("/auth/check", authMiddleware, async (req, res) => {
+apiRouter.get("/auth/check", authMiddleware, async (req, res) => {
   const User = req.user;
   console.log("User", User);
   try {
@@ -200,7 +217,7 @@ app.get("/auth/check", authMiddleware, async (req, res) => {
 });
 
 // Logout route to clear the cookie
-app.post("/auth/logout", (req, res) => {
+apiRouter.post("/auth/logout", (req, res) => {
   console.log("Logout request received");
   // Clear the cookie with the exact same options used when setting it
   res.clearCookie("auth_token", {
@@ -215,7 +232,7 @@ app.post("/auth/logout", (req, res) => {
   res.json({ success: true, message: "Successfully logged out" });
 });
 
-app.post("/auth/session", async (req, res) => {
+apiRouter.post("/auth/session", async (req, res) => {
   const { idToken } = req.body;
   console.log(idToken);
   if (!idToken) return res.status(400).json({ message: "No idToken provided" });
@@ -258,7 +275,7 @@ app.post("/auth/session", async (req, res) => {
   }
 });
 
-app.post("/forgot-password", async (req, res) => {
+apiRouter.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
   if (!email) {
     return res.status(400).json({ message: "Email is required" });
@@ -306,7 +323,7 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-app.post("/verify-otp", async (req, res) => {
+apiRouter.post("/verify-otp", async (req, res) => {
   const { email, otp } = req.body;
   if (!email || !otp) {
     return res.status(400).json({ message: "Email and OTP are required" });
@@ -343,7 +360,7 @@ app.post("/verify-otp", async (req, res) => {
   }
 });
 
-app.post("/reset-password", async (req, res) => {
+apiRouter.post("/reset-password", async (req, res) => {
   const { email, newPassword } = req.body;
   if (!email || !newPassword) {
     return res
@@ -373,9 +390,7 @@ app.post("/reset-password", async (req, res) => {
       .json({ message: "Failed to reset password.", success: false });
   }
 });
-const uploadRoutes = require("./routes/upload");
-app.use("/api/upload",  uploadRoutes);
-app.use("/blog", blogRoutes);
+// All routes are already mounted under /api via apiRouter
 app.listen(PORT, async () => {
   try {
     db.createDatabaseAndTables();

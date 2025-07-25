@@ -7,8 +7,9 @@ import LinkPasswordModal from '../components/LinkPasswordModal';
 import { auth } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 import quwwaLogo from '../assets/images/header.png';
-import loginBg from '../assets/images/login.png'
+import loginBg from '../assets/images/login.png';
 import axios from 'axios';
+import { config } from '../config/config';
 // Custom styled switch
 const CustomSwitch = styled(Switch)(({ theme }) => ({
     width: 42,
@@ -94,7 +95,7 @@ function Login() {
         setLoading(true);
         setError('');
         try {
-            const response = await axios.post('http://localhost:3006/auth/login', { email: email, password: password }, {
+            const response = await axios.post(`${config.API_BASE_URL}/auth/login`, { email: email, password: password }, {
                 withCredentials: true
             });
             console.log(response.data);
@@ -131,7 +132,7 @@ function Login() {
             try {
                 const idToken = await user.getIdToken();
                 console.log(idToken);
-                const response = await axios.post('http://localhost:3006/auth/session', { idToken }, { withCredentials: true });
+                const response = await axios.post(`${config.API_BASE_URL}/auth/session`, { idToken }, { withCredentials: true });
                 // Success: navigate or let AuthContext handle
                 console.log(response.data);
                 if (response.data.user.password == "") {

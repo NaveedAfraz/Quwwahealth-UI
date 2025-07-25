@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaPaperPlane, FaCheckCircle, FaArrowLeft } from 'react-icons/fa';
-//import { forgotPassword, clearPasswordReset, clearError } from '../store/slices/authSlice';
 import quwwaLogo from '../assets/images/header.png';
 import axios from 'axios';
 import OtpInput from './otp';
+import { config } from '../config/config';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:3006/forgot-password', { email });
+      const response = await axios.post(`${config.API_BASE_URL}/forgot-password`, { email });
       setMessage(response.data.message);
       setOpenSnackbar(true);
       setStep('enter-otp');
@@ -39,7 +39,7 @@ const ForgotPassword = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:3006/verify-otp', { email, otp });
+      const response = await axios.post(`${config.API_BASE_URL}/verify-otp`, { email, otp });
       setLoading(false);
       setMessage(response.data);
       console.log(response.data);

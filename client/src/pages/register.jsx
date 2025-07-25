@@ -3,6 +3,7 @@ import { TextField, Button, Box, Typography, Link, Checkbox, FormControlLabel, I
 import quwwaLogo from '../assets/images/header.png';
 import { useNavigate } from 'react-router';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { config } from '../config/config';
 import { auth } from '../firebase';
 import LinkPasswordModal from '../components/LinkPasswordModal';
 import { useAuth } from '../contexts/AuthContext';
@@ -105,7 +106,7 @@ function Register() {
             // Link email/password credential to this user (ensures future Google login is linked)
             console.log(formData);
             try {
-                const response = await axios.post('http://localhost:3006/auth/register', {
+                const response = await axios.post(`${config.API_BASE_URL}/auth/register`, {
                     email: formData.email,
                     password: formData.password,
                     schoolName: formData.schoolName,
@@ -167,7 +168,7 @@ function Register() {
             try {
                 const idToken = await user.getIdToken();
                 console.log(idToken);
-                const response = await axios.post('http://localhost:3006/auth/session', { idToken }, { withCredentials: true });
+                const response = await axios.post(`${config.API_BASE_URL}/auth/session`, { idToken }, { withCredentials: true });
                 // Success: navigate or let AuthContext handle
                 console.log(response.data);
                 if (response.data.user.password == "") {

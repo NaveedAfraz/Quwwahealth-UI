@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLock, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
-//import { resetPassword, clearPasswordReset, clearError } from '../store/slices/authSlice';
+import { config } from '../config/config';
 import quwwaLogo from '../assets/images/header.png';
 
 const ResetPassword = () => {
@@ -38,7 +38,7 @@ const ResetPassword = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3006/reset-password', {
+      const response = await axios.post(`${config.API_BASE_URL}/reset-password`, {
         email,
         newPassword: password,
       });

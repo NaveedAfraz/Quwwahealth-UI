@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { config } from '../../config/config';
 
 const BlogEditor = ({ formData, onFormChange, onSave, onCancel }) => {
   const [isUploading, setIsUploading] = useState(false);
@@ -72,7 +73,7 @@ const BlogEditor = ({ formData, onFormChange, onSave, onCancel }) => {
     try {
       console.log('Starting file upload:', file.name);
 
-      const response = await axios.post('http://localhost:3006/api/upload', formDataToSend, {
+      const response = await axios.post(`${config.API_BASE_URL}/upload`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

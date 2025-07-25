@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Make sure to install axios: npm install axios
+import axios from 'axios';
 import { FiMail, FiMapPin, FiTwitter, FiInstagram, FiCheckCircle, FiAlertCircle, FiX } from 'react-icons/fi';
 import { FaDiscord } from 'react-icons/fa';
 import { X } from "lucide-react";
-import { toast } from "sonner"
+import { toast } from "sonner";
+import { config } from '../config/config';
 const ContactUs = () => {
   // State for the form fields
   const [formData, setFormData] = useState({
@@ -37,11 +38,8 @@ const ContactUs = () => {
     setSuccess(false);
 
     try {
-      // The backend server URL
-      const API_URL = 'http://localhost:3006/contact';
-
       // Make the POST request to the server with all fields
-      await axios.post(API_URL, formData);
+      await axios.post(`${config.API_BASE_URL}/contact`, formData);
 
       // If the request is successful
       setSuccess(true);
