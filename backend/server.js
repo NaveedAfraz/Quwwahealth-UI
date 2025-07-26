@@ -18,11 +18,11 @@ const authMiddleware = require("./middleware/authMiddleware");
 app.use(
   cors({
     origin: [
-  process.env.FRONTEND_URL,
+      process.env.FRONTEND_URL,
       "https://www.quwwahealth.com/",
       "http://localhost:5173",
     ],
-  credentials: true,
+    credentials: true,
   })
 );
 app.use(bodyParser.json());
@@ -39,15 +39,15 @@ app.use("/api", apiRouter);
 
 // Mount blog routes under /api
 apiRouter.use("/blogs", blogRoutes);
- 
+
 // Mount upload routes under /api
 apiRouter.use("/upload", uploadRoutes);
 
 // Mount testimonial routes under /api
 apiRouter.use("/testimonials", testimonialRoutes);
 apiRouter.use("/health", (req, res) => {
- res.status(200).json({ message: "API is healthy" });
-})
+  res.status(200).json({ message: "API is healthy" });
+});
 apiRouter.post("/contact", async (req, res) => {
   const { firstName, lastName, email, phone, subject, message } = req.body;
 
@@ -281,18 +281,18 @@ apiRouter.post("/auth/session", async (req, res) => {
       httpOnly: true,
       secure: true, // Always use secure in production, will be false in development
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      sameSite: 'none', // Required for cross-site cookies
-      path: '/',
+      sameSite: "none", // Required for cross-site cookies
+      path: "/",
     };
 
     // In development, we need to adjust some cookie options
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       cookieOptions.secure = false;
-      cookieOptions.sameSite = 'lax';
+      cookieOptions.sameSite = "lax";
     }
 
-    console.log('Setting cookie with options:', cookieOptions);
-    res.cookie('auth_token', jwtToken, cookieOptions);
+    console.log("Setting cookie with options:", cookieOptions);
+    res.cookie("auth_token", jwtToken, cookieOptions);
     return res.json({ message: "Session cookie set", user });
   } catch (err) {
     console.error("Token verify error:", err);
