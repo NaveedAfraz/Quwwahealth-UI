@@ -39,6 +39,22 @@ const AdminLayout = () => {
                   Blogs
                 </NavLink>
               </li>
+              <li>
+                <NavLink 
+                  to="/admin/testimonials" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={({ isActive }) => 
+                    `flex items-center px-4 py-3 rounded-lg transition-colors ${
+                      isActive 
+                        ? 'bg-[#54BD95] text-white' 
+                        : 'text-[#848383] hover:bg-gray-100'
+                    }`
+                  }
+                >
+                  <span className="mr-3">💬</span>
+                  Testimonials
+                </NavLink>
+              </li>
             </ul>
           </nav>
         )}
@@ -63,6 +79,19 @@ const AdminLayout = () => {
                 >
                   <span className="mr-3">📝</span>
                   Blogs
+                </NavLink>
+                <NavLink 
+                  to="/admin/testimonials" 
+                  className={({ isActive }) => 
+                    `flex items-center px-4 py-3 rounded-lg transition-colors ${
+                      isActive 
+                        ? 'bg-[#54BD95] text-white' 
+                        : 'text-[#848383] hover:bg-gray-100'
+                    }`
+                  }
+                >
+                  <span className="mr-3">💬</span>
+                  Testimonials
                 </NavLink>
               </li>
             </ul>

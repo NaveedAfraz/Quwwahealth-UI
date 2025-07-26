@@ -8,7 +8,8 @@ const AdminDashboard = () => {
     draftBlogs: 0,
     totalContacts: 0,
     newContacts: 0,
-    repliedContacts: 0
+    repliedContacts: 0,
+    totalTestimonials: 0
   });
 
   useEffect(() => {
@@ -20,21 +21,34 @@ const AdminDashboard = () => {
       draftBlogs: 4,
       totalContacts: 25,
       newContacts: 5,
-      repliedContacts: 20
+      repliedContacts: 20,
+      totalTestimonials: 7
     });
   }, []);
 
-  const StatCard = ({ title, value, icon, color }) => (
-    <div className={`bg-white p-6 rounded-lg shadow-md border-l-4 ${color}`}>
-      <div className="flex items-center">
-        <div className="text-3xl mr-4">{icon}</div>
-        <div>
-          <p className="text-sm font-medium text-[#848383]">{title}</p>
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
-        </div>
+  const StatCard = ({ title, value, icon, color, link }) => {
+  const content = (
+    <div className="flex items-center">
+      <div className="text-3xl mr-4">{icon}</div>
+      <div>
+        <p className="text-sm font-medium text-[#848383]">{title}</p>
+        <p className="text-2xl font-bold text-gray-900">{value}</p>
       </div>
     </div>
   );
+
+  return (
+    <div className={`bg-white p-6 rounded-lg shadow-md border-l-4 ${color} hover:shadow-lg transition-shadow`}>
+      {link ? (
+        <a href={link} className="block">
+          {content}
+        </a>
+      ) : (
+        content
+      )}
+    </div>
+  );
+};
 
   return (
     <div>
@@ -51,13 +65,13 @@ const AdminDashboard = () => {
           color="border-blue-500" 
         />
         <StatCard 
-          title="Published Blogs" 
+          title="Published" 
           value={stats.publishedBlogs} 
           icon="✅" 
           color="border-green-500" 
         />
         <StatCard 
-          title="Draft Blogs" 
+          title="Drafts" 
           value={stats.draftBlogs} 
           icon="📄" 
           color="border-yellow-500" 
@@ -65,20 +79,21 @@ const AdminDashboard = () => {
         <StatCard 
           title="Total Contacts" 
           value={stats.totalContacts} 
-          icon="📧" 
+          icon="📩" 
           color="border-purple-500" 
         />
         <StatCard 
           title="New Messages" 
           value={stats.newContacts} 
-          icon="🆕" 
+          icon="📨" 
           color="border-red-500" 
         />
         <StatCard 
-          title="Replied Messages" 
-          value={stats.repliedContacts} 
+          title="Testimonials" 
+          value={stats.totalTestimonials} 
           icon="💬" 
-          color="border-indigo-500" 
+          color="border-indigo-500"
+          link="/admin/testimonials"
         />
       </div>
 

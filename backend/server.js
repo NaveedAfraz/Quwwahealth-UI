@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5000;
 const jwt = require("jsonwebtoken");
 const blogRoutes = require("./routes/blogs");
 const uploadRoutes = require("./routes/upload");
+const testimonialRoutes = require("./routes/testimonialRoutes");
 const authMiddleware = require("./middleware/authMiddleware");
 app.use(
   cors({
@@ -41,6 +42,9 @@ apiRouter.use("/blogs", blogRoutes);
  
 // Mount upload routes under /api
 apiRouter.use("/upload", uploadRoutes);
+
+// Mount testimonial routes under /api
+apiRouter.use("/testimonials", testimonialRoutes);
 apiRouter.use("/health", (req, res) => {
  res.status(200).json({ message: "API is healthy" });
 })

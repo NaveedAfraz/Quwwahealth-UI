@@ -22,6 +22,7 @@ import AdminLayout from './components/AdminLayout'
 import AdminDashboard from './pages/Admin/AdminDashboard'
 import AdminBlogs from './pages/Admin/AdminBlogs'
 import AdminContacts from './pages/Admin/AdminContacts'
+import AdminTestimonials from './pages/Admin/AdminTestimonials'
 import HolidayCamp from './pages/HolidayCamp'
 import Branding from './pages/Branding'
 import Login from './pages/login'
@@ -75,7 +76,8 @@ function App() {
             <Route index element={<AdminBlogs />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="blogs" element={<AdminBlogs />} />
-            {/* <Route path="contacts" element={<AdminContacts />} /> */}
+            <Route path="testimonials" element={<AdminTestimonials />} />
+            {/* <Route path="contacts" element={<AdminContacts />} */}
           </Route>
 
           <Route path="/verify-email" element={<EmailVerification />} />

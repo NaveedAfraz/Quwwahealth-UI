@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y, Autoplay } from 'swiper/modules';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { FaQuoteLeft } from 'react-icons/fa';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getTestimonials, clearError } from '../store/slices/testimonialSlice';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 
-// Updated testimonials data with quotes, names, and titles
-const testimonials = [
+// Fallback testimonials in case API is not available
+const fallbackTestimonials = [
   {
     quote: "Quwwa Health Summer Camp was the best part of my holidays! I learned swimming, did fun educational activities, and enjoyed team games. Every day was exciting, and I became more active and confident.",
     name: 'Aarav Singh',
@@ -33,52 +33,73 @@ const testimonials = [
   },
   {
     quote: "Every day at Quwwa Health Camp was different! Swimming, creative crafts, and games kept us all excited. I even started waking up early just to not miss the camp!",
-    name: 'Aditya Verma',
-    title: 'Age: 11, Grade 6',
+    name: 'Rohan Mehta',
+    title: 'Age: 11, Grade 5',
   },
   {
-    quote: "Quwwa Health Summer Camp brought so much joy and growth to Dhruv. He learned to swim, got creative with art & craft, and returned home each day with new things to share. The camp is truly well-balanced and inspiring.",
+    quote: "Quwwa Health Summer Camp brought so much joy and growth to my child. They learned to swim, got creative with art & craft, and returned home each day with new things to share. The camp is truly well-balanced and inspiring.",
     name: 'Mrs. Kavita Mehra',
-    title: 'Mother of Dhruv, Grade 5',
-  },
-  {
-    quote: "Ayaan enjoyed every minute of the camp. The structured drills and physical games helped him become more disciplined and confident. I'm thankful to the Quwwa team for such a meaningful program.",
-    name: 'Mr. Tariq Ansari',
-    title: 'Father of Ayaan, Grade 6',
-  },
-  {
-    quote: "Meher was always excited to attend the camp! She loved the educational activities and started showing more interest in fitness too. The way the program combines fun and learning is just amazing.",
-    name: 'Mrs. Ritu Sharma',
-    title: 'Mother of Meher, Grade 4',
-  },
-  {
-    quote: "Quwwa’s summer camp helped Arnav step out of screen time and into real action. He picked up new skills, made friends, and most importantly, enjoyed learning. A great initiative for young minds!",
-    name: 'Mr. Sanjay Kulkarni',
-    title: 'Father of Arnav, Grade 7',
-  },
-  {
-    quote: "We had no idea our daughter’s posture was affecting her confidence. The health report helped us consult a physio on time. Thank you, school and Alpro team!",
-    name: 'Mrs. Verma',
     title: 'Parent of Grade 5 Student',
   },
   {
-    quote: "I was amazed to see a complete health and fitness card – like a medical report but child-friendly. It’s wonderful to see my son improving each term.",
-    name: 'Mr. Rizwan',
-    title: 'Parent of Grade 3',
+    quote: "My child enjoyed every minute of the camp. The structured drills and physical games helped them become more disciplined and confident. I'm thankful to the Quwwa team for such a meaningful program.",
+    name: 'Mr. Tariq Ansari',
+    title: 'Parent of Grade 6 Student',
   },
   {
-    quote: "This report showed us patterns we never noticed—like his sleep deficit and water intake. Now we’ve fixed a routine. Small changes, big results!",
-    name: 'Mrs. Fatima',
-    title: 'Parent of Grade 7',
+    quote: "My child was always excited to attend the camp! They loved the educational activities and started showing more interest in fitness too. The way the program combines fun and learning is just amazing.",
+    name: 'Mrs. Ritu Sharma',
+    title: 'Parent of Grade 4 Student',
   },
   {
-    quote: "As a working parent, this report saved me hours of clinic visits. Everything I need to know about my child's health is in one place.",
-    name: 'Mr. Thomas',
-    title: 'IT Professional',
+    quote: "Quwwa's summer camp helped my child step out of screen time and into real action. They picked up new skills, made friends, and most importantly, enjoyed learning. A great initiative for young minds!",
+    name: 'Mr. Sanjay Kulkarni',
+    title: 'Parent of Grade 7 Student',
   }
 ];
 
 const Testimonials = () => {
+  const dispatch = useDispatch();
+  const { 
+    testimonials = fallbackTestimonials, 
+    loading, 
+    error 
+  } = useSelector((state) => ({
+    testimonials: state.testimonial.testimonials.length > 0 ? state.testimonial.testimonials : fallbackTestimonials,
+    loading: state.testimonial.loading,
+    error: state.testimonial.error
+  }));
+
+  useEffect(() => {
+    // Clear any previous errors
+    dispatch(clearError());
+    // Fetch testimonials
+    dispatch(getTestimonials());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <section className="py-16 md:py-24 lg:py-32 bg-gray-50">
+        <div className="container mx-auto text-center px-4">
+          <div className="animate-pulse">
+            <div className="h-10 bg-gray-200 rounded w-1/3 mx-auto mb-12"></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                  <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-5/6 mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-2/3 mb-6"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-gray-50">
       <div className="container mx-auto text-center px-4 sm:px-6 lg:px-8">
