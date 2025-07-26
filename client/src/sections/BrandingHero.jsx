@@ -37,7 +37,7 @@ const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img
 const brandLogos = [
   { image: brand1, name: 'Alpro' },
   { image: brand2, name: 'Yoga Association Bhopal' },
-  { image: brand3, name: 'Partner Brand 3' },
+  { image: brand3, name: 'Sportizza' },
   { image: brand4, name: 'Doon Public School' }
 ];
 
