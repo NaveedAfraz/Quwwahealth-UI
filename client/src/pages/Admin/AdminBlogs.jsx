@@ -154,16 +154,16 @@ const AdminBlogs = () => {
     );
   };
 
-  if (loading && blogs.length === 0) {
-    return (
-      <div className="flex items-center justify-center min-h-[70vh]">
-        <div className="flex flex-col items-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#54BD95]"></div>
-          <p className="mt-4 text-gray-600 text-lg">Loading your blogs...</p>
-        </div>
-      </div>
-    );
-  }
+  // if (loading && blogs.length === 0) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-[70vh]">
+  //       <div className="flex flex-col items-center">
+  //         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#54BD95]"></div>
+  //         <p className="mt-4 text-gray-600 text-lg">Loading your blogs...</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   // Render the BlogEditor if isEditorOpen is true
   if (isEditorOpen) {

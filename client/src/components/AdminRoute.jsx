@@ -1,20 +1,41 @@
 import { useAuth } from '@/contexts/AuthContext';
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { config } from '@/config/config';
 
 const AdminRoute = ({ children }) => {
-  const { isAuthenticated, user, loading } = useAuth();
+  const { isAuthenticated, user, loading, setUser, setIsAuthenticated } = useAuth();
   const location = useLocation();
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
-    // Add a small delay to ensure auth state is loaded
-    const timer = setTimeout(() => {
+    const checkAuth = async () => {
+      try {
+        // First check session with backend
+        const response = await axios.get(
+          `${config.API_BASE_URL}/auth/check`, 
+          { withCredentials: true }
+        );
+
+        if (response.data.authenticated) {
+          setUser(response.data.user);
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('Session check error:', error);
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    // Only check auth if we're not already authenticated
+    if (!isAuthenticated) {
+      checkAuth();
+    } else {
       setIsCheckingAuth(false);
-    }, 500);
-    
-    return () => clearTimeout(timer);
-  }, []);
+    }
+  }, [isAuthenticated, setUser, setIsAuthenticated]);
 
   // Show loading state while checking authentication
   if (loading || isCheckingAuth) {
