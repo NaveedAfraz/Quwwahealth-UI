@@ -65,9 +65,9 @@ const Testimonials = () => {
     loading, 
     error 
   } = useSelector((state) => ({
-    testimonials: state.testimonial.testimonials.length > 0 ? state.testimonial.testimonials : fallbackTestimonials,
-    loading: state.testimonial.loading,
-    error: state.testimonial.error
+    testimonials: state.testimonial?.testimonials?.length > 0 ? state.testimonial.testimonials : fallbackTestimonials,
+    loading: state.testimonial?.loading || false,
+    error: state.testimonial?.error || null
   }));
 
   useEffect(() => {
