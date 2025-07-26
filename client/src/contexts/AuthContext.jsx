@@ -18,20 +18,33 @@ export const AuthProvider = ({ children }) => {
   // This effect handles keeping the user logged in on page refresh.
   useEffect(() => {
     let isMounted = true;
+    console.log('AuthContext: Initializing authentication');
 
     const initializeAuth = async () => {
       try {
+        console.log('AuthContext: Checking for existing session...');
         // First check if we have a valid session
         const response = await axios.get(
           `${config.API_BASE_URL}/auth/check`,
-          { withCredentials: true }
+          { 
+            withCredentials: true,
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            }
+          }
         );
+        
+        console.log('AuthContext: Session check response:', response.data);
 
         if (response.data.authenticated && isMounted) {
-          console.log('Existing session found:', response.data.user);
+          console.log('AuthContext: Existing session found:', response.data.user);
           setUser(response.data.user);
           setIsAuthenticated(true);
+          setLoading(false);
           return;
+        } else if (isMounted) {
+          console.log('AuthContext: No valid session found');
         }
 
         // If no valid session, check Firebase auth state
@@ -56,20 +69,21 @@ export const AuthProvider = ({ children }) => {
                   email: firebaseUser.email,
                   displayName: firebaseUser.displayName,
                   photoURL: firebaseUser.photoURL,
-            address: res.data.address,
-            city: res.data.city,
-            contact_person: res.data.contact_person,
-            created_at: res.data.created_at,
-            firebase_uid: res.data.firebase_uid,
-            id: res.data.id,
-            password: res.data.password,
-            phone_number: res.data.phone_number,
-            school_name: res.data.school_name,
-            state: res.data.state,
-            updated_at: res.data.updated_at,
-            zip_code: res.data.zip_code
+                  address: res.data.address,
+                  city: res.data.city,
+                  contact_person: res.data.contact_person,
+                  created_at: res.data.created_at,
+                  firebase_uid: res.data.firebase_uid,
+                  id: res.data.id,
+                  password: res.data.password,
+                  phone_number: res.data.phone_number,
+                  school_name: res.data.school_name,
+                  state: res.data.state,
+                  updated_at: res.data.updated_at,
+                  zip_code: res.data.zip_code
                 });
                 setIsAuthenticated(true);
+                setLoading(false);
               }
             } catch (error) {
               console.error('Auth context session error:', error);
