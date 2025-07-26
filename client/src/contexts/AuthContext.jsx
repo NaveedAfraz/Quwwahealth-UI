@@ -17,23 +17,45 @@ export const AuthProvider = ({ children }) => {
 
   // This effect handles keeping the user logged in on page refresh.
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      console.log("Auth state changed:", firebaseUser);
-      if (firebaseUser) {
-        try {
-          // Get fresh token and set up session with backend
-          const idToken = await firebaseUser.getIdToken(true);
-          const res = await axios.post(`${config.API_BASE_URL}/auth/session`,
-            { idToken },
-            { withCredentials: true }
-          );
-          console.log('Auth context session set up successfully', res.data);
-          // Set user data after session is confirmed
-          setUser({
-            uid: firebaseUser.uid,
-            email: firebaseUser.email,
-            displayName: firebaseUser.displayName,
-            photoURL: firebaseUser.photoURL,
+    let isMounted = true;
+
+    const initializeAuth = async () => {
+      try {
+        // First check if we have a valid session
+        const response = await axios.get(
+          `${config.API_BASE_URL}/auth/check`,
+          { withCredentials: true }
+        );
+
+        if (response.data.authenticated && isMounted) {
+          console.log('Existing session found:', response.data.user);
+          setUser(response.data.user);
+          setIsAuthenticated(true);
+          return;
+        }
+
+        // If no valid session, check Firebase auth state
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+          if (!isMounted) return;
+          
+          console.log("Auth state changed:", firebaseUser);
+          if (firebaseUser) {
+            try {
+              // Get fresh token and set up session with backend
+              const idToken = await firebaseUser.getIdToken(true);
+              const res = await axios.post(
+                `${config.API_BASE_URL}/auth/session`,
+                { idToken },
+                { withCredentials: true }
+              );
+              
+              if (isMounted) {
+                console.log('Auth context session set up successfully', res.data);
+                setUser({
+                  uid: firebaseUser.uid,
+                  email: firebaseUser.email,
+                  displayName: firebaseUser.displayName,
+                  photoURL: firebaseUser.photoURL,
             address: res.data.address,
             city: res.data.city,
             contact_person: res.data.contact_person,
@@ -46,32 +68,44 @@ export const AuthProvider = ({ children }) => {
             state: res.data.state,
             updated_at: res.data.updated_at,
             zip_code: res.data.zip_code
-          });
-          setIsAuthenticated(true);
-        } catch (error) {
-          console.error('Auth context session error:', error);
-          // If session setup fails, ensure user is logged out
+                });
+                setIsAuthenticated(true);
+              }
+            } catch (error) {
+              console.error('Auth context session error:', error);
+              if (isMounted) {
+                setUser(null);
+                setIsAuthenticated(false);
+              }
+            }
+          } else if (isMounted) {
+            setUser(null);
+            setIsAuthenticated(false);
+          }
+          
+          if (isMounted) {
+            setLoading(false);
+          }
+        });
+
+        return () => {
+          unsubscribe();
+        };
+      } catch (error) {
+        console.error('Initial auth check failed:', error);
+        if (isMounted) {
           setUser(null);
           setIsAuthenticated(false);
-        }
-      } else {
-        // If Firebase has no user, clear our app's state.
-        const response = await axios.get(`${config.API_BASE_URL}/auth/check`,
-          { withCredentials: true }
-        );
-        console.log('Auth check response:', response.data);
-        if (response.data.authenticated) {
-          setUser(response.data.user);
-          setIsAuthenticated(true);
-        } else {
-          setUser(null);
-          setIsAuthenticated(false);
+          setLoading(false);
         }
       }
-      setLoading(false);
-    });
+    };
 
-    return unsubscribe; // Cleanup on unmount
+    initializeAuth();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const logout = async () => {
