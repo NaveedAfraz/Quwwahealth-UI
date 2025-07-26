@@ -9,8 +9,6 @@ yarn-error.log*
 .env.*
 !.env.example
 
-# Firebase
-firebase-service-account.json
 
 # IDE and editor files 
 .vscode/
