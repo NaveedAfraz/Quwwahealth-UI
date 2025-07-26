@@ -9,12 +9,17 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const admin = require("./firebaseAdmin");
 const app = express();
-const PORT = process.env.PORT || 5000;
 const jwt = require("jsonwebtoken");
 const blogRoutes = require("./routes/blogs");
 const uploadRoutes = require("./routes/upload");
 const testimonialRoutes = require("./routes/testimonialRoutes");
 const authMiddleware = require("./middleware/authMiddleware");
+const fs = require("fs");
+const logFile = "/home/quwwahea/app.log";
+function logToFile(line) {
+  const timestamp = new Date().toISOString();
+  fs.appendFileSync(logFile, `[${timestamp}] ${line}\n`);
+}
 app.use(
   cors({
     origin: [
@@ -25,6 +30,8 @@ app.use(
     credentials: true,
   })
 );
+const PORT = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
@@ -35,8 +42,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const apiRouter = express.Router();
 
 // Mount all API routes under /api
-app.use("/api", apiRouter);
-
+app.use("/api", apiRouter); // ✅ Match frontend request
+ 
 // Mount blog routes under /api
 apiRouter.use("/blogs", blogRoutes);
 
@@ -84,6 +91,8 @@ apiRouter.post("/contact", async (req, res) => {
 // Auth: verify Firebase token, set session cookie
 
 apiRouter.post("/auth/register", async (req, res) => {
+  logToFile("📩 Register route hit");
+
   const {
     email,
     password,
@@ -95,8 +104,12 @@ apiRouter.post("/auth/register", async (req, res) => {
     state,
     zipCode,
   } = req.body;
-  console.log(req.body);
+
+  console.log("📦 Received req.body:", req.body);
+  logToFile(`📦 Received req.body: ${JSON.stringify(req.body)}`);
+
   if (!email || !password) {
+    logToFile("⚠️ Missing email or password");
     return res.status(400).json({ message: "Email and password are required" });
   }
 
@@ -105,43 +118,67 @@ apiRouter.post("/auth/register", async (req, res) => {
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
-    console.log(existingUsers);
+
+    console.log("🔍 Existing users query result:", existingUsers);
+    logToFile(`🔍 Existing users: ${JSON.stringify(existingUsers)}`);
+
     if (existingUsers.length > 0) {
-      return res
-        .status(400)
-        .json({ message: "User already exists with this email" });
+      logToFile("⚠️ User already exists");
+      return res.status(400).json({ message: "User already exists with this email" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    logToFile("🔐 Hashing password...");
+    let hashedPassword;
+    try {
+      hashedPassword = await bcrypt.hash(password, saltRounds);
+    } catch (hashError) {
+      const msg = `❌ bcrypt error: ${hashError.message || hashError}`;
+      console.error(msg);
+      logToFile(msg);
+      return res.status(500).json({ message: "Password hashing failed" });
+    }
+
+    const insertValues = [
+      email,
+      hashedPassword,
+      schoolName || null,
+      country || null,
+      phoneNumber || null,
+      address || null,
+      city || null,
+      state || null,
+      zipCode || null,
+    ];
+
+    console.log("📝 Insert values:", insertValues);
+    logToFile(`📝 Insert values: ${JSON.stringify(insertValues)}`);
 
     const data = await db.query(
       `INSERT INTO users (email, password, school_name, country, phone_number, address, city, state, zip_code) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        email,
-        hashedPassword,
-        schoolName || null,
-        country || null,
-        phoneNumber || null,
-        address || null,
-        city || null,
-        state || null,
-        zipCode || null,
-      ]
+      insertValues
     );
 
+    const jwtSecret = "secretkey"; // change to env in production
+    logToFile(`🔐 Creating JWT for user ID: ${data.insertId}`);
+
     const jwtToken = jwt.sign(
-      { id: data.insertId, email: email },
-      process.env.JWT_SECRET,
+      { id: data.insertId, email },
+      jwtSecret,
       { expiresIn: "7d" }
     );
+
     res.cookie("auth_token", jwtToken, {
       httpOnly: false,
       secure: false,
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+      maxAge: 1000 * 60 * 60 * 24 * 7,
       sameSite: "lax",
       path: "/",
     });
+
+    const successMsg = `✅ User registered: ${email}`;
+    logToFile(successMsg);
+    console.log(successMsg);
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -155,60 +192,76 @@ apiRouter.post("/auth/register", async (req, res) => {
         state,
         zipCode,
       },
-      // token: jwtToken,
       success: true,
     });
   } catch (error) {
-    console.error("Registration error:", error);
-    res
-      .status(500)
-      .json({ message: "Failed to register user", success: false });
+    const logMsg = `🛑 Register error: ${error.message || error}`;
+    console.error(logMsg);
+    logToFile(logMsg);
+    return res.status(500).json({ message: "Failed to register user", success: false });
   }
 });
 
+
 apiRouter.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
+
+  logToFile("📩 Login route hit");
+  logToFile(`📨 Login request body: ${JSON.stringify(req.body)}`);
+
   if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    const msg = "⛔ Email and password are required";
+    logToFile(msg);
+    return res.status(400).json({ message: msg });
   }
 
   try {
-    const [users] = await db.query("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
+    const [users] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+
     if (users.length === 0) {
+      const msg = `❌ No user found with email: ${email}`;
+      logToFile(msg);
       return res.status(401).json({ message: "Invalid email or password" });
     }
+
     const user = users[0];
-    console.log(user);
+    logToFile(`✅ User fetched: ${JSON.stringify(user)}`);
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
+      logToFile("❌ Password mismatch");
       return res.status(401).json({ message: "Invalid email or password" });
     }
+
+    const jwtSecret = process.env.JWT_SECRET || "secretkey";
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
+      jwtSecret,
       { expiresIn: "7d" }
     );
-    // Check if we're in production (Vercel/Render)
+
     const isProduction = process.env.NODE_ENV === "production";
 
     res
       .cookie("auth_token", token, {
         httpOnly: true,
-        secure: isProduction, // Use secure cookies in production (HTTPS only)
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-        sameSite: isProduction ? "none" : "lax", // Required for cross-site cookies in production
+        secure: isProduction,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        sameSite: isProduction ? "none" : "lax",
         path: "/",
-        //domain: isProduction ? '.quwwahealth.com' : undefined, // Only set domain in production
       })
       .status(200)
-      .json({ message: "Login successful", user });
+      .json({ message: "Login successful", user , success : true});
+
+    logToFile(`✅ Login successful for: ${email}`);
   } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ message: "Failed to login", error });
+    const errMsg = `🛑 Login error: ${error.message || error}`;
+    console.error(errMsg);
+    logToFile(errMsg);
+    res.status(500).json({ message: "Failed to login", success: false });
   }
 });
+
 
 // Route for frontend to check authentication status
 apiRouter.get("/auth/check", authMiddleware, async (req, res) => {
@@ -218,6 +271,9 @@ apiRouter.get("/auth/check", authMiddleware, async (req, res) => {
     const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [
       User.email,
     ]);
+        const tablesMsg = `🗄️ datae: ${rows}`;
+    console.log(tablesMsg);
+    logToFile(tablesMsg);
     const fetchUser = rows[0];
     res.json({ authenticated: true, user: fetchUser });
   } catch (error) {
@@ -245,60 +301,76 @@ apiRouter.post("/auth/logout", (req, res) => {
 
 apiRouter.post("/auth/session", async (req, res) => {
   const { idToken } = req.body;
-  console.log(idToken);
-  if (!idToken) return res.status(400).json({ message: "No idToken provided" });
+
+  logToFile("📩 Session route hit");
+  logToFile(`📨 Received idToken: ${idToken ? "present" : "missing"}`);
+
+  if (!idToken) {
+    const msg = "⛔ No idToken provided";
+    logToFile(msg);
+    return res.status(400).json({ message: msg });
+  }
 
   try {
-    // 1. Verify the Firebase token
+    // 1. Verify Firebase token
     const decoded = await admin.auth().verifyIdToken(idToken);
     const email = decoded.email;
     const firebase_uid = decoded.uid;
 
-    // 2. Check if user exists in MySQL
+    logToFile(`✅ Firebase token verified: ${email}`);
+
+    // 2. Check if user exists
     let [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
     let user;
-    console.log(rows);
+
     if (rows.length === 0) {
-      // 3. If not, create new user in MySQL
+      logToFile(`ℹ️ No user found for ${email}, creating new user...`);
+
       await db.query(
-        "INSERT INTO users (email,password, firebase_uid) VALUES (?, ?, ?)",
+        "INSERT INTO users (email, password, firebase_uid) VALUES (?, ?, ?)",
         [email, "", firebase_uid]
       );
-      // Fetch the new user
+
       [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
       user = rows[0];
+
+      logToFile(`✅ New user created: ${email}`);
     } else {
       user = rows[0];
+      logToFile(`✅ Existing user found: ${email}`);
     }
-    console.log("User", user);
-    // 4. Set session cookie and return user info
+
+    // 3. Generate JWT
+    const jwtSecret = process.env.JWT_SECRET || "secretkey";
     const jwtToken = jwt.sign(
       { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
+      jwtSecret,
       { expiresIn: "7d" }
     );
+
+    // 4. Set cookie options
+    const isProd = process.env.NODE_ENV === "production";
     const cookieOptions = {
       httpOnly: true,
-      secure: true, // Always use secure in production, will be false in development
+      secure: isProd,
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      sameSite: "none", // Required for cross-site cookies
+      sameSite: isProd ? "none" : "lax",
       path: "/",
     };
 
-    // In development, we need to adjust some cookie options
-    if (process.env.NODE_ENV === "development") {
-      cookieOptions.secure = false;
-      cookieOptions.sameSite = "lax";
-    }
+    logToFile(`🍪 Setting auth_token cookie with: ${JSON.stringify(cookieOptions)}`);
 
-    console.log("Setting cookie with options:", cookieOptions);
     res.cookie("auth_token", jwtToken, cookieOptions);
-    return res.json({ message: "Session cookie set", user });
+    return res.status(200).json({ message: "✅ Session cookie set", user });
+
   } catch (err) {
-    console.error("Token verify error:", err);
-    return res.status(401).json({ message: "Invalid token" });
+    const errorMsg = `🛑 Firebase token verify error: ${err.message || err}`;
+    console.error(errorMsg);
+    logToFile(errorMsg);
+    return res.status(401).json({ message: "Invalid token", error: err.message });
   }
 });
+
 
 apiRouter.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
@@ -415,13 +487,35 @@ apiRouter.post("/reset-password", async (req, res) => {
       .json({ message: "Failed to reset password.", success: false });
   }
 });
-// All routes are already mounted under /api via apiRouter
-app.listen(PORT, async () => {
+
+
+async function bootstrap() {
   try {
-    db.createDatabaseAndTables();
-    console.log(`Server running on port ${PORT}`);
-  } catch (error) {
-    console.error("Error initializing database:", error);
+    // 1) Ensure DB & tables exist
+    logToFile("📦 Starting database and table initialization...");
+    await db.createDatabaseAndTables();
+    const initMsg = "✅ Database and tables initialized.";
+    console.log(initMsg);
+    logToFile(initMsg);
+
+    // 2) List tables to confirm
+    const [rows] = await db.query("SHOW TABLES");
+    const tableNames = rows.map((r) => Object.values(r)[0]).join(", ");
+    const tablesMsg = `🗄️ Tables in database: ${tableNames}`;
+    console.log(tablesMsg);
+    logToFile(tablesMsg);
+
+    // 3) Start the HTTP server
+    const serverMsg = `🚀 Server running on port ${PORT}`;
+    app.listen(PORT, () => {
+      console.log(serverMsg);
+      logToFile(serverMsg);
+    });
+  } catch (err) {
+    const errorMsg = "🔥 Error during bootstrap: " + (err.stack || err.message || err);
+    console.error(errorMsg);
+    logToFile(errorMsg);
     process.exit(1);
   }
-});
+}
+bootstrap();

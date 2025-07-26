@@ -25,7 +25,6 @@ const style = {
 export default function LinkPasswordModal({ open, onClose, userEmail, onLinked }) {
   const { setLinkingPassword } = useAuth();
   const navigate = useNavigate();
-
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
