@@ -15,10 +15,22 @@ const uploadRoutes = require("./routes/upload");
 const testimonialRoutes = require("./routes/testimonialRoutes");
 const authMiddleware = require("./middleware/authMiddleware");
 const fs = require("fs");
-const logFile = "/home/quwwahea/app.log";
+const path = require('path');
+const logsDir = path.join(__dirname, 'logs');
+const logFile = path.join(logsDir, 'app.log');
+
+// Ensure logs directory exists
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
+
 function logToFile(line) {
   const timestamp = new Date().toISOString();
-  fs.appendFileSync(logFile, `[${timestamp}] ${line}\n`);
+  try {
+    fs.appendFileSync(logFile, `[${timestamp}] ${line}\n`);
+  } catch (err) {
+    console.error('Failed to write to log file:', err);
+  }
 }
 app.use(
   cors({

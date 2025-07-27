@@ -134,7 +134,7 @@ export const allBlogPosts = [
         <strong>Conclusion:</strong> At Quwwa Health, we create school fitness programs that promote both academic excellence and lifelong wellness. By integrating fitness into education, we help schools build students who are not just smarter—but stronger, calmer, and more focused.
       </p>
     `,
-      
+
   },
   {
     id: 3,
